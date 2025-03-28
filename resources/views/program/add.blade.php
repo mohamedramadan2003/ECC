@@ -5,7 +5,6 @@
 
 <style>
 
-    /* تنسيقات الأزرار */
     .btn {
         padding: 8px 16px;
         border: none;
@@ -18,98 +17,91 @@
     }
 
     .btn-edit {
-        background-color: #16879e; /* الأزرق */
+        background-color: #16879e; 
         color: white;
     }
 
     .btn-edit:hover {
         background-color: #51a6df;
-        color: white; /* لون أزرق داكن عند التمرير */
+        color: white; 
     }
 
     .btn-delete {
-        background-color: #ac2e3a; /* الأحمر */
+        background-color: #ac2e3a; 
         color: white;
     }
 
     .btn-delete:hover {
         background-color: #db2b3c;
-        color: white; /* لون أحمر داكن عند التمرير */
+        color: white; 
     }
 
-    /* تنسيق زر إضافة المادة */
     .btn-add-course {
-        background-color: #28a745; /* اللون الأخضر */
+        background-color: #28a745; 
         color: white;
-        padding: 15px;  /* padding أفقي وعمودي */
+        padding: 15px;  
         font-size: 18px;
         border: none;
         border-radius: 10px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         margin-top: 20px;
-        width: 100%; /* جعل الزر يمتد على كامل عرض الحاوية */
-        max-width: 800px; /* الحد الأقصى للعرض */
+        width: 100%;
+        max-width: 800px; 
         display: block;
         text-align: center;
-        box-sizing: border-box; /* لضمان احتساب padding ضمن الحجم الإجمالي */
+        box-sizing: border-box; 
     }
 
     .btn-add-course:hover {
-        background-color: #218838; /* أخضر داكن عند التمرير */
+        background-color: #218838; 
     }
 
-    /* تخصيص الزر "إضافة مادة" */
     .modal-effect {
-        width: 50%; /* تحديد عرض الزر */
-        margin: 0 auto; /* وضع الزر في المنتصف */
-        text-align: center; /* محاذاة النص داخل الزر */
+        width: 50%; 
+        margin: 0 auto; 
+        text-align: center; 
         display: block;
         
 }
 .btn-custom {
-    background-color: #633a72;  /* لون فيروزى */
+    background-color: #633a72; 
     color: white;
     border-radius: 10px;
 }
 
 .btn-custom:hover {
     background-color: #bb49d8; 
-    color: white;/* لون فيروزى غامق عند التمرير */
+    color: white;
 }
 
-/* لتنسيق التصفح */
 .pagination-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-/* تخصيص أزرار التصفح في حالة استخدام Bootstrap */
 .pagination .page-item .page-link {
-    padding: 10px 12px;  /* تعديل الحواف الداخلية */
-    font-size: 14px;     /* تغيير حجم الخط */
-    color: #463c88;      /* لون النص */
-    border: 1px solid #ddd; /* اللون العام للأزرار */
-    border-radius: 5px;   /* تدوير الحواف */
+    padding: 10px 12px;  
+    font-size: 14px;     
+    color: #463c88;      
+    border: 1px solid #ddd; 
+    border-radius: 5px;   
 }
 
-/* عند التمرير على الأزرار */
 .pagination .page-item:hover .page-link {
-    background-color: #8850c7;  /* تغيير اللون عند التمرير */
-    color: white;               /* النص الأبيض */
+    background-color: #8850c7;  
+    color: white;              
 }
 
-/* تخصيص الزر النشط */
 .pagination .page-item.active .page-link {
-    background-color: #593ba0;  /* زر نشط ذو خلفية زرقاء */
-    color: white;               /* النص الأبيض */
+    background-color: #593ba0;  
+    color: white;              
 }
 
-/* تخصيص الزر المعطل */
 .pagination .page-item.disabled .page-link {
-    background-color: #f8f9fa;  /* خلفية فاتحة عند التعطيل */
-    color: #6c757d;             /* لون نص غير نشط */
+    background-color: #f8f9fa; 
+    color: #6c757d;           
 }
 
 
@@ -125,19 +117,16 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
-        // عند النقر على الزر "إضافة مادة" سيتم فتح الـ Modal
         $(".modal-effect").click(function(event) {
-            event.preventDefault(); // منع إعادة تحميل الصفحة
-            // فتح الـ Modal
-            var modalId = $(this).attr("href");  // استلام الـ ID الخاص بالـ Modal
+            event.preventDefault(); 
+            var modalId = $(this).attr("href");  
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
         });
     });
     function confirmDelete(event) {
-        event.preventDefault();  // منع إرسال النموذج مباشرة
+        event.preventDefault();  
         
-        // استخدام SweetAlert2 لإظهار نافذة منبثقة
         Swal.fire({
             title: 'هل أنت متأكد؟',
             text: "لن يمكنك استعادة هذه البرنامج!",
@@ -148,7 +137,6 @@
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                // إذا اختار المستخدم "نعم"، إرسال النموذج
                 document.getElementById('deleteForm').submit();
             }
         });
@@ -174,13 +162,11 @@
     @endif
     
 
-              <!-- عرض رسالة النجاح إذا كانت موجودة -->
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
-            <!-- الزر الخاص بإضافة مادة -->
             <a class="modal-effect btn btn-custom w-50" href="#modaldemo8">اضافة برنامج</a>
             <table class="data-table">
           <thead>

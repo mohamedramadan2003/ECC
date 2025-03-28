@@ -83,11 +83,11 @@
                 <span>اضافة امتحان</span>
               </a>
               @if(Auth::user()->usertype == 'admin')
-              <a href="{{route('addprogram.index')}}" class="sidebar__link">
+              <!--<a href="#" class="sidebar__link">
                 <i class="fa-solid fa-square-check"></i>
                 <span>اضافة برنامج</span>
-              </a>
-              <a href="{{route('addsubject.index')}}" class="sidebar__link">
+              </a>-->
+              <a href="{{route('addsubjects.index')}}" class="sidebar__link">
                 <i class="fa-solid fa-square-plus"></i>
                 <span>إضافة مادة</span>
               </a>

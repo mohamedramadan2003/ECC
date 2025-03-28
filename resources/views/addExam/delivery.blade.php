@@ -2,65 +2,6 @@
 @section('title','تسليم امتحان')
 @section('css')
 <link rel="stylesheet" href="{{asset('addexam/add.css')}}" />
-<style>
-   
-    .search-results {
-        margin-top: 5px;
-        padding: 0;
-        list-style-type: none;
-        border: 1px solid #ddd;
-        border-top: none;
-        max-height: 200px;
-        overflow-y: auto;
-        background-color: #fff;
-        position: absolute;
-        width: 100%;
-        z-index: 1000;
-    }
-
-    .search-results div {
-        padding: 8px;
-        cursor: pointer;
-        font-size: 14px;
-        background-color: #f9f9f9;
-        border-bottom: 1px solid #eee;
-    }
-
-    .search-results div:hover {
-        background-color: #e3e3e3;
-    }
-
-    .form-group {
-        position: relative;
-        margin-bottom: 20px;
-    }
-
-    #subject-name, #professor-name {
-        padding: 10px;
-        width: 100%;
-        border: 1px solid #ccc;
-        font-size: 14px;
-    }
-
-    .actions {
-        margin-top: 20px;
-        text-align: center;
-    }
-
-    .submit-btn {
-        padding: 10px 20px;
-        background-color: #2d226d;
-        color: white;
-        border: none;
-        cursor: pointer;
-        border-radius: 4px;
-    }
-
-    .submit-btn:hover {
-        background-color: #4f64db;
-    }
-
-</style>
 @endsection
 
 @section('js')
@@ -98,7 +39,7 @@ $(document).ready(function() {
                 }
             });
         } else {
-            $('#professor-results').html('').hide();
+            $('#professor-results').html('لا يوجد بيانات ').hide();
         }
     });
     $(document).on('click', '.subject-item', function() {
@@ -167,7 +108,34 @@ $(document).ready(function() {
                 <input type="hidden" id="professor-code" name="professorCode" />
                 <div id="professor-results" class="search-results"></div> <!-- نتائج البحث هنا -->
             </div>
-
+            <div class="button-group">
+                <label for="">البرنامج:</label>
+                <button type="button" onclick="toggleDepartments('normal')">عادي</button>
+                <button type="button" onclick="toggleDepartments('special')">نوعي</button>
+            </div>
+        
+            <div id="normal-departments" class="department-list">
+                <h3>البرامج</h3>
+                @foreach ($departments as $department)
+                    @if($department->ProgramType == 'عادي')
+                        <label>
+                            <input type="checkbox" name="department_id" value="{{ $department->id }}"> {{ $department->name }}
+                        </label>
+                    @endif
+                @endforeach
+            </div>
+        
+            <div id="special-departments" class="department-list">
+                <h3>البرامج</h3>
+                @foreach ($departments as $department)
+                    @if($department->ProgramType == 'خاص')
+                        <label>
+                            <input type="checkbox" name="department_id" value="{{ $department->id }}"> {{ $department->name }}
+                        </label>
+                    @endif
+                @endforeach
+            </div>
+        <br>
             <div class="actions">
                 <button type="submit" class="action-btn submit-btn">تسليم</button>
             </div>

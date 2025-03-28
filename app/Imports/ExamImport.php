@@ -15,6 +15,7 @@ class ExamImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
+        static $rowNumber = 1; 
         $examDate = \Carbon\Carbon::createFromFormat('d/m/Y', $row['a'])->format('Y-m-d');
    
         $subject = Subject::where('code', $row['b'])->first();
@@ -36,7 +37,8 @@ class ExamImport implements ToModel, WithHeadingRow
         }
 
         if (!empty($errors)) {
-            Session::push('import_errors', implode(', ', $errors)); 
+            Session::push('import_errors',"الصف رقم {$rowNumber}: " . implode(', ', $errors)); 
+            $rowNumber++;
             return null; 
         }
 
@@ -47,7 +49,8 @@ class ExamImport implements ToModel, WithHeadingRow
                             ->first();
 
         if ($existingExam) {
-            Session::push('import_errors', "الامتحان موجود بالفعل للمنسق {$coordinator->phone_number} للمادة {$subject->code} في القسم {$department->name} بتاريخ {$examDate}");
+            Session::push('import_errors', "الصف رقم {$rowNumber}: الامتحان موجود بالفعل للمنسق {$coordinator->phone_number} للمادة {$subject->code} في القسم {$department->name} بتاريخ {$examDate}");
+            $rowNumber++;
             return null; 
         }
 
@@ -58,9 +61,11 @@ class ExamImport implements ToModel, WithHeadingRow
                 'department_id' => $department->id,
                 'exam_date' => $examDate,
             ]);
+            $rowNumber++; 
             return null; 
         } catch (\Exception $e) {
             Session::push('import_errors', 'حدث خطأ أثناء إضافة الامتحان.');
+            $rowNumber++; 
             return null; 
         }
     }

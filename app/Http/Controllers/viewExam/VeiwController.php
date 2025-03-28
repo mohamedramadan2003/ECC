@@ -2,16 +2,21 @@
 
 namespace App\Http\Controllers\viewExam;
 
-use App\Models\Exam;
-use App\Models\Department;
-use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use App\Models\Exam;
+use App\Models\Subject;
+use App\Models\Department;
+use App\Models\Coordinator;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
 
 class VeiwController extends Controller
 {
     public function index()
     {
-        
         $departments = Department::where('ProgramType', 'عادي')->get();
 
         $exams = Exam::with(['coordinator', 'subject', 'department'])
@@ -29,6 +34,7 @@ class VeiwController extends Controller
         return view('viewExam.veiw', [
             'departments' => $departments,
             'groupedExams' => $groupedExams, 
+            
         ]);
     }
     
@@ -51,5 +57,31 @@ class VeiwController extends Controller
             'departments' => $departments,
             'groupedExams' => $groupedExams,
         ]);
+    }
+    public function update(Request $request)
+    {
+
+        
+        $subject = Subject::where('id', $request->input('su_id'))->first(); 
+        $coordinator = Coordinator::where('id', $request->input('co_id'))->first(); 
+        $department = Department::where('id', $request->input('de_id'))->first(); 
+        $status = $request->input('delivery_status');
+        if($status == 1)
+        {
+            $updated = DB::table('coordinators_departments_subjects')
+            ->where('subject_id', $subject->id) 
+            ->where('coordinator_id', $coordinator->id)  
+            ->where('department_id', $department->id)  
+            ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name]);
+        }
+        if($status == 0)
+        {
+            $updated = DB::table('coordinators_departments_subjects')
+            ->where('subject_id', $subject->id) 
+            ->where('coordinator_id', $coordinator->id)  
+            ->where('department_id', $department->id) 
+            ->update(['status' => 0, 'time' => null, 'name' => 'لا يوجد بيانات']);
+        }
+        return redirect()->back()->with('success','تم تحديث التسليم بنجاح');
     }
 }

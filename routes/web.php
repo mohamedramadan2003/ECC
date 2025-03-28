@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\we\WeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ExameditController;
 use App\Http\Controllers\user\UserController;
 use App\Http\Controllers\CoordinatorController;
 use App\Http\Controllers\Excel\ExcelController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\addexam\AddexamController;
 use App\Http\Controllers\program\ProgramController;
 use App\Http\Controllers\subject\AddsubjectController;
 use App\Http\Controllers\addexam\DeliveryexamController;
+use App\Http\Controllers\subjectsPrograms\SubjectsProgramsController;
 
 Route::middleware('auth')->group(function () {
 //  عرض صفحة الرئيسية
@@ -24,6 +26,8 @@ Route::get('/viewexams/normal',[VeiwController::class, 'index'])
 ->name('viewexams.index');
 Route::get('/viewexams/special',[VeiwController::class, 'create'])
 ->name('viewexams.create');
+Route::put('/viewexams/update',[VeiwController::class , 'update'])
+->name('view.update');
 // عرض صفحة اضافة اختبار جديد
 
 Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,15 +45,13 @@ Route::get('/deliveryexams',[DeliveryexamController::class , 'index'])
 Route::post('/deliveryexams',[DeliveryexamController::class , 'delivery'])
 ->name('deliveryexams.delivery');
 
-
+Route::delete('/viewexams', [ExameditController::class, 'destroy'])->name('viewexams.destroy');
 Route::get('/editdeliveryexams',[DeliveryexamController::class , 'create'])
 ->name('editdeliveryexams.create');
 Route::post('/exams/store', [DeliveryexamController::class, 'store'])->name('exams.store');
 
 Route::post('/addexcel', [ExcelController::class, 'store'])->name('addexcel.store');
 
-
-// عنا
 Route::get('/wehave', [WeController::class , 'index']
 )->name('we.index');
 
@@ -57,6 +59,18 @@ Route::get('/concat',[WeController::class , 'create'])
 ->name('concat.create');
 
 Route::middleware(['UserMiddleware'])->group(function(){
+    
+    
+Route::get('/addsubjects',[SubjectsProgramsController::class , 'index'])
+->name('addsubjects.index');
+Route::post('/addsubjects',[SubjectsProgramsController::class , 'store'])
+->name('addsubjects.store');
+Route::get('/subjects/edit/{id}',[SubjectsProgramsController::class , 'edit'])
+    ->name('subjects.edit');
+    Route::patch('/subjects/update/{id}', [SubjectsProgramsController::class, 'update'])
+    ->name('subjects.update');
+    Route::delete('subjects/delete/{id}', [SubjectsProgramsController::class, 'destroy'])->name('subjects.destroy');
+/*
     //program
     Route::get('/addprogram',[ProgramController::class , 'index'])
 ->name('addprogram.index'); 
@@ -69,18 +83,20 @@ Route::patch('/program/update/{id}', [ProgramController::class, 'update'])
 Route::delete('program/delete/{id}', [ProgramController::class, 'destroy'])
 ->name('program.destroy');
 
-
-
+*/
+/*
     // subject
     Route::get('/addsubject',[AddsubjectController::class ,'index'])
     ->name('addsubject.index');
+    
     Route::post('/subject/add',[AddsubjectController::class , 'store'])
     ->name('subject.store');
+    
     Route::get('/subject/edit/{id}',[AddsubjectController::class , 'edit'])
     ->name('subject.edit');
     Route::patch('/subject/update/{id}', [AddsubjectController::class, 'update'])->name('subject.update');
     Route::delete('subject/delete/{id}', [AddsubjectController::class, 'destroy'])->name('subject.destroy');
-
+*/
     //coordinators
     Route::get('/addcoordinators',[CoordinatorController::class , 'index'])
     ->name('addcoordinator.index');

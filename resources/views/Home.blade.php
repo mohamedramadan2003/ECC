@@ -30,22 +30,22 @@
       <div class="cardz">
         <a href="{{route('editdeliveryexams.create')}}">
           <div class="card-icon">💻</div>
-          <div class="card-title">تعديل تسليم الامتحان</div>
-          <div class="card-subtitle">إدارة طلبات </div>
+          <div class="card-title">اضافة امتحان </div>
+          <div class="card-subtitle">إضافة موعد اختبار</div>
           <div class="divider"></div>
         </a>
       </div>
       @if(Auth::user()->usertype == 'admin')
       <div class="cardz">
-        <a href="{{route('addprogram.index')}}">
+        <a href="{{route('user.index')}}">
           <div class="card-icon">📑</div>
-          <div class="card-title">اضافة برنامج</div>
-          <div class="card-subtitle">إضافة موعد اختبار</div>
+          <div class="card-title">اضافة مستخدم </div>
+          <div class="card-subtitle">إضافة موعد </div>
           <div class="divider"></div>
         </a>
       </div>
       <div class="cardz">
-        <a href="{{route('addsubject.index')}}">
+        <a href="{{route('addsubjects.index')}}">
           <div class="card-icon">📖</div>
           <div class="card-title">اضافة مادة</div>
           <div class="card-subtitle">إضافة مادة جديدة</div>

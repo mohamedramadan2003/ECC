@@ -12,6 +12,10 @@ class Subject extends Model
     ];
     public function coordinatorDepartmentSubjects()
     {
-        return $this->hasMany(coordinator_department_subject::class, 'subject_code', 'code');
+        return $this->hasMany(Exam::class, 'subject_code', 'code');
+    }
+    public function departments()
+    {
+        return $this->belongsToMany(Department::class);
     }
 }

@@ -12,8 +12,9 @@ class SearchController extends Controller
     public function searchSubjects(Request $request)
     {
         $query = $request->input('query');
-        $subjects = Subject::where('subject_name', 'LIKE', "%$query%")
-                           ->orWhere('code', 'LIKE', "%$query%")
+        $subjects = Subject::where('subject_name', 'LIKE', "$query%")
+                           ->orWhere('code', 'LIKE', "$query%")
+                           ->limit(10)
                            ->get();
     
         $output = '';
@@ -29,8 +30,9 @@ class SearchController extends Controller
     public function searchCoordinators(Request $request)
     {
         $query = $request->input('query');
-        $coordinators = Coordinator::where('coordinator_name', 'LIKE', "%$query%")
-                                   ->orWhere('phone_number', 'LIKE', "%$query%")
+        $coordinators = Coordinator::where('coordinator_name', 'LIKE', "$query%")
+                                   ->orWhere('phone_number', 'LIKE', "$query%")
+                                   ->limit(10)
                                    ->get();
     
         $output = '';

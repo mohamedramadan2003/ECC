@@ -8,7 +8,6 @@
     a{
         text-decoration: none;
     }
-    /* تنسيقات الأزرار */
     .btn {
         padding: 8px 16px;
         border: none;
@@ -125,11 +124,11 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
-        // عند النقر على الزر "إضافة مادة" سيتم فتح الـ Modal
+        
         $(".modal-effect").click(function(event) {
-            event.preventDefault(); // منع إعادة تحميل الصفحة
+            event.preventDefault();
             // فتح الـ Modal
-            var modalId = $(this).attr("href");  // استلام الـ ID الخاص بالـ Modal
+            var modalId = $(this).attr("href");  
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
         });

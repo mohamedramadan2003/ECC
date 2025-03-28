@@ -17,7 +17,8 @@ class DeliveryexamController extends Controller
 {
     public function index()
     {
-        return view('addExam.delivery');
+        $departments = Department::get();
+        return view('addExam.delivery' , ['departments'=>$departments]);
     }
     public function create()
     {
@@ -52,7 +53,7 @@ class DeliveryexamController extends Controller
             ->where('coordinator_id', $coordinator->id)
             ->where('subject_id', $subject->id)
             ->where('department_id', $department->id)
-            ->first();
+            ->exists();
     
         if ($existingExam) {
             
@@ -76,6 +77,7 @@ class DeliveryexamController extends Controller
         $validatedData = $request->validate([
             'courseCode' => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
             'professorCode' => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
+            'department_id'=>'exists:departments,id|required',
         ],[
             'courseCode.required' => 'يرجى إدخال كود المادة.',
             'courseCode.string' => 'كود المادة يجب أن يكون نصاً.',
@@ -101,8 +103,9 @@ class DeliveryexamController extends Controller
         $existingRecord = DB::table('coordinators_departments_subjects')
                             ->where('subject_id', $subject->id) 
                             ->where('coordinator_id', $coordinator->id)
+                            ->where('department_id',$request->department_id)
                             ->where('status', 1)
-                            ->first();
+                            ->exists();
     
         if ($existingRecord) {
             return redirect()->back()->with('error', 'تم تسليم الامتحان مسبقًا');

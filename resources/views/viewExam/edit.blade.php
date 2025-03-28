@@ -158,7 +158,7 @@
     <div class="alert alert-danger">
         <ul>
             @foreach(session('import_errors') as $error)
-                <li>{{ $error }}</li>
+                <li>{{$error}}</li>
             @endforeach
         </ul>
     </div>
