@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title', 'عرض التسليم')
+@section('title', 'تعديل الامتحان')
 @section('css')
 <link rel="stylesheet" href="{{ asset('view/view.css') }}" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -245,6 +245,8 @@
                         <th>رقم الدكتور</th>
                         <th>اسم المستلم</th>
                         <th>حالة التسليم</th>
+                        <th>الاجراءات</th>
+
                     </tr>`;
                 table.appendChild(tableHead);
 
@@ -265,7 +267,27 @@
     minute: '2-digit',
     hour12: true     
   }).format(new Date(exam.time)) : ''}</td>
-                        <td>${exam.status == 1 ? '✔️' : '❌'}</td>`;
+                        <td>${exam.status == 1 ? '✔️' : '❌'}</td>
+                        
+                        <td>
+                            
+                            @if(Auth::user()->usertype == 'user')
+                             <a href="#modaldemo8" class="modal-effect btn btn-edit" 
+                             data-co_id="${exam.coordinator_id}" data-su_id="${exam.subject_id}"
+                             data-de_id="${exam.department_id}"> تعديل</a> 
+                            @endif
+                            @if(Auth::user()->usertype == 'admin')
+        <form action="{{ route('viewexams.destroy') }}" method="POST"id="deleteForm">
+        @csrf
+        @method('DELETE')
+        <input type="hidden" name="coordinator_id" value="${exam.coordinator_id}">
+        <input type="hidden" name="subject_id" value="${exam.subject_id}">
+        <input type="hidden" name="department_id" value="${exam.department_id}">
+        <button type="submit" class="btn btn-danger delete-btn" onclick="confirmDelete(event)">حذف</button>
+    </form>
+    @endif
+                        </td>
+                        `;
                     tableBody.appendChild(row);
                 });
 
@@ -277,6 +299,42 @@
 
         renderExams();
         renderPagination();
+    });
+    function confirmDelete(event) {
+        event.preventDefault();  
+        
+        
+        Swal.fire({
+            title: 'هل أنت متأكد؟',
+            text: "لن يمكنك استعادة هذه المقرر!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'نعم، احذف!',
+            cancelButtonText: 'إلغاء',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // إذا اختار المستخدم "نعم"، إرسال النموذج
+                document.getElementById('deleteForm').submit();
+            }
+        });
+    }
+    $(document).ready(function() {
+        
+        $(".modal-effect").click(function(event) {
+            event.preventDefault();
+            // فتح الـ Modal
+            var modalId = $(this).attr("href");  
+            var modal = new bootstrap.Modal(document.querySelector(modalId));
+            modal.show();
+            var co_id = $(this).data('co_id');
+        var su_id = $(this).data('su_id');
+        var de_id = $(this).data('de_id');
+        
+        $('#modaldemo8').find('input[name="co_id"]').val(co_id);
+        $('#modaldemo8').find('input[name="su_id"]').val(su_id);
+        $('#modaldemo8').find('input[name="de_id"]').val(de_id);
+        });
     });
 </script>
 @endsection
@@ -295,6 +353,51 @@
     <div class="cards">
           
     </div>
+    <!-- Basic modal -->
+    <div class="modal fade" id="modaldemo8" tabindex="-1" aria-labelledby="modaldemo8Label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title" id="modaldemo8Label">تعديل التسليم</h6>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                  <form action="{{route('view.update')}}" method="post">
+                    @csrf
+                    @method('put')
+                    <input type="hidden" name="co_id" id="course_id" value="">
+                    <input type="hidden" name="su_id" id="course_id" value="">
+                    <input type="hidden" name="de_id" id="course_id" value="">
+                    <div class="delivery-status">
+                        <div class="status-option">
+                            <input type="radio" id="delivered" name="delivery_status" value="1" class="status-radio">
+                            <label for="delivered" class="status-label delivered">
+                                <i class="fas fa-check-circle"></i>
+                                <span>سلم</span>
+                            </label>
+                        </div>
+                        
+                        <div class="status-option">
+                            <input type="radio" id="not-delivered" name="delivery_status" value="0" class="status-radio">
+                            <label for="not-delivered" class="status-label not-delivered">
+                                <i class="fas fa-times-circle"></i>
+                                <span>لم يسلم</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">حفظ</button>
+                  <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
+                </div>
+              </form>
+            </div>  
+        </div>
+    </div>
+  
+    <!-- End Basic modal -->
     <div class="pagination-container">
     </div>
 </main>

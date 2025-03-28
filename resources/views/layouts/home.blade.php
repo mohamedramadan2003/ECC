@@ -78,15 +78,16 @@
                 <i class="fa-solid fa-eye"></i>
                 <span>عرض الامتحانات </span>
               </a>
+              <a href="{{route('viewexamsedit.edit')}}" class="sidebar__link">
+                <i class="fa-solid fa-square-check"></i>
+                <span>تعديل التسليمات</span>
+              </a>
+              
+              @if(Auth::user()->usertype == 'admin')
               <a href="{{route('editdeliveryexams.create')}}" class="sidebar__link">
                 <i class="fa-solid fa-pen-to-square"></i>
                 <span>اضافة امتحان</span>
               </a>
-              @if(Auth::user()->usertype == 'admin')
-              <!--<a href="#" class="sidebar__link">
-                <i class="fa-solid fa-square-check"></i>
-                <span>اضافة برنامج</span>
-              </a>-->
               <a href="{{route('addsubjects.index')}}" class="sidebar__link">
                 <i class="fa-solid fa-square-plus"></i>
                 <span>إضافة مادة</span>

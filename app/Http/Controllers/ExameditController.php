@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Exam;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -32,5 +34,27 @@ class ExameditController extends Controller
     }
 
     return redirect()->back()->with('error','حدث خطا عند الحذف');
+}
+public function edit()
+{
+    $departments = Department::where('ProgramType', 'عادي')->get();
+
+    $exams = Exam::with(['coordinator', 'subject', 'department'])
+        ->whereHas('department', function($query) {
+            $query->where('ProgramType', 'عادي');
+        })
+        ->orderBy('Exam_Date', 'asc')
+        ->get();
+
+    $groupedExams = $exams->groupBy(function($exam) {
+        return Carbon::parse($exam->Exam_Date)->format('d-m-Y') . ' (' . Carbon::parse($exam->Exam_Date)->locale('ar')->dayName . ')';
+    });
+    
+
+    return view('viewExam.editexaim', [
+        'departments' => $departments,
+        'groupedExams' => $groupedExams, 
+        
+    ]);
 }
 }

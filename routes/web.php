@@ -49,7 +49,8 @@ Route::delete('/viewexams', [ExameditController::class, 'destroy'])->name('viewe
 Route::get('/editdeliveryexams',[DeliveryexamController::class , 'create'])
 ->name('editdeliveryexams.create');
 Route::post('/exams/store', [DeliveryexamController::class, 'store'])->name('exams.store');
-
+Route::get('/viewexams/edit',[ExameditController::class, 'edit'])
+->name('viewexamsedit.edit');
 Route::post('/addexcel', [ExcelController::class, 'store'])->name('addexcel.store');
 
 Route::get('/wehave', [WeController::class , 'index']

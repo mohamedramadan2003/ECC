@@ -28,19 +28,20 @@
         </a>
       </div>
       <div class="cardz">
-        <a href="{{route('editdeliveryexams.create')}}">
-          <div class="card-icon">💻</div>
-          <div class="card-title">اضافة امتحان </div>
-          <div class="card-subtitle">إضافة موعد اختبار</div>
+        <a href="{{route('viewexamsedit.edit')}}">
+          <div class="card-icon">📑</div>
+          <div class="card-title">تعديل التسليمات</div>
+          <div class="card-subtitle">تعديل تسليمات الامتحان</div>
           <div class="divider"></div>
         </a>
       </div>
       @if(Auth::user()->usertype == 'admin')
+     
       <div class="cardz">
-        <a href="{{route('user.index')}}">
-          <div class="card-icon">📑</div>
-          <div class="card-title">اضافة مستخدم </div>
-          <div class="card-subtitle">إضافة موعد </div>
+        <a href="{{route('editdeliveryexams.create')}}">
+          <div class="card-icon">💻</div>
+          <div class="card-title">اضافة امتحان </div>
+          <div class="card-subtitle">إضافة موعد اختبار</div>
           <div class="divider"></div>
         </a>
       </div>
