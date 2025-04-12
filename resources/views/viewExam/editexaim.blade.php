@@ -164,7 +164,7 @@
         const paginationContainer = document.querySelector('.pagination-container');
 
         let currentPage = 1;
-        const examsPerPage = 1; // عدد الأيام في كل صفحة (كل يوم امتحان في صفحة)
+        const examsPerPage = 1; 
 
         
         const totalPages = Math.ceil(Object.keys(groupedExams).length / examsPerPage);
@@ -183,7 +183,6 @@
             prevButton.addEventListener('click', () => changePage(currentPage - 1));
             paginationUl.appendChild(prevButton);
 
-            // أزرار الصفحات
             for (let i = 1; i <= totalPages; i++) {
                 const pageButton = document.createElement('li');
                 pageButton.classList.add('page-item');
@@ -193,7 +192,6 @@
                 paginationUl.appendChild(pageButton);
             }
 
-            // زر التالي
             const nextButton = document.createElement('li');
             nextButton.classList.add('page-item');
             if (currentPage === totalPages) nextButton.classList.add('disabled');
@@ -204,9 +202,8 @@
             paginationContainer.appendChild(paginationUl);
         }
 
-        // وظيفة لتغيير الصفحة
         function changePage(page) {
-            if (page < 1 || page > totalPages) return; // التأكد من عدم الخروج عن حدود الصفحات
+            if (page < 1 || page > totalPages) return; 
             currentPage = page;
 
             renderExams();
@@ -216,7 +213,8 @@
 
         function renderExams() {
             cardsContainer.innerHTML = ''; 
-            const user = "{{ Auth::user()->usertype }}";
+            const userType = "{{ Auth::user()->usertype }}"; 
+            const userName = "{{ Auth::user()->name }}";
             const startIndex = (currentPage - 1) * examsPerPage;
             const endIndex = startIndex + examsPerPage;
             const daysOnCurrentPage = Object.keys(groupedExams).slice(startIndex, endIndex);
@@ -268,7 +266,6 @@
     hour12: true     
   }).format(new Date(exam.time)) : ''}</td>
                         <td>${exam.status == 1 ? '✔️' : '❌'}</td>
-                        
                         <td>
                             
                             @if(Auth::user()->usertype == 'user')
@@ -306,7 +303,7 @@
         
         Swal.fire({
             title: 'هل أنت متأكد؟',
-            text: "لن يمكنك استعادة هذه المقرر!",
+            text: "لن يمكنك استعادة هذا الامتحان !",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'نعم، احذف!',
@@ -314,7 +311,6 @@
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                // إذا اختار المستخدم "نعم"، إرسال النموذج
                 document.getElementById('deleteForm').submit();
             }
         });
@@ -342,8 +338,8 @@
 @section('content')
 <main class="main containers" id="main">
     <div class="button-groups">
-        <a class="program-button" href="{{route('viewexams.index')}}">عادي</a>
-        <a class="program-button" href="{{route('viewexams.create')}}">نوعي</a>
+        <a class="program-button" href="{{route('viewexams.index.edit')}}">عادي</a>
+        <a class="program-button" href="{{route('viewexams.create.edit')}}">نوعي</a>
     </div>
     @if (session('success'))
     <div class="alert alert-success">

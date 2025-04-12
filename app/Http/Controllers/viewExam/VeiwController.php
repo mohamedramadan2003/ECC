@@ -58,6 +58,49 @@ class VeiwController extends Controller
             'groupedExams' => $groupedExams,
         ]);
     }
+    public function index1()
+    {
+        $departments = Department::where('ProgramType', 'عادي')->get();
+
+        $exams = Exam::with(['coordinator', 'subject', 'department'])
+            ->whereHas('department', function($query) {
+                $query->where('ProgramType', 'عادي');
+            })
+            ->orderBy('Exam_Date', 'asc')
+            ->get();
+
+        $groupedExams = $exams->groupBy(function($exam) {
+            return Carbon::parse($exam->Exam_Date)->format('d-m-Y') . ' (' . Carbon::parse($exam->Exam_Date)->locale('ar')->dayName . ')';
+        });
+        
+
+        return view('viewExam.editexaim', [
+            'departments' => $departments,
+            'groupedExams' => $groupedExams, 
+            
+        ]);
+    }
+    
+    public function create1()
+    {
+        $departments = Department::where('ProgramType', 'خاص')->get();
+
+        $exams = Exam::with(['coordinator', 'subject', 'department'])
+            ->whereHas('department', function($query) {
+                $query->where('ProgramType', 'خاص');
+            })
+            ->orderBy('Exam_Date', 'asc')
+            ->get();
+
+        $groupedExams = $exams->groupBy(function($exam) {
+            return Carbon::parse($exam->Exam_Date)->format('d-m-Y') . ' (' . Carbon::parse($exam->Exam_Date)->locale('ar')->dayName . ')';
+        });
+
+        return view('viewExam.editexaim', [
+            'departments' => $departments,
+            'groupedExams' => $groupedExams,
+        ]);
+    }
     public function update(Request $request)
     {
 

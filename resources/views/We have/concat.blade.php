@@ -1,108 +1,122 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة التواصل</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-        }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 100%;
-            max-width: 500px;
-        }
-        h2 {
-            text-align: center;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            font-size: 16px;
-            color: #555;
-            display: block;
-            margin-bottom: 5px;
-        }
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        textarea {
-            resize: vertical;
-            height: 150px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .back-button {
-            background-color: #f44336; /* اللون الأحمر للزر */
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 20px;
-        }
-        .back-button:hover {
-            background-color: #e53935;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>تواصل معنا</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #dbe9f4, #ffffff);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 15px;
+    }
+
+    .contact-box {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      max-width: 460px;
+      width: 100%;
+      animation: fadeIn 0.5s ease-in-out;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .contact-box h2 {
+      text-align: center;
+      color: #a415c0;
+      font-weight: bold;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+
+    .form-label i {
+      color: #a415c0;
+      margin-left: 8px;
+    }
+
+    .form-control {
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      transition: 0.3s ease;
+    }
+
+    .form-control:focus {
+      border-color: #a415c0;
+      box-shadow: 0 0 0 0.15rem rgba(122, 51, 216, 0.25);
+      background-color: #fff;
+    }
+
+    .btn-send {
+      background: linear-gradient(to right, #a415c0, #8f58d6);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .btn-send:hover {
+      background: linear-gradient(to right, #7422df, #480758);
+    }
+
+    .btn-back {
+      background: linear-gradient(to right, #e53935, #c62828);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .btn-back:hover {
+      background: linear-gradient(to right, #d32f2f, #b71c1c);
+    }
+  </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>التواصل معنا</h2>
-        <form action="mailto:moh7medramadan2003@gmail.com" method="post" enctype="text/plain">
-            <div class="form-group">
-                <label for="name">الاسم:</label>
-                <input type="text" id="name" name="name" required placeholder="أدخل اسمك">
-            </div>
-            <div class="form-group">
-                <label for="email">البريد الإلكتروني:</label>
-                <input type="email" id="email" name="email" required placeholder="أدخل بريدك الإلكتروني">
-            </div>
-            <div class="form-group">
-                <label for="message">الرسالة:</label>
-                <textarea id="message" name="message" required placeholder="اكتب رسالتك هنا..."></textarea>
-            </div>
-            <button type="submit">إرسال الرسالة</button>
-        </form>
+  <div class="contact-box">
+    <h2><i class="fas fa-paper-plane"></i> تواصل معنا</h2>
+    <form>
+      <div class="mb-3">
+        <label for="name" class="form-label"><i class="fas fa-user"></i> الاسم</label>
+        <input type="text" class="form-control" id="name" placeholder="اسمك الكامل" required>
+      </div>
 
-        <!-- زر الرجوع -->
-        <button class="back-button" onclick="window.history.back()">رجوع</button>
-    </div>
+      <div class="mb-3">
+        <label for="email" class="form-label"><i class="fas fa-envelope"></i> البريد الإلكتروني</label>
+        <input type="email" class="form-control" id="email" placeholder="example@email.com" required>
+      </div>
 
+      <div class="mb-3">
+        <label for="message" class="form-label"><i class="fas fa-comment-dots"></i> الرسالة</label>
+        <textarea class="form-control" id="message" rows="4" placeholder="اكتب رسالتك هنا..." required></textarea>
+      </div>
+
+      <div class="d-grid gap-2 mt-3">
+        <button type="submit" class="btn btn-send">✉️ إرسال</button>
+        <button type="button" class="btn btn-back" onclick="history.back()">🔙 رجوع</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

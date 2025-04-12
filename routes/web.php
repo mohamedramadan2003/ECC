@@ -26,6 +26,10 @@ Route::get('/viewexams/normal',[VeiwController::class, 'index'])
 ->name('viewexams.index');
 Route::get('/viewexams/special',[VeiwController::class, 'create'])
 ->name('viewexams.create');
+Route::get('/viewexams/normal/edit',[VeiwController::class, 'index1'])
+->name('viewexams.index.edit');
+Route::get('/viewexams/special/edit',[VeiwController::class, 'create1'])
+->name('viewexams.create.edit');
 Route::put('/viewexams/update',[VeiwController::class , 'update'])
 ->name('view.update');
 // عرض صفحة اضافة اختبار جديد

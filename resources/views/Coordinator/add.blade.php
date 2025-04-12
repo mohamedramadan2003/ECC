@@ -39,7 +39,6 @@
         color: white; 
     }
 
-    /* تنسيق زر إضافة المادة */
     .btn-add-course {
         background-color: #28a745; 
         color: white;
@@ -80,7 +79,6 @@
     color: white;
 }
 
-/* لتنسيق التصفح */
 .pagination-container {
     display: flex;
     justify-content: center;

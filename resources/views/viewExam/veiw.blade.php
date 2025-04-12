@@ -123,7 +123,6 @@
         margin-bottom: 8px;
     }
     
-    /* تنسيق حالة "سلم" */
     .delivered {
         color: #28a745;
     }
@@ -164,7 +163,7 @@
         const paginationContainer = document.querySelector('.pagination-container');
 
         let currentPage = 1;
-        const examsPerPage = 1; // عدد الأيام في كل صفحة (كل يوم امتحان في صفحة)
+        const examsPerPage = 1; 
 
         
         const totalPages = Math.ceil(Object.keys(groupedExams).length / examsPerPage);
@@ -204,9 +203,8 @@
             paginationContainer.appendChild(paginationUl);
         }
 
-        // وظيفة لتغيير الصفحة
         function changePage(page) {
-            if (page < 1 || page > totalPages) return; // التأكد من عدم الخروج عن حدود الصفحات
+            if (page < 1 || page > totalPages) return; 
             currentPage = page;
 
             renderExams();

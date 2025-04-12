@@ -114,6 +114,7 @@ class DeliveryexamController extends Controller
         $updated = DB::table('coordinators_departments_subjects')
                     ->where('subject_id', $subject->id) 
                     ->where('coordinator_id', $coordinator->id)  
+                    ->where('department_id',$request->department_id)
                     ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name]);
     
         if ($updated) {

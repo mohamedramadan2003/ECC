@@ -12,7 +12,7 @@ class SubjectsProgramsController extends Controller
 {
     public function index()
     {
-        $subjects = SubjectDepartment::with(['subject', 'department'])->paginate(16);
+        $subjects = SubjectDepartment::with(['subject', 'department'])->paginate(8);
         return view('subjectsPrograms.add',['subjects'=> $subjects]);
     }
     public function store(SebjectProgramRequest $request)

@@ -11,6 +11,7 @@
  <!--=============== MAIN ===============-->
  <main class="main containers" id="main">
     <div class="card-container">
+      @if(Auth::user()->usertype == 'user')
       <div class="cardz">
         <a href="{{route('viewexams.index')}}">
           <div class="card-icon">👁‍🗨</div>
@@ -27,8 +28,9 @@
           <div class="divider"></div>
         </a>
       </div>
+      @endif
       <div class="cardz">
-        <a href="{{route('viewexamsedit.edit')}}">
+        <a href="{{route('viewexams.index.edit')}}">
           <div class="card-icon">📑</div>
           <div class="card-title">تعديل التسليمات</div>
           <div class="card-subtitle">تعديل تسليمات الامتحان</div>
@@ -58,6 +60,14 @@
           <div class="card-icon">👤</div>
           <div class="card-title">اضافة دكتور</div>
           <div class="card-subtitle">إضافة بيانات دكتور</div>
+          <div class="divider"></div>
+        </a>
+      </div> 
+      <div class="cardz">
+        <a href="{{route('addcoordinator.index')}}">
+          <div class="card-icon">👤</div>
+          <div class="card-title">اضافة مستخدم</div>
+          <div class="card-subtitle">إضافة بيانات المستخدم</div>
           <div class="divider"></div>
         </a>
       </div> 

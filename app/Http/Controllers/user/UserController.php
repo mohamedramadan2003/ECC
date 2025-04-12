@@ -67,7 +67,7 @@ public function destroy($id)
     $user = User::findOrFail($id); 
     
         $user->delete(); 
-        return redirect()->route('adduser.index')->with('success', 'تم مسح المستخدم بنجاح');
+        return redirect()->back()->with('success', 'تم مسح المستخدم بنجاح');
 }
 
 }

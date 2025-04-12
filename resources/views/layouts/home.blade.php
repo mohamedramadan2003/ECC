@@ -69,6 +69,7 @@
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>الرئسية</span>
               </a>
+              @if (Auth::user()->usertype == 'user')
 
               <a href="{{route('deliveryexams.index')}}" class="sidebar__link">
                 <i class="fa-solid fa-table-cells"></i>
@@ -78,9 +79,11 @@
                 <i class="fa-solid fa-eye"></i>
                 <span>عرض الامتحانات </span>
               </a>
+                              
+              @endif
               <a href="{{route('viewexamsedit.edit')}}" class="sidebar__link">
                 <i class="fa-solid fa-square-check"></i>
-                <span>تعديل التسليمات</span>
+                <span>تعديل بيانات الامتحانات</span>
               </a>
               
               @if(Auth::user()->usertype == 'admin')
