@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسليم الامتحانات</title>
+    <title> عنا</title>
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
@@ -25,7 +25,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 50px 20px;
+            padding: 20px 20px;
         }
 
         h1 {
@@ -43,7 +43,7 @@
             gap: 20px;
             width: 100%;
             max-width: 1200px;
-            margin-bottom: 50px;
+            margin-bottom: 25px;
         }
 
         .description-box {
@@ -91,8 +91,8 @@
             text-align: center;
             transition: transform 0.3s;
             padding: 15px;
-            width: 250px;
-            margin-bottom: 20px;
+            width: 220px;
+            margin-bottom: 15px;
         }
 
         .team-box:hover {
@@ -177,7 +177,7 @@
         </div>
         
     </div>
-
+    <h1><i class="fas fa-users"></i> فريق العمل</h1>
     <!-- قسم "فريق العمل" -->
     <div class="team-section">
         <div class="team-box">
@@ -188,21 +188,19 @@
             </div>
         </div>
         <div class="team-box">
-            <img src="{{asset('layout/upload/لقطة الشاشة 2025-04-08 233935.png')}}" alt="شخص 3">
+            <img src="{{asset('layout/upload/لقطة الشاشة 2025-04-08 233935.png')}}" alt="شعبان كامل">
             <div class="content">
                 <h3>شعبان كامل شعبان</h3>
-                <p>خبير في هندسة البرمجيات، متخصص في تطوير الأنظمة المعقدة وتحليل البيانات</p>
+                <p>خبير في هندسة البرمجيات، متخصص في تطوير الأنظمة المعقدة وتحليل البيانات.</p>
             </div>
         </div>
-
         <div class="team-box">
-            <img src="{{asset('layout/upload/محمد خالد.jpg')}}" alt="شعبان كامل">
+            <img src="{{asset('layout/upload/محمد خالد.jpg')}}" alt="محمد خالد">
             <div class="content">
                 <h3>محمد خالد</h3>
                 <p>مطور فرونت إند مبدع، يركز على تصميم واجهات المستخدم وتجربة الاستخدام.</p>
             </div>
         </div>
-
         <div class="team-box">
             <img src="{{asset('layout/upload/سعده.jpg')}}" alt="عبد الرحمن سعده">
             <div class="content">
@@ -210,7 +208,15 @@
                 <p>مطور فرونت إند مبدع، يركز على تصميم واجهات المستخدم وتجربة الاستخدام.</p>
             </div>
         </div>
+        <div class="team-box">
+            <img src="{{asset('layout/upload/مبروك.jpg')}}" alt="محمد مبروك">
+            <div class="content">
+                <h3>محمد مبروك</h3>
+                <p>متخصص UI/UX، يبدع في تصميم واجهات مستخدم سهلة وجذابة وتجربة استخدام سلسة.</p>
+            </div>
+        </div>
     </div>
+    
 
     <!-- زر الرجوع -->
     <button class="back-button" onclick="history.back()">🔙 رجوع</button>
