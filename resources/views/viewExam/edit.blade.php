@@ -218,8 +218,8 @@
           @foreach ($departments as $department)
               @if($department->ProgramType == 'عادي')
                   <label>
-                      <input type="radio" name="department_id" value="{{ $department->id }}"> {{ $department->name }}
-                  </label>
+                    <input type="checkbox" name="department_id[]" value="{{ $department->id }}"> {{ $department->name }}
+                </label>
               @endif
           @endforeach
       </div>
@@ -229,7 +229,7 @@
           @foreach ($departments as $department)
               @if($department->ProgramType == 'خاص')
                   <label>
-                      <input type="radio" name="department_id" value="{{ $department->id }}"> {{ $department->name }}
+                      <input type="checkbox" name="department_id[]" value="{{ $department->id }}"> {{ $department->name }}
                   </label>
               @endif
           @endforeach

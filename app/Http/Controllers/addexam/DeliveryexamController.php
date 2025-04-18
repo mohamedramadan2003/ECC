@@ -32,7 +32,8 @@ class DeliveryexamController extends Controller
             'courseCode' => 'required|exists:subjects,code', 
             'professorCode' => 'required|exists:coordinators,phone_number', 
             'exam_date' => 'required|date|after_or_equal:today', 
-            'department_id' => 'required|exists:departments,id', 
+            'department_id' => 'required|array|min:1',
+            'department_id.*' => 'exists:departments,id',
         ], [
             'courseCode.required' => 'يرجى إدخال كود المادة.',
             'courseCode.exists' => 'كود المادة المدخل غير موجود في قاعدة البيانات.',
@@ -49,27 +50,36 @@ class DeliveryexamController extends Controller
         $coordinator = Coordinator::where('phone_number', $request->professorCode)->first(); 
         $department = Department::where('id', $request->department_id)->first(); 
     
-        $existingExam = DB::table('coordinators_departments_subjects')
-            ->where('coordinator_id', $coordinator->id)
-            ->where('subject_id', $subject->id)
-            ->where('department_id', $department->id)
-            ->exists();
+        // تحقق من التكرار باستعلام واحد لجميع الأقسام
+    $existingExams = DB::table('coordinators_departments_subjects')
+    ->where('coordinator_id', $coordinator->id)
+    ->where('subject_id', $subject->id)
+    ->whereIn('department_id', $request->department_id)
+    ->pluck('department_id')
+    ->toArray();
+
+if (!empty($existingExams)) {
+    $existingDepartmentNames = Department::whereIn('id', $existingExams)
+        ->pluck('name')
+        ->implode(', ');
     
-        if ($existingExam) {
-            
-            return back()->with('error', 'هذا الامتحان تم تحديده بالفعل لهذا المنسق والمادة في هذا القسم.');
-        }
-    
-        $exam = new Exam();
-        $exam->coordinator_id = $coordinator->id;
-        $exam->subject_id = $subject->id;
-        $exam->department_id = $department->id;
-        $exam->exam_date = $request->exam_date;
-        $exam->save();
-    
-        return back()->with('success', 'تم إضافة الامتحان بنجاح!');
-    }
-    
+    return back()->with('error', "الامتحان موجود بالفعل للأقسام: {$existingDepartmentNames}!");
+}
+
+// إدخال جميع الأقسام مرة واحدة (Batch Insert)
+$examData = array_map(function($deptId) use ($coordinator, $subject, $request) {
+    return [
+        'coordinator_id' => $coordinator->id,
+        'subject_id' => $subject->id,
+        'department_id' => $deptId,
+        'exam_date' => $request->exam_date,
+    ];
+}, $request->department_id);
+
+DB::table('coordinators_departments_subjects')->insert($examData);
+
+return back()->with('success', 'تم إضافة الامتحان بنجاح لجميع الأقسام المحددة!');
+}
 
     public function delivery(Request $request)
     { 
