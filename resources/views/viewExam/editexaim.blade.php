@@ -162,7 +162,11 @@
         const groupedExams = @json($groupedExams); // تأكد من أن البيانات تم تمريرها بشكل صحيح
         const cardsContainer = document.querySelector('.cards');
         const paginationContainer = document.querySelector('.pagination-container');
-
+        let today = new Date();
+let day = String(today.getDate()).padStart(2, '0');
+let month = String(today.getMonth() + 1).padStart(2, '0');
+let year = today.getFullYear();
+let todayFormatted = `${year}-${month}-${day}`;
         let currentPage = 1;
         const examsPerPage = 1; 
 
@@ -260,19 +264,18 @@
                         <td>${exam.name}<br>
                              ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', { 
     month: 'long',    
-    day: 'numeric',   
-    hour: '2-digit',  
-    minute: '2-digit',
-    hour12: true     
+    day: 'numeric',     
   }).format(new Date(exam.time)) : ''}</td>
                         <td>${exam.status == 1 ? '✔️' : '❌'}</td>
                         <td>
                             
-                            @if(Auth::user()->usertype == 'user')
-                             <a href="#modaldemo8" class="modal-effect btn btn-edit" 
-                             data-co_id="${exam.coordinator_id}" data-su_id="${exam.subject_id}"
-                             data-de_id="${exam.department_id}"> تعديل</a> 
-                            @endif
+                           ${exam.status === 0 || exam.time >= todayFormatted? `
+    @if(Auth::user()->usertype == 'user')
+        <a href="#modaldemo8" class="modal-effect btn btn-edit" 
+        data-co_id="${exam.coordinator_id}" data-su_id="${exam.subject_id}"
+        data-de_id="${exam.department_id}"> تعديل</a> 
+    @endif
+` : 'غير قابل للتعديل'}
                             @if(Auth::user()->usertype == 'admin')
         <form action="{{ route('viewexams.destroy') }}" method="POST"id="deleteForm">
         @csrf
@@ -397,4 +400,5 @@
     <div class="pagination-container">
     </div>
 </main>
+<br><br></br><br></br>
 @endsection

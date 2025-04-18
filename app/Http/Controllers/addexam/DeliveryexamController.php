@@ -73,11 +73,14 @@ class DeliveryexamController extends Controller
 
     public function delivery(Request $request)
     { 
-        
+        if ( !$request->has('department_id')) {
+            return redirect()->back()->with('error','يجب عليك اختيار برنامج');
+        }
         $validatedData = $request->validate([
             'courseCode' => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
             'professorCode' => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
-            'department_id'=>'exists:departments,id|required',
+            'department_id' => 'required|array|min:1',
+            'department_id.*' => 'exists:departments,id',
         ],[
             'courseCode.required' => 'يرجى إدخال كود المادة.',
             'courseCode.string' => 'كود المادة يجب أن يكون نصاً.',
@@ -88,8 +91,9 @@ class DeliveryexamController extends Controller
             'professorCode.string' => 'رقم المنسق يجب أن يكون نصاً.',
             'professorCode.regex' => 'رقم المنسق يجب أن يتكون من أرقام وحروف فقط.',
             'professorCode.max' => 'رقم المنسق لا يمكن أن يتجاوز 255 حرفاً.',
+            'department_id'=> 'يرجي ادخال البرنامج'
         ]);
-    
+        dd($validatedData);
         $courseCode = $request->input('courseCode');
         $professorCode = $request->input('professorCode');
         
@@ -99,22 +103,23 @@ class DeliveryexamController extends Controller
         if (!$subject || !$coordinator) {
             return redirect()->back()->with('error', 'لم يتم العثور على المادة أو المنسق');
         }
-    
+        
+        
         $existingRecord = DB::table('coordinators_departments_subjects')
                             ->where('subject_id', $subject->id) 
                             ->where('coordinator_id', $coordinator->id)
-                            ->where('department_id',$request->department_id)
+                            ->whereIn('department_id',$request->department_id)
                             ->where('status', 1)
                             ->exists();
     
-        if ($existingRecord) {
-            return redirect()->back()->with('error', 'تم تسليم الامتحان مسبقًا');
+        if ($existingRecord || !$request->has('department_id')) {
+            return redirect()->back()->with('error', ' تم تسليم الامتحان مسبقًا او البرنامج ليس لديه هذا المادة');
         }
     
         $updated = DB::table('coordinators_departments_subjects')
                     ->where('subject_id', $subject->id) 
                     ->where('coordinator_id', $coordinator->id)  
-                    ->where('department_id',$request->department_id)
+                    ->whereIn('department_id',$request->department_id)
                     ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name]);
     
         if ($updated) {

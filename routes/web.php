@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\we\WeController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExameditController;
 use App\Http\Controllers\user\UserController;
@@ -62,6 +63,9 @@ Route::get('/wehave', [WeController::class , 'index']
 
 Route::get('/concat',[WeController::class , 'create'])
 ->name('concat.create');
+Route::post('/contact', [ContactController::class, 'send'])
+->name('concat.send');
+
 
 Route::middleware(['UserMiddleware'])->group(function(){
     

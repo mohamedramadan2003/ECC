@@ -258,10 +258,7 @@
                         <td>${exam.name}<br>
                              ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', { 
     month: 'long',    
-    day: 'numeric',   
-    hour: '2-digit',  
-    minute: '2-digit',
-    hour12: true     
+    day: 'numeric',        
   }).format(new Date(exam.time)) : ''}</td>
                         <td>${exam.status == 1 ? '✔️' : '❌'}</td>`;
                     tableBody.appendChild(row);
@@ -295,5 +292,7 @@
     </div>
     <div class="pagination-container">
     </div>
+    
 </main>
+<br></br><br></br>
 @endsection

@@ -90,10 +90,23 @@
   </style>
 </head>
 <body>
+  
 
   <div class="contact-box">
+    @if(session('success'))
+  <div class="alert alert-success">
+      {{ session('success') }}
+  </div>
+@endif
+
+@if(session('error'))
+  <div class="alert alert-danger">
+      {{ session('error') }}
+  </div>
+@endif
     <h2><i class="fas fa-paper-plane"></i> تواصل معنا</h2>
-    <form>
+    <form action="{{route('concat.send')}}" method="POST">
+      @csrf
       <div class="mb-3">
         <label for="name" class="form-label"><i class="fas fa-user"></i> الاسم</label>
         <input type="text" class="form-control" id="name" placeholder="اسمك الكامل" required>
@@ -111,7 +124,7 @@
 
       <div class="d-grid gap-2 mt-3">
         <button type="submit" class="btn btn-send">✉️ إرسال</button>
-        <button type="button" class="btn btn-back" onclick="history.back()">🔙 رجوع</button>
+        <a href="{{route('home.index')}}" type="button" class="btn btn-back" onclick="history.back()">🔙 رجوع</a>
       </div>
     </form>
   </div>

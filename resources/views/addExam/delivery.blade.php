@@ -106,7 +106,7 @@ $(document).ready(function() {
                     required
                 />
                 <input type="hidden" id="professor-code" name="professorCode" />
-                <div id="professor-results" class="search-results"></div> <!-- نتائج البحث هنا -->
+                <div id="professor-results" class="search-results"></div> 
             </div>
             <div class="button-group">
                 <label for="">البرنامج:</label>
@@ -119,7 +119,7 @@ $(document).ready(function() {
                 @foreach ($departments as $department)
                     @if($department->ProgramType == 'عادي')
                         <label>
-                            <input type="checkbox" name="department_id" value="{{ $department->id }}"> {{ $department->name }}
+                            <input type="checkbox" name="department_id[]" value="{{ $department->id }}"> {{ $department->name }}
                         </label>
                     @endif
                 @endforeach
@@ -130,7 +130,7 @@ $(document).ready(function() {
                 @foreach ($departments as $department)
                     @if($department->ProgramType == 'خاص')
                         <label>
-                            <input type="checkbox" name="department_id" value="{{ $department->id }}"> {{ $department->name }}
+                            <input type="checkbox" name="department_id[]" value="{{ $department->id }}"> {{ $department->name }}
                         </label>
                     @endif
                 @endforeach

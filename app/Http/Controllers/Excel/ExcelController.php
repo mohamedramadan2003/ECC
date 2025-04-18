@@ -27,7 +27,7 @@ class ExcelController extends Controller
             }
 
         } catch (\Exception $e) {
-            return back()->with('error', 'حدث خطأ أثناء تحميل البيانات من الملف.');
+            return back()->with('error', 'حدث خطأ أثناء تحميل البيانات من الملف.'. $e );
         }
     }
 }

@@ -7,12 +7,18 @@ use Illuminate\Http\Request;
 
 class CoordinatorController extends Controller
 {
-    public function index()
-    {
-        $Coordinators = Coordinator::paginate(8);
-      
-        return view('Coordinator.add' , ['Coordinators'=>$Coordinators]);
+    public function index(Request $request)
+{
+    $query = Coordinator::query();
+
+    if ($request->has('search') && $request->search != '') {
+        $query->where('coordinator_name', 'like', '%' . $request->search . '%');
     }
+
+    $Coordinators = $query->paginate(8);
+
+    return view('Coordinator.add', ['Coordinators' => $Coordinators]);
+}
     public function store(Request $request)
 {
     $request->validate([

@@ -152,7 +152,12 @@
    <main class="mains containers" id="main">
 
     <div class="cards">
-    
+        <form method="GET" action="{{ route('addcoordinator.index') }}" class="mb-4 w-50 mx-auto">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="ابحث باسم الدكتور..." value="{{ request('search') }}">
+                <button class="btn btn-edit" type="submit">بحث</button>
+            </div>
+        </form>
       <section class="exam-section">
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -237,9 +242,10 @@
     
       <!-- End Basic modal -->
       </section>
-        <div class="pagination-container">
-          {{ $Coordinators->links('pagination::bootstrap-4') }}
-      </div>
+      <div class="pagination-container">
+        {{ $Coordinators->appends(request()->query())->links('pagination::bootstrap-4') }}
+    </div>
+    
     </div>
   </main>
 

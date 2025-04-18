@@ -14,7 +14,20 @@
    <main class="main containers" id="main">
 
     <div class="cards">
-    
+     
+      <form action="{{ route('addsubjects.index') }}" method="get">
+        <div class="mb-3">
+            <label for="department_id" class="form-label">اختر البرنامج :</label>
+            <select name="department_id" class="form-control" onchange="this.form.submit()">
+                <option value="">اختر البرنامج</option>
+                @foreach($departments as $department)
+                    <option value="{{ $department->id }}" {{ request('department_id') == $department->id ? 'selected' : '' }}>
+                        {{ $department->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </form>
       <section class="exam-section">
         @if ($errors->any())
         <div class="alert alert-danger">

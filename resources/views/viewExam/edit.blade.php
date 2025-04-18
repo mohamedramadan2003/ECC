@@ -145,6 +145,11 @@
     <form id="exam-form" method="POST" action="{{ route('exams.store') }}">
       @csrf
       <h2 class="form-title">إضافة اختبار جديد</h2>
+      @if(session('error'))
+      <div class="alert alert-danger">
+          {{ session('error') }}
+      </div>
+    @endif
       @if ($errors->any())
       <div class="alert alert-danger">
           <ul>

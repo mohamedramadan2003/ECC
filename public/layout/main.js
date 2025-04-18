@@ -7,12 +7,11 @@ const showSidebar = (toggleId, sidebarId, headerId, mainId) => {
 
   if (toggle && sidebar && header && main) {
     toggle.addEventListener("click", () => {
-      /* Show sidebar */
-      sidebar.classList.toggle("show-sidebar");
-      /* Add padding header */
-      header.classList.toggle("left-pd");
-      /* Add padding main */
-      main.classList.toggle("left-pd");
+      if (window.innerWidth >= 768) {
+        sidebar.classList.toggle("show-sidebar");
+        header.classList.toggle("left-pd");
+        main.classList.toggle("left-pd");
+      }
     });
   }
 };
@@ -30,5 +29,5 @@ sidebarLink.forEach((l) => l.addEventListener("click", linkColor));
 
 
 
-// dashboard
+
 

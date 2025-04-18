@@ -2,22 +2,46 @@
 
 namespace App\Imports;
 
+use Carbon\Carbon;
 use App\Models\Exam;
 use App\Models\Subject;
 use App\Models\Department;
 use App\Models\Coordinator;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Concerns\ToModel;
-use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Concerns\ToModel;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ExamImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
         static $rowNumber = 1; 
-        $examDate = \Carbon\Carbon::createFromFormat('d/m/Y', $row['a'])->format('Y-m-d');
-   
+        if (is_numeric($row['a'])) {
+            
+            $examDate = Carbon::instance(Date::excelToDateTimeObject($row['a']));
+        } else {
+            
+            if (preg_match('/=DATE\((\d{4}),(\d{1,2}),(\d{1,2})\)/', $row['a'], $matches)) {
+                
+                $examDate = Carbon::createFromFormat('Y-m-d', "{$matches[1]}-{$matches[2]}-{$matches[3]}");
+            } else {
+                
+                try {
+                    $examDate = Carbon::parse($row['a']);
+                } catch (\Exception $e) {
+                    
+                    $examDate = null;
+                }
+            }
+        }
+    
+        
+        if (!$examDate || $examDate->lt(today())) {
+            return redirect()->back()->with('error', 'لا يمكن إدخال تاريخ قديم للامتحان');
+        }
+    
         $subject = Subject::where('code', $row['b'])->first();
         $coordinator = Coordinator::where('phone_number', $row['c'])->first();
         $department = Department::where('name', $row['d'])->first();

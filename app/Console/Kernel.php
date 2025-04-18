@@ -15,8 +15,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // إضافة الأمر المجدول هنا
-        $schedule->command('exam:delete-past')->daily(); // أو أي وقت آخر
+        
+        $schedule->command('exam:delete-past')->daily(); 
     }
 
     /**

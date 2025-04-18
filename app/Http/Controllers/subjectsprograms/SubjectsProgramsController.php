@@ -2,19 +2,37 @@
 
 namespace App\Http\Controllers\subjectsPrograms;
 
+use App\Models\Subject;
+use App\Models\Department;
+use Illuminate\Http\Request;
 use App\Models\SubjectDepartment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SebjectProgramRequest;
-use App\Models\Department;
-use App\Models\Subject;
 
 class SubjectsProgramsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $subjects = SubjectDepartment::with(['subject', 'department'])->paginate(8);
-        return view('subjectsPrograms.add',['subjects'=> $subjects]);
+        
+        $departments = Department::all();
+    
+        
+        $departmentId = $request->get('department_id');
+    
+        if ($departmentId) {
+            $subjects = SubjectDepartment::with(['subject', 'department'])
+                ->where('department_id', $departmentId)
+                ->paginate(8);
+        } else {
+            $subjects = SubjectDepartment::with(['subject', 'department'])->paginate(8);
+        }
+    
+        return view('subjectsPrograms.add', [
+            'subjects' => $subjects,
+            'departments' => $departments, 
+        ]);
     }
+
     public function store(SebjectProgramRequest $request)
     {
         $result = $request->validated();
