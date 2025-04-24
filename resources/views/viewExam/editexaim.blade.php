@@ -159,7 +159,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const groupedExams = @json($groupedExams); // تأكد من أن البيانات تم تمريرها بشكل صحيح
+        const groupedExams = @json($groupedExams); 
         const cardsContainer = document.querySelector('.cards');
         const paginationContainer = document.querySelector('.pagination-container');
         let today = new Date();
@@ -216,113 +216,130 @@ let todayFormatted = `${year}-${month}-${day}`;
         }
 
         function renderExams() {
-            cardsContainer.innerHTML = ''; 
-            const userType = "{{ Auth::user()->usertype }}"; 
-            const userName = "{{ Auth::user()->name }}";
-            const startIndex = (currentPage - 1) * examsPerPage;
-            const endIndex = startIndex + examsPerPage;
-            const daysOnCurrentPage = Object.keys(groupedExams).slice(startIndex, endIndex);
+        cardsContainer.innerHTML = ''; 
+        const userType = "{{ Auth::user()->usertype }}"; 
+        const userName = "{{ Auth::user()->name }}";
+        const startIndex = (currentPage - 1) * examsPerPage;
+        const endIndex = startIndex + examsPerPage;
+        const daysOnCurrentPage = Object.keys(groupedExams).slice(startIndex, endIndex);
 
-            daysOnCurrentPage.forEach(function(date) {
-                const exams = groupedExams[date];
+        daysOnCurrentPage.forEach(function(date) {
+            const exams = groupedExams[date];
 
-                const section = document.createElement('section');
-                section.classList.add('exam-section');
-                
-                const examDateDiv = document.createElement('div');
-                examDateDiv.classList.add('exam-date');
-                examDateDiv.innerHTML = `<h4>اليوم: ${date}</h4>`;
-                section.appendChild(examDateDiv);
+            const section = document.createElement('section');
+            section.classList.add('exam-section');
+            
+            const examDateDiv = document.createElement('div');
+            examDateDiv.classList.add('exam-date');
+            examDateDiv.innerHTML = `<h4>اليوم: ${date}</h4>`;
+            section.appendChild(examDateDiv);
 
-                const table = document.createElement('table');
-                table.classList.add('data-table');
+            const table = document.createElement('table');
+            table.classList.add('data-table');
 
-                const tableHead = document.createElement('thead');
-                tableHead.innerHTML = `
-                    <tr>
-                        <th>كود المادة</th>
-                        <th>اسم المادة</th>
-                        <th>البرنامج</th>
-                        <th>اسم الدكتور</th>
-                        <th>رقم الدكتور</th>
-                        <th>اسم المستلم</th>
-                        <th>حالة التسليم</th>
-                        <th>الاجراءات</th>
+            const tableHead = document.createElement('thead');
+            tableHead.innerHTML = `
+                <tr>
+                    <th>كود المادة</th>
+                    <th>اسم المادة</th>
+                    <th>البرنامج</th>
+                    <th>اسم الدكتور</th>
+                    <th>رقم الدكتور</th>
+                    <th>اسم المستلم</th>
+                    <th>حالة التسليم</th>
+                    <th>الاجراءات</th>
+                </tr>`;
+            table.appendChild(tableHead);
 
-                    </tr>`;
-                table.appendChild(tableHead);
-
-                const tableBody = document.createElement('tbody');
-                exams.forEach(function(exam) {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${exam.subject.code}</td>
-                        <td>${exam.subject.subject_name}</td>
-                        <td>${exam.department.name}</td>
-                        <td>${exam.coordinator.coordinator_name}</td>
-                        <td>${exam.coordinator.phone_number}</td>
-                        <td>${exam.name}<br>
-                             ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', { 
-    month: 'long',    
-    day: 'numeric',     
-  }).format(new Date(exam.time)) : ''}</td>
-                        <td>${exam.status == 1 ? '✔️' : '❌'}</td>
-                        <td>
-                            
-                           ${exam.status === 0 || exam.time >= todayFormatted? `
-    @if(Auth::user()->usertype == 'user')
-        <a href="#modaldemo8" class="modal-effect btn btn-edit" 
-        data-co_id="${exam.coordinator_id}" data-su_id="${exam.subject_id}"
-        data-de_id="${exam.department_id}"> تعديل</a> 
-    @endif
-` : 'غير قابل للتعديل'}
-                            @if(Auth::user()->usertype == 'admin')
-        <form action="{{ route('viewexams.destroy') }}" method="POST"id="deleteForm">
-        @csrf
-        @method('DELETE')
-        <input type="hidden" name="coordinator_id" value="${exam.coordinator_id}">
-        <input type="hidden" name="subject_id" value="${exam.subject_id}">
-        <input type="hidden" name="department_id" value="${exam.department_id}">
-        <button type="submit" class="btn btn-danger delete-btn" onclick="confirmDelete(event)">حذف</button>
-    </form>
-    @endif
-                        </td>
-                        `;
-                    tableBody.appendChild(row);
-                });
-
-                table.appendChild(tableBody);
-                section.appendChild(table);
-                cardsContainer.appendChild(section);
+            const tableBody = document.createElement('tbody');
+            exams.forEach(function(exam) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${exam.subject.code}</td>
+                    <td>${exam.subject.subject_name}</td>
+                    <td>${exam.department.name}</td>
+                    <td>${exam.coordinator.coordinator_name}</td>
+                    <td>${exam.coordinator.phone_number}</td>
+                    <td>${exam.name}<br>
+                         ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', { 
+                            month: 'long',    
+                            day: 'numeric',     
+                          }).format(new Date(exam.time)) : ''}</td>
+                    <td>${exam.status == 1 ? '✔️' : '❌'}</td>
+                    <td>
+                        ${exam.status === 0 || exam.time >= todayFormatted && userName == exam.name? `
+                            @if(Auth::user()->usertype == 'user')
+                                <a href="#modaldemo8" class="modal-effect btn btn-edit" 
+                                data-co_id="${exam.coordinator_id}" data-su_id="${exam.subject_id}"
+                                data-de_id="${exam.department_id}"> تعديل</a> 
+                            @endif
+                        ` : `@if(Auth::user()->usertype == 'user')غير قابل للتعديل @endif`}
+                        @if(Auth::user()->usertype == 'admin')
+                            <form action="{{ route('viewexams.destroy') }}" method="POST" class="delete-form">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="coordinator_id" value="${exam.coordinator_id}">
+                                <input type="hidden" name="subject_id" value="${exam.subject_id}">
+                                <input type="hidden" name="department_id" value="${exam.department_id}">
+                                <button type="submit" class="btn btn-danger delete-btn">حذف</button>
+                            </form>
+                        @endif
+                    </td>
+                `;
+                tableBody.appendChild(row);
             });
-        }
 
-        renderExams();
-        renderPagination();
-    });
-    function confirmDelete(event) {
-        event.preventDefault();  
-        
-        
-        Swal.fire({
-            title: 'هل أنت متأكد؟',
-            text: "لن يمكنك استعادة هذا الامتحان !",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'نعم، احذف!',
-            cancelButtonText: 'إلغاء',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
-            }
+            table.appendChild(tableBody);
+            section.appendChild(table);
+            cardsContainer.appendChild(section);
         });
     }
+
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('modal-effect')) {
+            e.preventDefault();
+            var modalId = e.target.getAttribute('href');  
+            var modal = new bootstrap.Modal(document.querySelector(modalId));
+            modal.show();
+            
+            var co_id = e.target.dataset.co_id;
+            var su_id = e.target.dataset.su_id;
+            var de_id = e.target.dataset.de_id;
+            
+            $('#modaldemo8').find('input[name="co_id"]').val(co_id);
+            $('#modaldemo8').find('input[name="su_id"]').val(su_id);
+            $('#modaldemo8').find('input[name="de_id"]').val(de_id);
+        }
+        
+        
+        if (e.target && e.target.classList.contains('delete-btn')) {
+            e.preventDefault();
+            const form = e.target.closest('.delete-form');
+            
+            Swal.fire({
+                title: 'هل أنت متأكد؟',
+                text: "لن يمكنك استعادة هذا الامتحان!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'نعم، احذف!',
+                cancelButtonText: 'إلغاء',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+    });
+
+    renderExams();
+    renderPagination();
+});
     $(document).ready(function() {
         
         $(".modal-effect").click(function(event) {
             event.preventDefault();
-            // فتح الـ Modal
+            
             var modalId = $(this).attr("href");  
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();

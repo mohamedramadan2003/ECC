@@ -50,7 +50,7 @@ class DeliveryexamController extends Controller
         $coordinator = Coordinator::where('phone_number', $request->professorCode)->first(); 
         $department = Department::where('id', $request->department_id)->first(); 
     
-        // تحقق من التكرار باستعلام واحد لجميع الأقسام
+      
     $existingExams = DB::table('coordinators_departments_subjects')
     ->where('coordinator_id', $coordinator->id)
     ->where('subject_id', $subject->id)
@@ -66,7 +66,7 @@ if (!empty($existingExams)) {
     return back()->with('error', "الامتحان موجود بالفعل للأقسام: {$existingDepartmentNames}!");
 }
 
-// إدخال جميع الأقسام مرة واحدة (Batch Insert)
+
 $examData = array_map(function($deptId) use ($coordinator, $subject, $request) {
     return [
         'coordinator_id' => $coordinator->id,
@@ -103,7 +103,6 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
             'professorCode.max' => 'رقم المنسق لا يمكن أن يتجاوز 255 حرفاً.',
             'department_id'=> 'يرجي ادخال البرنامج'
         ]);
-        dd($validatedData);
         $courseCode = $request->input('courseCode');
         $professorCode = $request->input('professorCode');
         
