@@ -123,7 +123,6 @@
         margin-bottom: 8px;
     }
     
-    /* تنسيق حالة "سلم" */
     .delivered {
         color: #28a745;
     }
@@ -179,7 +178,6 @@ let todayFormatted = `${year}-${month}-${day}`;
             const paginationUl = document.createElement('ul');
             paginationUl.classList.add('pagination');
 
-            // زر السابق
             const prevButton = document.createElement('li');
             prevButton.classList.add('page-item');
             if (currentPage === 1) prevButton.classList.add('disabled');

@@ -1,101 +1,191 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إعادة تعيين كلمة المرور</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            direction: rtl;
+            min-height: 100vh;
+            padding: 20px;
+            background-image: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
         }
+        
         .container {
             background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             width: 100%;
+            max-width: 480px;
+            transition: all 0.3s ease;
+            border: 1px solid #e1e5eb;
         }
+        
         .title {
             text-align: center;
-            font-size: 24px;
-            color: #333;
-            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: #2c3e50;
         }
+        
         .description {
             text-align: center;
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 20px;
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.7;
         }
-        .input-group {
-            margin-bottom: 20px;
+        
+        .form-group {
+            margin-bottom: 1.5rem;
         }
-        .input-group label {
+        
+        .form-group label {
             display: block;
-            color: #333;
-            font-size: 14px;
-            margin-bottom: 5px;
+            margin-bottom: 0.6rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #2c3e50;
         }
-        .input-group input {
+        
+        .form-control {
             width: 100%;
-            padding: 10px;
+            padding: 0.9rem;
             border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background-color: #f8f9fa;
         }
-        .input-group input:focus {
-            border-color: #007bff;
+        
+        .form-control:focus {
+            border-color: #5d4ee1;
             outline: none;
+            box-shadow: 0 0 0 3px rgba(93, 78, 225, 0.2);
+            background-color: white;
         }
+        
         .error-message {
-            color: red;
-            font-size: 12px;
-            margin-top: 5px;
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 0.4rem;
+            display: block;
         }
-        .submit-button {
-            background-color: #007bff;
-            color: white;
-            padding: 12px;
+        
+        .btn {
+            display: block;
             width: 100%;
+            padding: 1rem;
+            background-color: #5d4ee1;
+            color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 500;
             cursor: pointer;
-            font-size: 16px;
+            transition: all 0.3s;
+            margin-top: 1.5rem;
         }
-        .submit-button:hover {
-            background-color: #0056b3;
+        
+        .btn:hover {
+            background-color: #4a3bb8;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(93, 78, 225, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .footer-text {
+            text-align: center;
+            margin-top: 1.8rem;
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .footer-text a {
+            color: #5d4ee1;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .footer-text a:hover {
+            text-decoration: underline;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .container {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @media (max-width: 576px) {
+            .container {
+                padding: 1.8rem;
+            }
+            
+            .title {
+                font-size: 1.3rem;
+            }
+            
+            .description {
+                font-size: 0.95rem;
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h2 class="title">نسيت كلمة المرور؟</h2>
-        <p class="description">لا مشكلة. فقط أخبرنا بعنوان بريدك الإلكتروني وسوف نرسل لك رابط لإعادة تعيين كلمة المرور لتمكنك من اختيار كلمة مرور جديدة.</p>
+
+        <h2 class="title">إعادة تعيين كلمة المرور</h2>
+        <p class="description">سيتم إرسال رابط إلى بريدك الإلكتروني لإعادة تعيين كلمة المرور الخاصة بحسابك</p>
 
         <form method="POST" action="{{ route('password.email') }}">
             @csrf
 
-            <!-- عنوان البريد الإلكتروني -->
-            <div class="input-group">
+            <div class="form-group">
                 <label for="email">البريد الإلكتروني</label>
-                <input id="email" type="email" name="email" required autofocus placeholder="أدخل عنوان بريدك الإلكتروني" value="{{ old('email') }}">
+                <input 
+                    id="email" 
+                    type="email" 
+                    name="email" 
+                    class="form-control" 
+                    required 
+                    autofocus 
+                    placeholder="أدخل بريدك الإلكتروني المسجل" 
+                    value="{{ old('email') }}"
+                >
                 @if($errors->has('email'))
-                    <p class="error-message">{{ $errors->first('email') }}</p>
+                    <span class="error-message">{{ $errors->first('email') }}</span>
                 @endif
             </div>
 
-            <!-- زر الإرسال -->
-            <button type="submit" class="submit-button">إرسال رابط إعادة تعيين كلمة المرور</button>
+            <button type="submit" class="btn">إرسال رابط التعيين</button>
         </form>
+
+        <p class="footer-text">
+            هل تذكرت كلمة المرور؟ <a href="{{ route('login') }}">العودة إلى صفحة تسجيل الدخول</a>
+        </p>
     </div>
 
 </body>
