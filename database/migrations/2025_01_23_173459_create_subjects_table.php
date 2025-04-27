@@ -15,7 +15,6 @@ return new class extends Migration
            $table->id();
             $table->string('code')->unique();  
             $table->string('subject_name')->unique();
-            $table->timestamps();
         });
     }
 

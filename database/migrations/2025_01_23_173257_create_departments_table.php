@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->enum('ProgramType' , ['عادي' , 'خاص']);
-            $table->timestamps();
         });
     }
 
