@@ -15,19 +15,19 @@ class ExameditController extends Controller
     $coordinatorId = $request->input('coordinator_id');
     $subjectId = $request->input('subject_id');
     $departmentId = $request->input('department_id');
-    
+
     $exam = Exam::where('coordinator_id', $coordinatorId)
                 ->where('subject_id', $subjectId)
                 ->where('department_id', $departmentId)
-                ->first();
-                
+                ->exists();
+
     if ($exam) {
         DB::table('coordinators_departments_subjects')
         ->where('coordinator_id', $coordinatorId)
         ->where('subject_id', $subjectId)
         ->where('department_id', $departmentId)
         ->delete();
-    
+
         return redirect()->back()->with('success', 'تم حذف الامتحان بنجاح');
     }
 
@@ -47,12 +47,12 @@ public function edit()
     $groupedExams = $exams->groupBy(function($exam) {
         return Carbon::parse($exam->Exam_Date)->format('d-m-Y') . ' (' . Carbon::parse($exam->Exam_Date)->locale('ar')->dayName . ')';
     });
-    
+
 
     return view('viewExam.editexaim', [
         'departments' => $departments,
-        'groupedExams' => $groupedExams, 
-        
+        'groupedExams' => $groupedExams,
+
     ]);
 }
 }

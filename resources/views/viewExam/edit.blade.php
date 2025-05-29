@@ -47,9 +47,9 @@
 <script src="{{ asset('Exam/add.js') }}"></script>
 <script>
      $(document).ready(function() {
-        
+
         $(".modal-effect").click(function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
             // فتح الـ Modal
             var modalId = $(this).attr("href");  // استلام الـ ID الخاص بالـ Modal
             var modal = new bootstrap.Modal(document.querySelector(modalId));
@@ -60,7 +60,7 @@
     $('#subject-name').on('keyup', function() {
         let query = $(this).val();
 
-        if (query.length > 1) {  
+        if (query.length > 1) {
             $.ajax({
                 url: '{{ route('search.subjects') }}',
                 method: 'GET',
@@ -77,7 +77,7 @@
     $('#professor-name').on('keyup', function() {
         let query = $(this).val();
 
-        if (query.length > 1) {  
+        if (query.length > 1) {
             $.ajax({
                 url: '{{ route('search.coordinators') }}',
                 method: 'GET',
@@ -91,18 +91,18 @@
         }
     });
     $(document).on('click', '.subject-item', function() {
-        let code = $(this).data('code'); 
-        let name = $(this).data('name'); 
-        $('#subject-name').val(name); 
-        $('#subject-code').val(code); 
-        $('#subject-results').html('').hide(); 
+        let code = $(this).data('code');
+        let name = $(this).data('name');
+        $('#subject-name').val(name);
+        $('#subject-code').val(code);
+        $('#subject-results').html('').hide();
     });
     $(document).on('click', '.professor-item', function() {
-    let name = $(this).data('name');  
-    let phone = $(this).data('phone');  
-    $('#professor-name').val(name);  
-    $('#professor-code').val(phone); 
-    $('#professor-results').html('').hide();  
+    let name = $(this).data('name');
+    let phone = $(this).data('phone');
+    $('#professor-name').val(name);
+    $('#professor-code').val(phone);
+    $('#professor-results').html('').hide();
 });
 
 });
@@ -130,17 +130,17 @@
                         <label for="excel_file" class="form-label">رفع ملف Excel</label>
                         <input type="file" class="form-control" id="excel_file" name="excel_file" accept=".xlsx, .csv" required>
                     </div>
-                    
+
                 </div>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-primary">اضافة</button>
                   <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
                 </div>
               </form>
-            </div>  
+            </div>
         </div>
     </div>
-  
+
     <!-- End Basic modal -->
     <form id="exam-form" method="POST" action="{{ route('exams.store') }}">
       @csrf
@@ -169,7 +169,7 @@
     </div>
 @endif
 
-            <!-- عرض رسالة النجاح إذا كانت موجودة -->
+
   @if (session('success'))
   <div class="alert alert-success">
       {{ session('success') }}
@@ -185,7 +185,7 @@
         required
     />
     <input type="hidden" id="subject-code" name="courseCode" />
-    <div id="subject-results" class="search-results"></div> <!-- نتائج البحث هنا -->
+    <div id="subject-results" class="search-results"></div> 
 </div>
 
 <div class="form-group">
@@ -198,21 +198,21 @@
         required
     />
     <input type="hidden" id="professor-code" name="professorCode" />
-    <div id="professor-results" class="search-results"></div> 
+    <div id="professor-results" class="search-results"></div>
 </div>
-  
+
       <div class="form-group">
           <label for="exam-date">موعد الاختبار</label>
           <input type="date" id="exam-date" name="exam_date" required />
       </div>
-  
- 
+
+
       <div class="button-group">
           <label for="">البرنامج:</label>
           <button type="button" onclick="toggleDepartments('normal')">عادي</button>
           <button type="button" onclick="toggleDepartments('special')">نوعي</button>
       </div>
-  
+
       <div id="normal-departments" class="department-list">
           <h3>البرامج</h3>
           @foreach ($departments as $department)
@@ -223,7 +223,7 @@
               @endif
           @endforeach
       </div>
-  
+
       <div id="special-departments" class="department-list">
           <h3>البرامج</h3>
           @foreach ($departments as $department)
@@ -234,7 +234,7 @@
               @endif
           @endforeach
       </div>
-  
+
       <div class="actions">
           <button type="submit" class="action-btn submit-btn">اضاقة</button>
       </div>

@@ -23,10 +23,11 @@ Route::middleware('auth')->group(function () {
 Route::get('/', [HomeController::class , 'index'])
 ->name('home.index');
 // عرض صفحة التسليم
-Route::get('/viewexams/normal',[VeiwController::class, 'index'])
-->name('viewexams.index');
-Route::get('/viewexams/special',[VeiwController::class, 'create'])
-->name('viewexams.create');
+Route::prefix('exams')->group(function() {
+    Route::get('/{programType?}', [VeiwController::class, 'showExams'])
+        ->where('programType', 'عادي|خاص')
+        ->name('viewexams.show');
+        });
 Route::get('/viewexams/normal/edit',[VeiwController::class, 'index1'])
 ->name('viewexams.index.edit');
 Route::get('/viewexams/special/edit',[VeiwController::class, 'create1'])
@@ -68,8 +69,8 @@ Route::post('/contact', [ContactController::class, 'send'])
 
 
 Route::middleware(['UserMiddleware'])->group(function(){
-    
-    
+
+
 Route::get('/addsubjects',[SubjectsProgramsController::class , 'index'])
 ->name('addsubjects.index');
 Route::post('/addsubjects',[SubjectsProgramsController::class , 'store'])
@@ -82,7 +83,7 @@ Route::get('/subjects/edit/{id}',[SubjectsProgramsController::class , 'edit'])
 /*
     //program
     Route::get('/addprogram',[ProgramController::class , 'index'])
-->name('addprogram.index'); 
+->name('addprogram.index');
 Route::post('/program/add',[ProgramController::class , 'store'])
 ->name('program.store');
 Route::get('/program/edit/{id}',[ProgramController::class , 'edit'])
@@ -97,10 +98,10 @@ Route::delete('program/delete/{id}', [ProgramController::class, 'destroy'])
     // subject
     Route::get('/addsubject',[AddsubjectController::class ,'index'])
     ->name('addsubject.index');
-    
+
     Route::post('/subject/add',[AddsubjectController::class , 'store'])
     ->name('subject.store');
-    
+
     Route::get('/subject/edit/{id}',[AddsubjectController::class , 'edit'])
     ->name('subject.edit');
     Route::patch('/subject/update/{id}', [AddsubjectController::class, 'update'])->name('subject.update');
@@ -116,7 +117,7 @@ Route::delete('program/delete/{id}', [ProgramController::class, 'destroy'])
     Route::patch('/coordinator/update/{id}', [CoordinatorController::class, 'update'])->name('coordinator.update');
     Route::delete('coordinator/delete/{id}', [CoordinatorController::class, 'destroy'])->name('coordinator.destroy');
 
-    // user 
+    // user
     Route::get('/user',[UserController::class , 'index'])
     ->name('user.index');
     Route::post('/user/add',[UserController::class , 'store'])

@@ -1,30 +1,115 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('ملفك الشخصي') }}
-        </h2>
-    </x-slot>
+@extends('layouts.home')
+@section('title','الصفحة الشخصية')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
+@section('css')
+<style>
 
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
-            @if(!(Auth::user()->usertype == 'admin'))
-            <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.delete-user-form')
-                </div>
-            </div>
-            @endif
-        </div>
-    </div>
-</x-app-layout>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: #333;
+  direction: rtl;
+  padding-bottom: 50px;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 150px auto;
+  padding: 0 1rem;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.profile-card h2 {
+  margin-bottom: 1rem;
+  color: #1e293b;
+}
+
+.profile-card p {
+  margin-bottom: 1rem;
+  color: #e11d48;
+}
+
+.profile-input {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.profile-btn {
+  background-color: var(--first-color);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.profile-btn:hover {
+  background-color: #2563eb;
+}
+</style>
+@endsection
+
+@section('content')
+<main class="profile-container">
+  <section class="profile-card">
+    <h2>تحديث المعلومات الشخصية</h2>
+    <form method="POST" action="{{ route('profile.update') }}">
+        @csrf
+        @method('patch')
+      <input
+        type="text"
+        class="profile-input"
+        name="name"
+        placeholder="الاسم الكامل"
+        value="{{ old('name', auth()->user()->name) }}"
+        required
+        autofocus
+        autocomplete="name"
+      />
+
+      <input
+        type="email"
+        class="profile-input"
+        name="email"
+        placeholder="البريد الإلكتروني"
+        value="{{ old('email', auth()->user()->email) }}"
+        required
+        autocomplete="email"
+      />
+
+      <button type="submit" class="profile-btn">تحديث المعلومات</button>
+    </form>
+  </section>
+
+  <section class="profile-card">
+    <h2>تغيير كلمة المرور</h2>
+    <form method="POST" action="{{ route('password.update') }}">
+        @csrf
+        @method('put')
+      <input type="password" name="current_password" class="profile-input" placeholder="كلمة المرور الحالية" required />
+      <input type="password" name="password" class="profile-input" placeholder="كلمة المرور الجديدة" required />
+      <input type="password" name="password_confirmation" class="profile-input" placeholder="تأكيد كلمة المرور" required />
+      <button type="submit" class="profile-btn">تغيير كلمة المرور</button>
+    </form>
+  </section>
+</main>
+@endsection

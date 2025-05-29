@@ -13,7 +13,7 @@
     <div class="card-container">
       @if(Auth::user()->usertype == 'user')
       <div class="cardz">
-        <a href="{{route('viewexams.index')}}">
+        <a href="{{ route('viewexams.show', ['programType' => 'عادي']) }}">
           <div class="card-icon">👁‍🗨</div>
           <div class="card-title">عرض الامتحانات المسلمة </div>
           <div class="card-subtitle">عرض جدول الامتحانات</div>
@@ -38,7 +38,7 @@
         </a>
       </div>
       @if(Auth::user()->usertype == 'admin')
-     
+
       <div class="cardz">
         <a href="{{route('editdeliveryexams.create')}}">
           <div class="card-icon">💻</div>
@@ -62,7 +62,7 @@
           <div class="card-subtitle">إضافة بيانات دكتور</div>
           <div class="divider"></div>
         </a>
-      </div> 
+      </div>
       <div class="cardz">
         <a href="{{route('addcoordinator.index')}}">
           <div class="card-icon">👤</div>
@@ -70,7 +70,7 @@
           <div class="card-subtitle">إضافة بيانات المستخدم</div>
           <div class="divider"></div>
         </a>
-      </div> 
+      </div>
       @endif
       @if(Auth::user()->usertype == 'user')
       <br> <br> <br><br> <br>

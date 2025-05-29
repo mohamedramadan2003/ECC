@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('#subject-name').on('keyup', function() {
         let query = $(this).val();
 
-        if (query.length > 1) {  
+        if (query.length > 1) {
             $.ajax({
                 url: '{{ route('search.subjects') }}',
                 method: 'GET',
@@ -29,7 +29,7 @@ $(document).ready(function() {
     $('#professor-name').on('keyup', function() {
         let query = $(this).val();
 
-        if (query.length > 1) {  
+        if (query.length > 1) {
             $.ajax({
                 url: '{{ route('search.coordinators') }}',
                 method: 'GET',
@@ -43,18 +43,18 @@ $(document).ready(function() {
         }
     });
     $(document).on('click', '.subject-item', function() {
-        let code = $(this).data('code'); 
-        let name = $(this).data('name'); 
-        $('#subject-name').val(name); 
-        $('#subject-code').val(code); 
-        $('#subject-results').html('').hide(); 
+        let code = $(this).data('code');
+        let name = $(this).data('name');
+        $('#subject-name').val(name);
+        $('#subject-code').val(code);
+        $('#subject-results').html('').hide();
     });
     $(document).on('click', '.professor-item', function() {
-    let name = $(this).data('name');  
-    let phone = $(this).data('phone');  
-    $('#professor-name').val(name);  
-    $('#professor-code').val(phone); 
-    $('#professor-results').html('').hide();  
+    let name = $(this).data('name');
+    let phone = $(this).data('phone');
+    $('#professor-name').val(name);
+    $('#professor-code').val(phone);
+    $('#professor-results').html('').hide();
 });
 
 });
@@ -66,23 +66,24 @@ $(document).ready(function() {
 <!--=============== MAIN ===============-->
 <main class="mains container" id="main">
     <div class="cards">
-        <form id="exam-form" method="POST" action="{{ route('deliveryexams.delivery') }}">
-            @csrf
-            <h2 class="form-title">تسليم امتحان</h2>
-            @if(session('error'))
-                <div class="alert alert-danger">
-                    {{ session('error') }}
-                </div>
-            @endif
-
-         
-            @if (session('success'))
+                @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+         @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
+        <form id="exam-form" method="POST" action="{{ route('deliveryexams.delivery') }}">
+            @csrf
+            <h2 class="form-title">تسليم امتحان</h2>
 
-         
             <div class="form-group">
                 <label for="subject-name">اسم المادة</label>
                 <input
@@ -106,14 +107,14 @@ $(document).ready(function() {
                     required
                 />
                 <input type="hidden" id="professor-code" name="professorCode" />
-                <div id="professor-results" class="search-results"></div> 
+                <div id="professor-results" class="search-results"></div>
             </div>
             <div class="button-group">
                 <label for="">البرنامج:</label>
                 <button type="button" onclick="toggleDepartments('normal')">عادي</button>
                 <button type="button" onclick="toggleDepartments('special')">نوعي</button>
             </div>
-        
+
             <div id="normal-departments" class="department-list">
                 <h3>البرامج</h3>
                 @foreach ($departments as $department)
@@ -124,7 +125,7 @@ $(document).ready(function() {
                     @endif
                 @endforeach
             </div>
-        
+
             <div id="special-departments" class="department-list">
                 <h3>البرامج</h3>
                 @foreach ($departments as $department)

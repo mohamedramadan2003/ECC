@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{asset('layout/style.css')}}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" async></script>
     @yield('js1')
     <style>
@@ -33,7 +33,7 @@
     <!--=============== HEADER ===============-->
     <header class="header" id="header">
       <div class="header__container">
-       
+
         <ul class="header__nav">
           <li><a href="{{route('home.index')}}"> الرئسية </a></li>
           <li><a href=""> خدمات </a></li>
@@ -75,17 +75,17 @@
                 <i class="fa-solid fa-table-cells"></i>
                 <span>تسليم امتحان</span>
               </a>
-              <a href="{{route('viewexams.index')}}" class="sidebar__link">
+              <a href="{{ route('viewexams.show', ['programType' => 'عادي']) }}" class="sidebar__link">
                 <i class="fa-solid fa-eye"></i>
                 <span>عرض الامتحانات </span>
               </a>
-                              
+
               @endif
               <a href="{{route('viewexamsedit.edit')}}" class="sidebar__link">
                 <i class="fa-solid fa-square-check"></i>
                 <span>تعديل بيانات الامتحانات</span>
               </a>
-              
+
               @if(Auth::user()->usertype == 'admin')
               <a href="{{route('editdeliveryexams.create')}}" class="sidebar__link">
                 <i class="fa-solid fa-pen-to-square"></i>
@@ -114,7 +114,7 @@
             <i class="fa-solid fa-right-from-bracket"></i>
             <span>تسجيل الخروج</span>
           </button>
-        </div> 
+        </div>
         </form>
       </div>
     </nav>

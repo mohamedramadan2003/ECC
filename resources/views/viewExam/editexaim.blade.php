@@ -8,7 +8,7 @@
     a{
         text-decoration: none;
     }
-    
+
 .btn {
         padding: 8px 16px;
         border: none;
@@ -17,7 +17,7 @@
         font-size: 14px;
         margin: 0 5px;
         border-radius: 10px;
-        
+
     }
 
 
@@ -61,49 +61,49 @@
 }
 .button-groups {
     display: flex;
-    justify-content: center;  
-    align-items: center;      
-    gap: 20px;                
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .program-button {
-    padding: 15px 50px;        
-    font-size: 16px;          
-    color: white;             
-    background-color: #7379a5; 
-    border: none;             
-    border-radius: 5px;      
-    cursor: pointer;         
-    transition: background-color 0.3s ease; 
+    padding: 15px 50px;
+    font-size: 16px;
+    color: white;
+    background-color: #7379a5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .program-button:hover {
-    background-color: #3c2763; 
+    background-color: #3c2763;
 }
 .modal-effect {
-       
+
         margin: 0 auto;
-        text-align: center; 
+        text-align: center;
         display: block;
         background-color:rgb(39, 39, 133);
-        color: white;   
+        color: white;
 }
 .delivery-status {
         display: flex;
         gap: 15px;
         margin-bottom: 20px;
     }
-    
+
     .status-option {
         position: relative;
         flex: 1;
     }
-    
+
     .status-radio {
         position: absolute;
         opacity: 0;
     }
-    
+
     .status-label {
         display: flex;
         flex-direction: column;
@@ -117,34 +117,34 @@
         border: 2px solid #eee;
         background: #f9f9f9;
     }
-    
+
     .status-label i {
         font-size: 24px;
         margin-bottom: 8px;
     }
-    
+
     .delivered {
         color: #28a745;
     }
-    
-    .delivered:hover, 
+
+    .delivered:hover,
     .status-radio:checked ~ .delivered {
         background: rgba(40, 167, 69, 0.1);
         border-color: #28a745;
     }
-    
-    
+
+
     .not-delivered {
         color: #dc3545;
     }
-    
-    .not-delivered:hover, 
+
+    .not-delivered:hover,
     .status-radio:checked ~ .not-delivered {
         background: rgba(220, 53, 69, 0.1);
         border-color: #dc3545;
     }
-    
-  
+
+
     .status-radio:focus ~ .status-label {
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
@@ -158,7 +158,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const groupedExams = @json($groupedExams); 
+        const groupedExams = @json($groupedExams);
         const cardsContainer = document.querySelector('.cards');
         const paginationContainer = document.querySelector('.pagination-container');
         let today = new Date();
@@ -167,9 +167,9 @@ let month = String(today.getMonth() + 1).padStart(2, '0');
 let year = today.getFullYear();
 let todayFormatted = `${year}-${month}-${day}`;
         let currentPage = 1;
-        const examsPerPage = 1; 
+        const examsPerPage = 1;
 
-        
+
         const totalPages = Math.ceil(Object.keys(groupedExams).length / examsPerPage);
 
         function renderPagination() {
@@ -205,7 +205,7 @@ let todayFormatted = `${year}-${month}-${day}`;
         }
 
         function changePage(page) {
-            if (page < 1 || page > totalPages) return; 
+            if (page < 1 || page > totalPages) return;
             currentPage = page;
 
             renderExams();
@@ -214,8 +214,8 @@ let todayFormatted = `${year}-${month}-${day}`;
         }
 
         function renderExams() {
-        cardsContainer.innerHTML = ''; 
-        const userType = "{{ Auth::user()->usertype }}"; 
+        cardsContainer.innerHTML = '';
+        const userType = "{{ Auth::user()->usertype }}";
         const userName = "{{ Auth::user()->name }}";
         const startIndex = (currentPage - 1) * examsPerPage;
         const endIndex = startIndex + examsPerPage;
@@ -226,7 +226,7 @@ let todayFormatted = `${year}-${month}-${day}`;
 
             const section = document.createElement('section');
             section.classList.add('exam-section');
-            
+
             const examDateDiv = document.createElement('div');
             examDateDiv.classList.add('exam-date');
             examDateDiv.innerHTML = `<h4>اليوم: ${date}</h4>`;
@@ -259,17 +259,17 @@ let todayFormatted = `${year}-${month}-${day}`;
                     <td>${exam.coordinator.coordinator_name}</td>
                     <td>${exam.coordinator.phone_number}</td>
                     <td>${exam.name}<br>
-                         ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', { 
-                            month: 'long',    
-                            day: 'numeric',     
+                         ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', {
+                            month: 'long',
+                            day: 'numeric',
                           }).format(new Date(exam.time)) : ''}</td>
-                    <td>${exam.status == 1 ? '✔️' : '❌'}</td>
+                    <td>${exam.status == 1 ? '✅' : '❌'}</td>
                     <td>
                         ${exam.status === 0 || exam.time >= todayFormatted && userName == exam.name? `
                             @if(Auth::user()->usertype == 'user')
-                                <a href="#modaldemo8" class="modal-effect btn btn-edit" 
+                                <a href="#modaldemo8" class="modal-effect btn btn-edit"
                                 data-co_id="${exam.coordinator_id}" data-su_id="${exam.subject_id}"
-                                data-de_id="${exam.department_id}"> تعديل</a> 
+                                data-de_id="${exam.department_id}"> تعديل</a>
                             @endif
                         ` : `@if(Auth::user()->usertype == 'user')غير قابل للتعديل @endif`}
                         @if(Auth::user()->usertype == 'admin')
@@ -296,24 +296,24 @@ let todayFormatted = `${year}-${month}-${day}`;
     document.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('modal-effect')) {
             e.preventDefault();
-            var modalId = e.target.getAttribute('href');  
+            var modalId = e.target.getAttribute('href');
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
-            
+
             var co_id = e.target.dataset.co_id;
             var su_id = e.target.dataset.su_id;
             var de_id = e.target.dataset.de_id;
-            
+
             $('#modaldemo8').find('input[name="co_id"]').val(co_id);
             $('#modaldemo8').find('input[name="su_id"]').val(su_id);
             $('#modaldemo8').find('input[name="de_id"]').val(de_id);
         }
-        
-        
+
+
         if (e.target && e.target.classList.contains('delete-btn')) {
             e.preventDefault();
             const form = e.target.closest('.delete-form');
-            
+
             Swal.fire({
                 title: 'هل أنت متأكد؟',
                 text: "لن يمكنك استعادة هذا الامتحان!",
@@ -334,17 +334,17 @@ let todayFormatted = `${year}-${month}-${day}`;
     renderPagination();
 });
     $(document).ready(function() {
-        
+
         $(".modal-effect").click(function(event) {
             event.preventDefault();
-            
-            var modalId = $(this).attr("href");  
+
+            var modalId = $(this).attr("href");
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
             var co_id = $(this).data('co_id');
         var su_id = $(this).data('su_id');
         var de_id = $(this).data('de_id');
-        
+
         $('#modaldemo8').find('input[name="co_id"]').val(co_id);
         $('#modaldemo8').find('input[name="su_id"]').val(su_id);
         $('#modaldemo8').find('input[name="de_id"]').val(de_id);
@@ -365,7 +365,7 @@ let todayFormatted = `${year}-${month}-${day}`;
     </div>
 @endif
     <div class="cards">
-          
+
     </div>
     <!-- Basic modal -->
     <div class="modal fade" id="modaldemo8" tabindex="-1" aria-labelledby="modaldemo8Label" aria-hidden="true">
@@ -392,7 +392,7 @@ let todayFormatted = `${year}-${month}-${day}`;
                                 <span>سلم</span>
                             </label>
                         </div>
-                        
+
                         <div class="status-option">
                             <input type="radio" id="not-delivered" name="delivery_status" value="0" class="status-radio">
                             <label for="not-delivered" class="status-label not-delivered">
@@ -407,11 +407,16 @@ let todayFormatted = `${year}-${month}-${day}`;
                   <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
                 </div>
               </form>
-            </div>  
+            </div>
         </div>
     </div>
-  
+
     <!-- End Basic modal -->
+     @if (count($groupedExams) === 0)
+    <div class="alert alert-danger text-center fw-bold" role="alert">
+        لا يوجد امتحانات الآن
+    </div>
+@endif
     <div class="pagination-container">
     </div>
 </main>

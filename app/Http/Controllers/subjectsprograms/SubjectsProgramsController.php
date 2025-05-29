@@ -4,21 +4,21 @@ namespace App\Http\Controllers\subjectsPrograms;
 
 use App\Models\Subject;
 use App\Models\Department;
-use Illuminate\Http\Request;
 use App\Models\SubjectDepartment;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\SebjectProgramRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\v1\SebjectProgramRequest;
 
 class SubjectsProgramsController extends Controller
 {
     public function index(Request $request)
     {
-        
+
         $departments = Department::all();
-    
-        
+
+
         $departmentId = $request->get('department_id');
-    
+
         if ($departmentId) {
             $subjects = SubjectDepartment::with(['subject', 'department'])
                 ->where('department_id', $departmentId)
@@ -26,10 +26,10 @@ class SubjectsProgramsController extends Controller
         } else {
             $subjects = SubjectDepartment::with(['subject', 'department'])->paginate(14);
         }
-    
+
         return view('subjectsPrograms.add', [
             'subjects' => $subjects,
-            'departments' => $departments, 
+            'departments' => $departments,
         ]);
     }
 
@@ -37,7 +37,7 @@ class SubjectsProgramsController extends Controller
     {
         try {
             $result = $request->validated();
-    
+
             $subjects = Subject::firstOrCreate(
                 ['code' => $result['course_code']],
                 [
@@ -45,7 +45,7 @@ class SubjectsProgramsController extends Controller
                     'subject_name' => $result['course_name']
                 ]
             );
-    
+
             $programs = Department::firstOrCreate(
                 ['name' => $result['program_name']],
                 [
@@ -53,23 +53,23 @@ class SubjectsProgramsController extends Controller
                     'ProgramType' => $result['ProgramType']
                 ]
             );
-    
+
             $subjectprogram = SubjectDepartment::create([
                 'department_id' => $programs->id,
                 'subject_id' => $subjects->id,
                 'level' => $result['level'],
                 'term' => $result['term'],
             ]);
-    
+
             return redirect()->back()->with('success', 'تم إضافة المادة للبرنامج بنجاح');
-        
+
         } catch (\Illuminate\Database\QueryException $e) {
-            
+
             if ($e->getCode() == 23000) {
         return redirect()->back()->with('error', 'المادة موجوده بالفعل بكود مختلف بنفس الاسم ');
                 }
-    
-            
+
+
             return redirect()->back()->with('error', 'حدث خطأ غير متوقع، يرجى المحاولة لاحقاً.');
         }
     }
@@ -113,15 +113,15 @@ class SubjectsProgramsController extends Controller
     public function destroy($id)
     {
         $subjectprogram = SubjectDepartment::findOrFail($id);
-    
-        
+
+
         $subjectId = $subjectprogram->subject_id;
         $departmentId = $subjectprogram->department_id;
-    
-        
+
+
         $subjectprogram->delete();
-    
-        
+
+
         $subjectStillExists = SubjectDepartment::where('subject_id', $subjectId)->exists();
         if (!$subjectStillExists) {
             $subject = Subject::find($subjectId);
@@ -129,8 +129,8 @@ class SubjectsProgramsController extends Controller
                 $subject->delete();
             }
         }
-    
-        
+
+
         $departmentStillExists = SubjectDepartment::where('department_id', $departmentId)->exists();
         if (!$departmentStillExists) {
             $department = Department::find($departmentId);
@@ -138,8 +138,8 @@ class SubjectsProgramsController extends Controller
                 $department->delete();
             }
         }
-    
+
         return redirect()->back()->with('success', 'تم حذف المادة من البرنامج بنجاح، وتم حذف المادة أو القسم .');
     }
-    
+
 }

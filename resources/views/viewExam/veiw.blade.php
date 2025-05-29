@@ -8,7 +8,7 @@
     a{
         text-decoration: none;
     }
-    
+
 .btn {
         padding: 8px 16px;
         border: none;
@@ -17,7 +17,7 @@
         font-size: 14px;
         margin: 0 5px;
         border-radius: 10px;
-        
+
     }
 
 
@@ -61,49 +61,49 @@
 }
 .button-groups {
     display: flex;
-    justify-content: center;  
-    align-items: center;      
-    gap: 20px;                
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
 
 .program-button {
-    padding: 15px 50px;        
-    font-size: 16px;          
-    color: white;             
-    background-color: #7379a5; 
-    border: none;             
-    border-radius: 5px;      
-    cursor: pointer;         
-    transition: background-color 0.3s ease; 
+    padding: 15px 50px;
+    font-size: 16px;
+    color: white;
+    background-color: #7379a5;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .program-button:hover {
-    background-color: #3c2763; 
+    background-color: #3c2763;
 }
 .modal-effect {
-       
+
         margin: 0 auto;
-        text-align: center; 
+        text-align: center;
         display: block;
         background-color:rgb(39, 39, 133);
-        color: white;   
+        color: white;
 }
 .delivery-status {
         display: flex;
         gap: 15px;
         margin-bottom: 20px;
     }
-    
+
     .status-option {
         position: relative;
         flex: 1;
     }
-    
+
     .status-radio {
         position: absolute;
         opacity: 0;
     }
-    
+
     .status-label {
         display: flex;
         flex-direction: column;
@@ -117,34 +117,34 @@
         border: 2px solid #eee;
         background: #f9f9f9;
     }
-    
+
     .status-label i {
         font-size: 24px;
         margin-bottom: 8px;
     }
-    
+
     .delivered {
         color: #28a745;
     }
-    
-    .delivered:hover, 
+
+    .delivered:hover,
     .status-radio:checked ~ .delivered {
         background: rgba(40, 167, 69, 0.1);
         border-color: #28a745;
     }
-    
-    
+
+
     .not-delivered {
         color: #dc3545;
     }
-    
-    .not-delivered:hover, 
+
+    .not-delivered:hover,
     .status-radio:checked ~ .not-delivered {
         background: rgba(220, 53, 69, 0.1);
         border-color: #dc3545;
     }
-    
-  
+
+
     .status-radio:focus ~ .status-label {
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
@@ -163,9 +163,9 @@
         const paginationContainer = document.querySelector('.pagination-container');
 
         let currentPage = 1;
-        const examsPerPage = 1; 
+        const examsPerPage = 1;
 
-        
+
         const totalPages = Math.ceil(Object.keys(groupedExams).length / examsPerPage);
 
         function renderPagination() {
@@ -204,7 +204,7 @@
         }
 
         function changePage(page) {
-            if (page < 1 || page > totalPages) return; 
+            if (page < 1 || page > totalPages) return;
             currentPage = page;
 
             renderExams();
@@ -213,7 +213,7 @@
         }
 
         function renderExams() {
-            cardsContainer.innerHTML = ''; 
+            cardsContainer.innerHTML = '';
             const user = "{{ Auth::user()->usertype }}";
             const startIndex = (currentPage - 1) * examsPerPage;
             const endIndex = startIndex + examsPerPage;
@@ -224,7 +224,7 @@
 
                 const section = document.createElement('section');
                 section.classList.add('exam-section');
-                
+
                 const examDateDiv = document.createElement('div');
                 examDateDiv.classList.add('exam-date');
                 examDateDiv.innerHTML = `<h4>اليوم: ${date}</h4>`;
@@ -256,11 +256,11 @@
                         <td>${exam.coordinator.coordinator_name}</td>
                         <td>${exam.coordinator.phone_number}</td>
                         <td>${exam.name}<br>
-                             ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', { 
-    month: 'long',    
-    day: 'numeric',        
+                             ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', {
+    month: 'long',
+    day: 'numeric',
   }).format(new Date(exam.time)) : ''}</td>
-                        <td>${exam.status == 1 ? '✔️' : '❌'}</td>`;
+                        <td >${exam.status == 1 ? '✅' : '❌'}</td>`;
                     tableBody.appendChild(row);
                 });
 
@@ -278,21 +278,30 @@
 
 @section('content')
 <main class="main containers" id="main">
-    <div class="button-groups">
-        <a class="program-button" href="{{route('viewexams.index')}}">عادي</a>
-        <a class="program-button" href="{{route('viewexams.create')}}">نوعي</a>
-    </div>
+   <div class="button-groups">
+    <a class="program-button" href="{{ route('viewexams.show', ['programType' => 'عادي']) }}">عادي</a>
+    <a class="program-button" href="{{ route('viewexams.show', ['programType' => 'خاص']) }}">خاص</a>
+</div>
+
+
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
     <div class="cards">
-          
+
+
     </div>
-    <div class="pagination-container">
+      @if (count($groupedExams) === 0)
+    <div class="alert alert-danger text-center fw-bold" role="alert">
+        لا يوجد امتحانات الآن
     </div>
-    
+@endif
+
+ <div class="pagination-container">
+    </div>
+
 </main>
 <br></br><br></br>
 @endsection
