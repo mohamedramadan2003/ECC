@@ -9,149 +9,15 @@
         text-decoration: none;
     }
 
-.btn {
-        padding: 8px 16px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        margin: 0 5px;
-        border-radius: 10px;
 
-    }
-
-
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+.program-button.active {
+    background-color: #007bff; /* اللون النشط */
+    color: #fff;
+    border-color: #007bff;
 }
-
-.pagination .page-item {
-    margin: 0 5px;
-}
-
-.pagination .page-link {
-    padding: 12px 16px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #ccc8ec;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.pagination .page-link:hover {
-    background-color: #4a3f9e;
-    transform: translateY(-2px);
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #4131aa;
-    border-color: #4a3f9e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.pagination .page-item.disabled .page-link {
-    background-color: #e0e0e0;
-    color: #b0b0b0;
-    pointer-events: none;
-    cursor: not-allowed;
-}
-.button-groups {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-.program-button {
-    padding: 15px 50px;
-    font-size: 16px;
-    color: white;
-    background-color: #7379a5;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.program-button:hover {
-    background-color: #3c2763;
-}
-.modal-effect {
-
-        margin: 0 auto;
-        text-align: center;
-        display: block;
-        background-color:rgb(39, 39, 133);
-        color: white;
-}
-.delivery-status {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-
-    .status-option {
-        position: relative;
-        flex: 1;
-    }
-
-    .status-radio {
-        position: absolute;
-        opacity: 0;
-    }
-
-    .status-label {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 15px 10px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        text-align: center;
-        border: 2px solid #eee;
-        background: #f9f9f9;
-    }
-
-    .status-label i {
-        font-size: 24px;
-        margin-bottom: 8px;
-    }
-
-    .delivered {
-        color: #28a745;
-    }
-
-    .delivered:hover,
-    .status-radio:checked ~ .delivered {
-        background: rgba(40, 167, 69, 0.1);
-        border-color: #28a745;
-    }
-
-
-    .not-delivered {
-        color: #dc3545;
-    }
-
-    .not-delivered:hover,
-    .status-radio:checked ~ .not-delivered {
-        background: rgba(220, 53, 69, 0.1);
-        border-color: #dc3545;
-    }
-
-
-    .status-radio:focus ~ .status-label {
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-    }
 
 </style>
 @endsection
-
 @section('js')
 <script src="{{ asset('view/view.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -260,7 +126,7 @@
     month: 'long',
     day: 'numeric',
   }).format(new Date(exam.time)) : ''}</td>
-                        <td >${exam.status == 1 ? '✅' : '❌'}</td>`;
+                        <td style="font-size: 20px;">${exam.status == 1 ? '✅' : '❌'}</td>`;
                     tableBody.appendChild(row);
                 });
 
@@ -274,13 +140,20 @@
         renderPagination();
     });
 </script>
+
 @endsection
 
 @section('content')
 <main class="main containers" id="main">
    <div class="button-groups">
-    <a class="program-button" href="{{ route('viewexams.show', ['programType' => 'عادي']) }}">عادي</a>
-    <a class="program-button" href="{{ route('viewexams.show', ['programType' => 'خاص']) }}">خاص</a>
+    <a class="program-button {{ request()->route('programType') == 'عادي' ? 'active' : '' }}"
+       href="{{ route('viewexams.show', ['programType' => 'عادي']) }}">
+        عادي
+    </a>
+
+    <a class="program-button {{ request()->route('programType') == 'خاص' ? 'active' : '' }}"
+       href="{{ route('viewexams.show', ['programType' => 'خاص']) }}">
+نوعي    </a>
 </div>
 
 
@@ -303,5 +176,6 @@
     </div>
 
 </main>
-<br></br><br></br>
+
+<br/></br><br></br>
 @endsection

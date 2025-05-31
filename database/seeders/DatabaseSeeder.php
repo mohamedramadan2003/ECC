@@ -18,17 +18,17 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            
+
                 'name' => 'محمد السيد',
                 'email' => 'admin1@gmail.com',
-                'email_verified_at' => now(),  // تأكد من إضافة القيمة الصحيحة هنا
+                'email_verified_at' => now(),  
                 'password' => bcrypt('admin@1'),
                 'remember_token' => Str::random(10),
                 'usertype' => 'admin',
                 'created_at' => now(),
                 'updated_at' => now(),
-            
-            
+
+
         ]);
     }
 }

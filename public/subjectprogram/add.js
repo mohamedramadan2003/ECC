@@ -1,14 +1,14 @@
 $(document).ready(function() {
     $(".modal-effect").click(function(event) {
-        event.preventDefault(); 
-        var modalId = $(this).attr("href");  
+        event.preventDefault();
+        var modalId = $(this).attr("href");
         var modal = new bootstrap.Modal(document.querySelector(modalId));
         modal.show();
     });
 });
 function confirmDelete(event) {
-    event.preventDefault();  
-    
+    event.preventDefault();
+
     Swal.fire({
         title: 'هل أنت متأكد؟',
         text: "لن يمكنك استعادة هذه المادة!",

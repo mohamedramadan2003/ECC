@@ -6,7 +6,7 @@
     <link rel="icon" href="{{asset('layout/upload/Screenshot 2025-01-30 172054.png')}}" type="image/x-icon">
     <!--=============== REMIXICONS ===============-->
     <script src="https://kit.fontawesome.com/1f6757b42d.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{{asset('layout/all.min.css')}}" />
+    
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="{{asset('layout/style.css')}}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -54,7 +54,7 @@
         </button>
         <a  href="{{route('profile.edit')}}" class="sidebar__user">
           <div class="sidebar__img">
-            <img src="{{asset('layout/upload/perfil.png')}}" alt="image" />
+            <img src="{{asset('layout/upload/user-profile-icon-vector-avatar-600nw-2247726673.webp')}}" alt="image" />
           </div>
 
           <div class="sidebar__info">

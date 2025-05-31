@@ -40,6 +40,11 @@
         border: 1px solid #ccc;
         font-size: 14px;
     }
+    button.active {
+  background-color: #1609ce;
+  color: white;
+  border: none;
+}
 
 </style>
 @endsection
@@ -185,7 +190,7 @@
         required
     />
     <input type="hidden" id="subject-code" name="courseCode" />
-    <div id="subject-results" class="search-results"></div> 
+    <div id="subject-results" class="search-results"></div>
 </div>
 
 <div class="form-group">
@@ -207,11 +212,12 @@
       </div>
 
 
-      <div class="button-group">
-          <label for="">البرنامج:</label>
-          <button type="button" onclick="toggleDepartments('normal')">عادي</button>
-          <button type="button" onclick="toggleDepartments('special')">نوعي</button>
-      </div>
+    <div class="button-group">
+    <label for="">البرنامج:</label>
+    <button type="button" id="btn-normal" onclick="toggleDepartments('normal', this)">عادي</button>
+    <button type="button" id="btn-special" onclick="toggleDepartments('special', this)">نوعي</button>
+</div>
+
 
       <div id="normal-departments" class="department-list">
           <h3>البرامج</h3>

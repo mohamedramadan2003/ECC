@@ -272,3 +272,8 @@ form {
   background-color: #4f64db;
 }
 
+ button.active {
+  background-color: #1609ce;
+  color: white;
+  border: none;
+}

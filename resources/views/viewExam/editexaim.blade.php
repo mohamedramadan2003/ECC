@@ -148,6 +148,10 @@
     .status-radio:focus ~ .status-label {
         box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
     }
+    .program-button.active {
+    background-color: #007bff;
+    color: white;
+}
 
 </style>
 @endsection
@@ -263,7 +267,7 @@ let todayFormatted = `${year}-${month}-${day}`;
                             month: 'long',
                             day: 'numeric',
                           }).format(new Date(exam.time)) : ''}</td>
-                    <td>${exam.status == 1 ? '✅' : '❌'}</td>
+                    <td style="font-size: 20px;">${exam.status == 1 ? '✅' : '❌'}</td>
                     <td>
                         ${exam.status === 0 || exam.time >= todayFormatted && userName == exam.name? `
                             @if(Auth::user()->usertype == 'user')
@@ -355,10 +359,20 @@ let todayFormatted = `${year}-${month}-${day}`;
 
 @section('content')
 <main class="main containers" id="main">
-    <div class="button-groups">
-        <a class="program-button" href="{{route('viewexams.index.edit')}}">عادي</a>
-        <a class="program-button" href="{{route('viewexams.create.edit')}}">نوعي</a>
-    </div>
+   <div class="button-groups">
+    <a
+      class="program-button {{ Route::currentRouteName() == 'viewexams.index.edit' ? 'active' : '' }}"
+      href="{{ route('viewexams.index.edit') }}">
+      عادي
+    </a>
+
+    <a
+      class="program-button {{ Route::currentRouteName() == 'viewexams.create.edit' ? 'active' : '' }}"
+      href="{{ route('viewexams.create.edit') }}">
+      نوعي
+    </a>
+</div>
+
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}

@@ -52,16 +52,16 @@ Route::post('/deliveryexams',[DeliveryexamController::class , 'delivery'])
 ->name('deliveryexams.delivery');
 
 Route::delete('/viewexams', [ExameditController::class, 'destroy'])->name('viewexams.destroy');
-Route::get('/editdeliveryexams',[DeliveryexamController::class , 'create'])
+Route::get('/addexams',[DeliveryexamController::class , 'create'])
 ->name('editdeliveryexams.create');
 Route::post('/exams/store', [DeliveryexamController::class, 'store'])->name('exams.store');
 Route::get('/viewexams/edit',[ExameditController::class, 'edit'])
 ->name('viewexamsedit.edit');
 Route::post('/addexcel', [ExcelController::class, 'store'])->name('addexcel.store');
-
+// we
 Route::get('/wehave', [WeController::class , 'index']
 )->name('we.index');
-
+ // concat
 Route::get('/concat',[WeController::class , 'create'])
 ->name('concat.create');
 Route::post('/contact', [ContactController::class, 'send'])
@@ -70,7 +70,7 @@ Route::post('/contact', [ContactController::class, 'send'])
 
 Route::middleware(['UserMiddleware'])->group(function(){
 
-
+// subjectprogram
 Route::get('/addsubjects',[SubjectsProgramsController::class , 'index'])
 ->name('addsubjects.index');
 Route::post('/addsubjects',[SubjectsProgramsController::class , 'store'])

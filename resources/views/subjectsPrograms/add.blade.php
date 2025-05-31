@@ -14,20 +14,21 @@
    <main class="main containers" id="main">
 
     <div class="cards">
-     
-      <form action="{{ route('addsubjects.index') }}" method="get">
-        <div class="mb-3">
-            <label for="department_id" class="form-label">اختر البرنامج :</label>
-            <select name="department_id" class="form-control" onchange="this.form.submit()">
-                <option value="">اختر البرنامج</option>
-                @foreach($departments as $department)
-                    <option value="{{ $department->id }}" {{ request('department_id') == $department->id ? 'selected' : '' }}>
-                        {{ $department->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-    </form>
+
+    <form action="{{ route('addsubjects.index') }}" method="get">
+    <div class="mb-3">
+        <label for="department_id" class="form-label">اختر البرنامج:</label>
+        <select name="department_id" class="form-control scrollable-select" onchange="this.form.submit()">
+            <option value="">اختر البرنامج</option>
+            @foreach($departments as $department)
+                <option value="{{ $department->id }}" {{ request('department_id') == $department->id ? 'selected' : '' }}>
+                    {{ $department->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+</form>
+
       <section class="exam-section">
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -38,7 +39,7 @@
             </ul>
         </div>
     @endif
-    
+
     @if (session('error'))
     <div class="alert alert-danger">
         {{ session('error') }}
@@ -74,14 +75,14 @@
                 <td>{{ $subject->term }}</td>
                 <td>
                         <a href="{{route('subjects.edit', ['id' => $subject->id])}}" class="btn btn-edit" title="تعديل">تعديل</a>
-                        
+
                         <form style="display: inline" action="{{ route('subjects.destroy', ['id' => $subject->id]) }}" method="POST" id="deleteForm">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-delete" onclick="confirmDelete(event)">حذف</button>
                         </form>
-            
-                                   
+
+
                 </td>
             </tr>
             @endforeach
@@ -114,7 +115,7 @@
                     <label for="program_name" class="form-label">اسم البرنامج :</label>
                     <input type="text" class="form-control" id="program_name" name="program_name" required>
                 </div>
-                
+
                 <div class="mb-3">
                   <label for="ProgramType" class="form-label">نوع البرنامج :</label>
                   <select class="form-control" id="ProgramType" name="ProgramType" required>
@@ -122,7 +123,7 @@
                       <option value="خاص">نوعي</option>
                   </select>
                 </div>
-                
+
                 <div class="mb-3">
                     <label for="level" class="form-label">المستوى :</label>
                     <select class="form-control" id="level" name="level" required>
@@ -132,7 +133,7 @@
                         <option value="الرابع">الرابع</option>
                     </select>
                 </div>
-                
+
                 <div class="mb-3">
                     <label for="term" class="form-label">الفصل الدراسي :</label>
                     <select class="form-control" id="term" name="term" required>
@@ -140,18 +141,18 @@
                         <option value="الثاني">الثاني</option>
                     </select>
                 </div>
-                
+
             </div>
             <div class="modal-footer">
               <button type="submit" class="btn btn-primary">إضافة</button>
               <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
             </div>
           </form>
-        </div>  
+        </div>
     </div>
   </div>
   <!-- End Basic modal -->
-  
+
       </section>
       <!-- إضافة روابط التصفح -->
       <div class="pagination-container">

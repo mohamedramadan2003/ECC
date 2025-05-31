@@ -26,7 +26,7 @@ class DeliveryexamController extends Controller
     {
     $departments = Department::get();
 
-    return view('viewExam.edit', compact('departments'));
+    return view('viewExam.add', compact('departments'));
     }
     public function store(StoreExamRequest $request)
     {

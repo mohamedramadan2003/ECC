@@ -77,8 +77,8 @@ body.dark-theme {
   --shadow-color: hsla(228, 80%, 4%, 0.3);
 }
 
-/*========== 
-	Color changes in some parts of 
+/*==========
+	Color changes in some parts of
 	the website, in dark theme
 ==========*/
 .dark-theme .sidebar__content::-webkit-scrollbar {
@@ -162,14 +162,14 @@ body.dark-theme {
 }
 
 .header__nav li a:hover {
-  
+
     color: var(--first-color);
-  
+
 }
 
 .header__logo {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
 }
 .header__logo span {
@@ -229,7 +229,6 @@ body.dark-theme {
   position: relative;
   width: 50px;
   height: 50px;
-  background-color: var(--first-color);
   border-radius: 50%;
   overflow: hidden;
   display: grid;
@@ -238,7 +237,7 @@ body.dark-theme {
 
 .sidebar__img img {
   position: absolute;
-  width: 36px;
+  width: 50px;
   bottom: -1px;
 }
 
@@ -343,10 +342,10 @@ body.dark-theme {
 
 .card-container {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr; 
-  gap: 2rem; 
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
   padding: 3rem;
- 
+
   cursor: pointer;
 }
 

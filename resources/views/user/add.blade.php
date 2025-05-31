@@ -16,65 +16,65 @@
         font-size: 16px;
         margin: 0 5px;
         border-radius: 10px;
-        
+
     }
 
     .btn-edit {
-        background-color: #16879e; 
+        background-color: #16879e;
         color: white;
     }
 
     .btn-edit:hover {
         background-color: #51a6df;
-        color: white; 
+        color: white;
     }
 
     .btn-delete {
-        background-color: #ac2e3a; 
+        background-color: #ac2e3a;
         color: white;
     }
 
     .btn-delete:hover {
         background-color: #db2b3c;
-        color: white; 
+        color: white;
     }
 
     .btn-add-course {
         background-color: #28a745;
         color: white;
-        padding: 15px;  
+        padding: 15px;
         font-size: 18px;
         border: none;
         border-radius: 10px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         margin-top: 20px;
-        width: 100%; 
-        max-width: 800px; 
+        width: 100%;
+        max-width: 800px;
         display: block;
         text-align: center;
-        box-sizing: border-box; 
+        box-sizing: border-box;
     }
 
     .btn-add-course:hover {
-        background-color: #218838; 
+        background-color: #218838;
     }
 
     .modal-effect {
         width: 50%;
-        margin: 0 auto; 
-        text-align: center; 
+        margin: 0 auto;
+        text-align: center;
         display: block;
-        
+
 }
 .btn-custom {
-    background-color: #633a72; 
+    background-color: #633a72;
     color: white;
     border-radius: 10px;
 }
 
 .btn-custom:hover {
-    background-color: #bb49d8; 
+    background-color: #bb49d8;
     color: white;
 }
 
@@ -86,25 +86,25 @@
 
 .pagination .page-item .page-link {
     padding: 10px 12px;
-    font-size: 14px; 
-    color: #463c88;   
+    font-size: 14px;
+    color: #463c88;
     border: 1px solid #ddd;
     border-radius: 5px;
 }
 
 .pagination .page-item:hover .page-link {
-    background-color: #8850c7;  
-    color: white;           
+    background-color: #8850c7;
+    color: white;
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #593ba0;  
-    color: white;         
+    background-color: #593ba0;
+    color: white;
 }
 
 .pagination .page-item.disabled .page-link {
-    background-color: #f8f9fa; 
-    color: #6c757d;   
+    background-color: #f8f9fa;
+    color: #6c757d;
 }
 
 
@@ -116,18 +116,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" async></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    
+
 
     $(document).ready(function() {
         $(".modal-effect").click(function(event) {
             event.preventDefault();
-            var modalId = $(this).attr("href"); 
+            var modalId = $(this).attr("href");
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
         });
     });
-    function confirmDelete(event) {
-        event.preventDefault();  
+    function confirmDelete(event, userId) {
+        event.preventDefault();
         Swal.fire({
             title: 'هل أنت متأكد؟',
             text: "لن يمكنك استعادة هذا المستخدم!",
@@ -138,7 +138,7 @@
             reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
+                document.getElementById(`deleteForm-${userId}`).submit();
             }
         });
     }
@@ -149,7 +149,7 @@
    <main class="mains containers" id="main">
 
     <div class="cards">
-    
+
       <!-- جدول 1 -->
       <section class="exam-section">
         @if ($errors->any())
@@ -161,7 +161,7 @@
             </ul>
         </div>
     @endif
-    
+
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -185,16 +185,16 @@
                 <td>{{ $user->email }}</td>
                 <td>{{ $user->name }}</td>
                 <td>
-                      
+
                         <a href="{{route('user.edit', ['id' => $user->id])}}" class="btn btn-edit" title="تعديل">تعديل</a>
-                        
-                        <form style="display: inline" action="{{ route('user.destroy', ['id' => $user->id]) }}" method="POST" id="deleteForm">
+
+                        <form style="display: inline" action="{{ route('user.destroy', ['id' => $user->id]) }}" method="POST" id="deleteForm-{{ $user->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-delete" onclick="confirmDelete(event)">حذف</button>
+                            <button type="submit" class="btn btn-delete" onclick="confirmDelete(event, {{ $user->id }})">حذف</button>
                         </form>
-            
-                                   
+
+
                 </td>
             </tr>
             @endforeach
@@ -203,7 +203,7 @@
           </tbody>
         </table>
 
-      
+
         <!-- Basic modal -->
         <div class="modal fade" id="modaldemo8" tabindex="-1" aria-labelledby="modaldemo8Label" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -221,33 +221,33 @@
                             <label for="username" class="form-label">اسم المستخدم:</label>
                             <input type="text" class="form-control" id="username" name="name" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="email" class="form-label">البريد الإلكتروني:</label>
                             <input type="email" class="form-control" id="email" name="email" required>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="password" class="form-label">كلمة السر:</label>
                             <input type="password" class="form-control" id="password" name="password" required>
-                        </div>  
+                        </div>
                         <div class="mb-3">
                             <label for="password_confirmation" class="form-label">تأكيد كلمة السر:</label>
                             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
                         </div>
-                    
+
                     </div>
                     <div class="modal-footer">
                       <button type="submit" class="btn btn-primary">اضافة</button>
                       <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
                     </div>
                   </form>
-                </div>  
+                </div>
             </div>
         </div>
-      
+
         <!-- End Basic modal -->
-   
+
       </section>
                <div class="pagination-container">
                 {{ $users->links('pagination::bootstrap-4') }}
