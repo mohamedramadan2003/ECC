@@ -51,6 +51,9 @@ Route::get('/deliveryexams',[DeliveryexamController::class , 'index'])
 Route::post('/deliveryexams',[DeliveryexamController::class , 'delivery'])
 ->name('deliveryexams.delivery');
 
+
+Route::get('/delete-all-exams', [ExameditController::class, 'destroyAllExams'])->name('exams.deleteAll');
+
 Route::delete('/viewexams', [ExameditController::class, 'destroy'])->name('viewexams.destroy');
 Route::get('/addexams',[DeliveryexamController::class , 'create'])
 ->name('editdeliveryexams.create');

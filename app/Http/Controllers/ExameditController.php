@@ -33,6 +33,18 @@ class ExameditController extends Controller
 
     return redirect()->back()->with('error','حدث خطا عند الحذف');
 }
+
+public function destroyAllExams()
+{
+    try {
+        DB::table('coordinators_departments_subjects')->delete();
+
+        return redirect()->back()->with('success', 'تم حذف جميع الامتحانات بنجاح');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'حدث خطأ أثناء الحذف: ' . $e->getMessage());
+    }
+}
+
 public function edit()
 {
     $departments = Department::where('ProgramType', 'عادي')->get();
