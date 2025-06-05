@@ -14,6 +14,7 @@ use App\Http\Controllers\serch\SearchController;
 use App\Http\Controllers\viewExam\VeiwController;
 use App\Http\Controllers\addexam\AddexamController;
 use App\Http\Controllers\program\ProgramController;
+use App\Http\Controllers\ShowExam\ExamTableController;
 use App\Http\Controllers\subject\AddsubjectController;
 use App\Http\Controllers\addexam\DeliveryexamController;
 use App\Http\Controllers\subjectsPrograms\SubjectsProgramsController;
@@ -22,12 +23,14 @@ Route::middleware('auth')->group(function () {
 //  عرض صفحة الرئيسية
 Route::get('/', [HomeController::class , 'index'])
 ->name('home.index');
+
 // عرض صفحة التسليم
 Route::prefix('exams')->group(function() {
     Route::get('/{programType?}', [VeiwController::class, 'showExams'])
         ->where('programType', 'عادي|خاص')
         ->name('viewexams.show');
         });
+        
 Route::get('/viewexams/normal/edit',[VeiwController::class, 'index1'])
 ->name('viewexams.index.edit');
 Route::get('/viewexams/special/edit',[VeiwController::class, 'create1'])

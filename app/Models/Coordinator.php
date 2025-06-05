@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Coordinator extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'coordinator_name',
         'phone_number',

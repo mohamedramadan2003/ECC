@@ -7,6 +7,9 @@
     }
     </style>
     @endsection
+    @section('js1')
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      @endsection
 @section('content')
  <!--=============== MAIN ===============-->
  <main class="main containers" id="main">
@@ -37,6 +40,9 @@
           <div class="divider"></div>
         </a>
       </div>
+
+
+
       @if(Auth::user()->usertype == 'admin')
 
       <div class="cardz">
@@ -57,12 +63,50 @@
       </div>
       <div class="cardz">
         <a href="{{route('addcoordinator.index')}}">
-          <div class="card-icon">👤</div>
+          <div class="card-icon">👨‍🎓</div>
           <div class="card-title">اضافة دكتور</div>
           <div class="card-subtitle">إضافة بيانات دكتور</div>
           <div class="divider"></div>
         </a>
       </div>
+       <div style="width: 90%; margin: auto;">
+        <canvas id="examChart"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('examChart').getContext('2d');
+        const examChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: @json($dates),
+                datasets: [{
+                    label: 'عدد المواد غير المستلمة',
+                    data: @json($counts),
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'تاريخ الامتحان'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'عدد المواد'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
       <div class="cardz">
         <a href="{{route('addcoordinator.index')}}">
           <div class="card-icon">👤</div>
@@ -71,9 +115,6 @@
           <div class="divider"></div>
         </a>
       </div>
-      @endif
-      @if(Auth::user()->usertype == 'user')
-      <br> <br> <br><br> <br>
       @endif
     </div>
 

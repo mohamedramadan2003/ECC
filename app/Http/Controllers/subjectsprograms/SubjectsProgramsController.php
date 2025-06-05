@@ -69,7 +69,7 @@ class SubjectsProgramsController extends Controller
         return redirect()->back()->with('error', 'المادة موجوده بالفعل بكود مختلف بنفس الاسم ');
                 }
 
-
+                
             return redirect()->back()->with('error', 'حدث خطأ غير متوقع، يرجى المحاولة لاحقاً.');
         }
     }
