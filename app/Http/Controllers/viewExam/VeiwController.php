@@ -19,7 +19,7 @@ class VeiwController extends Controller
     {
         $departments = Department::where('ProgramType', $programType)->get();
 
-        $exams = Exam::with(['coordinator', 'subject', 'department'])
+        $exams = Exam::with(['coordinator', 'subject', 'department','location'])
             ->whereHas('department', function($query) use ($programType) {
                 $query->where('ProgramType', $programType);
             })
@@ -41,7 +41,7 @@ class VeiwController extends Controller
     {
         $departments = Department::where('ProgramType', 'عادي')->get();
 
-        $exams = Exam::with(['coordinator', 'subject', 'department'])
+        $exams = Exam::with(['coordinator', 'subject', 'department','location'])
             ->whereHas('department', function($query) {
                 $query->where('ProgramType', 'عادي');
             })
@@ -64,7 +64,7 @@ class VeiwController extends Controller
     {
         $departments = Department::where('ProgramType', 'خاص')->get();
 
-        $exams = Exam::with(['coordinator', 'subject', 'department'])
+        $exams = Exam::with(['coordinator', 'subject', 'department','location'])
             ->whereHas('department', function($query) {
                 $query->where('ProgramType', 'خاص');
             })
@@ -84,24 +84,20 @@ class VeiwController extends Controller
     {
 
 
-        $subject = Subject::where('id', $request->input('su_id'))->first();
-        $coordinator = Coordinator::where('id', $request->input('co_id'))->first();
-        $department = Department::where('id', $request->input('de_id'))->first();
+        $exam = Exam::where('id', $request->input('co_id'))->first();
+
         $status = $request->input('delivery_status');
+
         if($status == 1)
         {
             $updated = DB::table('coordinators_departments_subjects')
-            ->where('subject_id', $subject->id)
-            ->where('coordinator_id', $coordinator->id)
-            ->where('department_id', $department->id)
+            ->where('id', $exam->id)
             ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name]);
         }
         if($status == 0)
         {
             $updated = DB::table('coordinators_departments_subjects')
-            ->where('subject_id', $subject->id)
-            ->where('coordinator_id', $coordinator->id)
-            ->where('department_id', $department->id)
+            ->where('id', $exam->id)
             ->update(['status' => 0, 'time' => null, 'name' => 'لا يوجد بيانات']);
         }
         return redirect()->back()->with('success','تم تحديث التسليم بنجاح');

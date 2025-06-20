@@ -20,7 +20,6 @@
 
     }
 
-
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -248,6 +247,9 @@ let todayFormatted = `${year}-${month}-${day}`;
                     <th>البرنامج</th>
                     <th>اسم الدكتور</th>
                     <th>رقم الدكتور</th>
+                    <th>اسم المكان</th>
+                    <th>اسم االلجنة</th>
+                    <th>العدد</th>
                     <th>اسم المستلم</th>
                     <th>حالة التسليم</th>
                     <th>الاجراءات</th>
@@ -262,7 +264,10 @@ let todayFormatted = `${year}-${month}-${day}`;
                     <td>${exam.subject.subject_name}</td>
                     <td>${exam.department.name}</td>
                     <td>${exam.coordinator.coordinator_name}</td>
-                    <td>${exam.coordinator.phone_number}</td>
+                    <td>${exam.coordinator.phone_number} </td>
+                     <td>${exam.location.place_name}</td>
+                    <td>  اللجنة (${exam.location.committee_number})  ${exam.location.committee_code} </td>
+                    <td>${exam.student_number}</td>
                     <td>${exam.name}<br>
                          ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', {
                             month: 'long',
@@ -273,17 +278,14 @@ let todayFormatted = `${year}-${month}-${day}`;
                         ${exam.status === 0 || exam.time >= todayFormatted && userName == exam.name? `
                             @if(Auth::user()->usertype == 'user')
                                 <a href="#modaldemo8" class="modal-effect btn btn-edit"
-                                data-co_id="${exam.coordinator_id}" data-su_id="${exam.subject_id}"
-                                data-de_id="${exam.department_id}"> تعديل</a>
+                                data-co_id="${exam.id}"> تعديل</a>
                             @endif
                         ` : `@if(Auth::user()->usertype == 'user')غير قابل للتعديل @endif`}
                         @if(Auth::user()->usertype == 'admin')
                             <form action="{{ route('viewexams.destroy') }}" method="POST" class="delete-form">
                                 @csrf
                                 @method('DELETE')
-                                <input type="hidden" name="coordinator_id" value="${exam.coordinator_id}">
-                                <input type="hidden" name="subject_id" value="${exam.subject_id}">
-                                <input type="hidden" name="department_id" value="${exam.department_id}">
+                                <input type="hidden" name="id" value="${exam.id}">
                                 <button type="submit" class="btn btn-danger delete-btn">حذف</button>
                             </form>
                         @endif
@@ -306,12 +308,10 @@ let todayFormatted = `${year}-${month}-${day}`;
             modal.show();
 
             var co_id = e.target.dataset.co_id;
-            var su_id = e.target.dataset.su_id;
-            var de_id = e.target.dataset.de_id;
+
 
             $('#modaldemo8').find('input[name="co_id"]').val(co_id);
-            $('#modaldemo8').find('input[name="su_id"]').val(su_id);
-            $('#modaldemo8').find('input[name="de_id"]').val(de_id);
+
         }
 
 
@@ -347,12 +347,8 @@ let todayFormatted = `${year}-${month}-${day}`;
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
             var co_id = $(this).data('co_id');
-        var su_id = $(this).data('su_id');
-        var de_id = $(this).data('de_id');
 
         $('#modaldemo8').find('input[name="co_id"]').val(co_id);
-        $('#modaldemo8').find('input[name="su_id"]').val(su_id);
-        $('#modaldemo8').find('input[name="de_id"]').val(de_id);
         });
     });
 </script>

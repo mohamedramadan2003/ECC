@@ -27,7 +27,7 @@
             type="text"
             id="subject-code"
             name="name"
-            value="{{ old('name', $user->name) }}"  
+            value="{{ old('name', $user->name) }}"
             placeholder="اسم المستخدم"
             required
           />
@@ -38,8 +38,8 @@
           <input
             type="text"
             id="subject-name"
-            name="email"
-            value="{{ old('email', $user->email) }}" 
+            name="username"
+            value="{{ old('email', $user->username) }}"
             placeholder="الايميل"
             required
           />

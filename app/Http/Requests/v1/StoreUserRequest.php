@@ -18,8 +18,8 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:users,email'],
+            'name'     => ['required', 'string', 'max:100'],
+            'username'    => ['required', 'string', 'max:80', 'unique:users,username'],
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }
@@ -28,7 +28,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name.required'     => 'اسم المستخدم فارغ',
-            'email.unique'      => 'الايميل مسجل مسبقاً',
+            'username.unique'      => 'الايميل مسجل مسبقاً',
             'password.confirmed'=> 'كلمة المرور غير متطابقة',
         ];
     }

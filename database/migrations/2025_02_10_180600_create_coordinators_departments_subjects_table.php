@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('coordinators_departments_subjects', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('coordinator_id');
             $table->unsignedBigInteger('subject_id');
             $table->unsignedBigInteger('department_id');
@@ -19,15 +20,15 @@ return new class extends Migration
             $table->string('name')->default('لا يوجد بيانات');
             $table->date('time')->nullable();
             $table->boolean('status')->default(0);
-        
+            $table->integer('student_number');
             // المفتاح الأساسي المركب
-            $table->primary(['coordinator_id', 'subject_id', 'department_id']);
-        
+
+
             // المفاتيح الخارجية
             $table->foreign('coordinator_id')->references('id')->on('coordinators')->onDelete('cascade');
             $table->foreign('subject_id')->references('id')->on('subjects')->onDelete('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
-        
+
         });
     }
 

@@ -10,7 +10,7 @@ class Exam extends Model
     protected $fillable = ['coordinator_id', 'subject_id', 'department_id', 'Exam_Date', 'status'];
     public $timestamps = false;
 
-    
+
 
     // تحديد العلاقات
     public function coordinator()
@@ -21,13 +21,17 @@ class Exam extends Model
 
     public function subject()
     {
-        return $this->belongsTo(Subject::class, 'subject_id', 'id'); 
+        return $this->belongsTo(Subject::class, 'subject_id', 'id');
     }
-    
+
 
 
     public function department()
 {
     return $this->belongsTo(Department::class, 'department_id', 'id');
+}
+    public function location()
+{
+    return $this->belongsTo(Location::class, 'committee_number', 'committee_number');
 }
 }

@@ -277,3 +277,20 @@ form {
   color: white;
   border: none;
 }
+
+    .department-list label {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .department-list input[type="radio"] {
+        transform: scale(1.4);
+        margin-left: 8px;
+    }
+
+    .department-list h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+

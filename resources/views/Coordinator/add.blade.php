@@ -16,66 +16,65 @@
         font-size: 16px;
         margin: 0 5px;
         border-radius: 10px;
-        
+
     }
 
     .btn-edit {
-        background-color: #16879e; 
+        background-color: #16879e;
         color: white;
     }
 
     .btn-edit:hover {
         background-color: #51a6df;
-        color: white; 
+        color: white;
     }
 
     .btn-delete {
-        background-color: #ac2e3a; 
+        background-color: #ac2e3a;
         color: white;
     }
 
     .btn-delete:hover {
         background-color: #db2b3c;
-        color: white; 
+        color: white;
     }
 
     .btn-add-course {
-        background-color: #28a745; 
+        background-color: #28a745;
         color: white;
-        padding: 15px;  
+        padding: 15px;
         font-size: 18px;
         border: none;
         border-radius: 10px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         margin-top: 20px;
-        width: 100%;  
-        max-width: 800px; 
+        width: 100%;
+        max-width: 800px;
         display: block;
         text-align: center;
-        box-sizing: border-box; 
+        box-sizing: border-box;
     }
 
     .btn-add-course:hover {
-        background-color: #218838; 
+        background-color: #218838;
     }
 
-    
     .modal-effect {
-        width: 50%; 
-        margin: 0 auto; 
-        text-align: center; 
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
         display: block;
-        
+
 }
 .btn-custom {
-    background-color: #633a72;  
+    background-color: #633a72;
     color: white;
     border-radius: 10px;
 }
 
 .btn-custom:hover {
-    background-color: #bb49d8; 
+    background-color: #bb49d8;
     color: white;
 }
 
@@ -86,28 +85,27 @@
 }
 
 .pagination .page-item .page-link {
-    padding: 10px 12px;  
-    font-size: 14px;    
-    color: #463c88;   
-    border: 1px solid #ddd; 
-    border-radius: 5px;  
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #463c88;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .pagination .page-item:hover .page-link {
-    background-color: #8850c7;  
-    color: white;               
+    background-color: #8850c7;
+    color: white;
 }
 
 .pagination .page-item.active .page-link {
-    background-color: #593ba0;  
-    color: white;              
+    background-color: #593ba0;
+    color: white;
 }
 
 .pagination .page-item.disabled .page-link {
-    background-color: #f8f9fa;  
-    color: #6c757d;            
+    background-color: #f8f9fa;
+    color: #6c757d;
 }
-
 
 
 </style>
@@ -121,16 +119,16 @@
 <script>
     $(document).ready(function() {
         $(".modal-effect").click(function(event) {
-            event.preventDefault(); 
-            var modalId = $(this).attr("href");  
+            event.preventDefault();
+            var modalId = $(this).attr("href");
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
         });
     });
     function confirmDelete(event) {
-        event.preventDefault();  
-        
-       
+        event.preventDefault();
+
+
         Swal.fire({
             title: 'هل أنت متأكد؟',
             text: "لن يمكنك استعادة هذا الدكتور!",
@@ -192,14 +190,14 @@
                 <td>{{ $Coordinator->phone_number }}</td>
                 <td>
                         <a href="{{route('coordinator.edit', ['id' => $Coordinator->id])}}" class="btn btn-edit" title="تعديل">تعديل</a>
-                        
+
                         <form style="display: inline" action="{{ route('coordinator.destroy', ['id' => $Coordinator->id]) }}" method="POST" id="deleteForm">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-delete" onclick="confirmDelete(event)">حذف</button>
                         </form>
-            
-                                   
+
+
                 </td>
             </tr>
             @endforeach
@@ -224,28 +222,28 @@
                           <label for="username" class="form-label">اسم الدكتور:</label>
                           <input type="text" class="form-control" id="username" name="coordinator_name" required>
                       </div>
-                      
+
                       <div class="mb-3">
                           <label for="email" class="form-label"> رقم الدكتور:</label>
                           <input type="text" class="form-control" id="email" name="phone_number" required>
-                      </div>                  
-                  
+                      </div>
+
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">اضافة</button>
                     <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
                   </div>
                 </form>
-              </div>  
+              </div>
           </div>
       </div>
-    
+
       <!-- End Basic modal -->
       </section>
       <div class="pagination-container">
         {{ $Coordinators->appends(request()->query())->links('pagination::bootstrap-4') }}
     </div>
-    
+
     </div>
   </main>
 

@@ -7,6 +7,7 @@ use App\Models\Exam;
 use App\Models\Subject;
 use App\Models\Department;
 use App\Models\Coordinator;
+use App\Models\Location;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -17,35 +18,36 @@ class ExamImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
     {
-        static $rowNumber = 1; 
+        static $rowNumber = 1;
         if (is_numeric($row['a'])) {
-            
+
             $examDate = Carbon::instance(Date::excelToDateTimeObject($row['a']));
         } else {
-            
+
             if (preg_match('/=DATE\((\d{4}),(\d{1,2}),(\d{1,2})\)/', $row['a'], $matches)) {
-                
+
                 $examDate = Carbon::createFromFormat('Y-m-d', "{$matches[1]}-{$matches[2]}-{$matches[3]}");
             } else {
-                
+
                 try {
                     $examDate = Carbon::parse($row['a']);
                 } catch (\Exception $e) {
-                    
+
                     $examDate = null;
                 }
             }
         }
-    
-        
+
+
         if (!$examDate || $examDate->lt(today())) {
             return redirect()->back()->with('error', 'لا يمكن إدخال تاريخ قديم للامتحان');
         }
-    
+
         $subject = Subject::where('code', $row['b'])->first();
         $coordinator = Coordinator::where('phone_number', $row['c'])->first();
         $department = Department::where('name', $row['d'])->first();
-
+        $locations = Location::where('committee_number', $row['e'])->first();
+        $number =  $row['f'];
         $errors = [];
 
         if (!$subject) {
@@ -59,23 +61,29 @@ class ExamImport implements ToModel, WithHeadingRow
         if (!$department) {
             $errors[] = "القسم باسم {$row['d']} غير موجود.";
         }
-
+        if (!$locations) {
+            $errors[] = "لجنة باسم {$row['e']} غير موجود.";
+        }
+         if (!$number) {
+            $errors[] = "ادخل عدد اللجنة ";
+        }
         if (!empty($errors)) {
-            Session::push('import_errors',"الصف رقم {$rowNumber}: " . implode(', ', $errors)); 
+            Session::push('import_errors',"الصف رقم {$rowNumber}: " . implode(', ', $errors));
             $rowNumber++;
-            return null; 
+            return null;
         }
 
         $existingExam = Exam::where('coordinator_id', $coordinator->id)
                             ->where('subject_id', $subject->id)
                             ->where('department_id', $department->id)
+                            ->where('committee_number',$locations->committee_number)
                             ->whereDate('exam_date', $examDate)
-                            ->first();
+                            ->exists();
 
         if ($existingExam) {
             Session::push('import_errors', "الصف رقم {$rowNumber}: الامتحان موجود بالفعل للمنسق {$coordinator->phone_number} للمادة {$subject->code} في القسم {$department->name} بتاريخ {$examDate}");
             $rowNumber++;
-            return null; 
+            return null;
         }
 
         try {
@@ -84,13 +92,15 @@ class ExamImport implements ToModel, WithHeadingRow
                 'subject_id' => $subject->id,
                 'department_id' => $department->id,
                 'exam_date' => $examDate,
+                'committee_number'   => $locations->committee_number ,
+                'student_number'   => $number,
             ]);
-            $rowNumber++; 
-            return null; 
+            $rowNumber++;
+            return null;
         } catch (\Exception $e) {
             Session::push('import_errors', 'حدث خطأ أثناء إضافة الامتحان.');
-            $rowNumber++; 
-            return null; 
+            $rowNumber++;
+            return null;
         }
     }
 }

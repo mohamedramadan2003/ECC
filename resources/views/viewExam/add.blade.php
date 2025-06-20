@@ -1,3 +1,7 @@
+@php
+    $committeesList = ['A', 'B', 'C', 'D', 'E','F','G'];
+    $studentNumbers = range(5, 50, 5); // 5, 10, 15, ..., 50
+@endphp
 @extends('layouts.home')
 @section('title', 'اضافة امتحان')
 @section('css')
@@ -33,6 +37,22 @@
         position: relative;
         margin-bottom: 20px;
     }
+      .department-list label {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .department-list input[type="checkbox"] {
+        transform: scale(1.4);
+        margin-left: 8px;
+    }
+
+    .department-list h3 {
+        font-size: 22px;
+        margin-bottom: 15px;
+    }
+
 
     #subject-name, #professor-name {
         padding: 10px;
@@ -45,7 +65,57 @@
   color: white;
   border: none;
 }
+.number-input {
+  width: 100%;
+  max-width: 300px;
+  padding: 12px 15px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+  text-align: left;
+  direction: ltr;
+  margin-bottom: 20px;
+}
 
+.number-input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+.committee-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+  }
+
+  .committee-row input {
+      flex: 1;
+  }
+
+  .committee-row button {
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      padding: 8px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+  }
+
+  .committee-row button:hover {
+      background: #c82333;
+  }
+  .committee-row select {
+      flex: 1;
+      min-width: 150px;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+  }
 </style>
 @endsection
 @section('js')
@@ -111,6 +181,28 @@
 });
 
 });
+
+    let committeeIndex = 1;
+
+    function addCommittee() {
+        const wrapper = document.getElementById('committees-wrapper');
+
+        const div = document.createElement('div');
+        div.classList.add('committee-row');
+        div.innerHTML = `
+        <input type="number" name="committees[${committeeIndex}][numbers]" placeholder="رقم اللجنة" class="number-input" min="0" required>
+        <input type="number" name="committees[${committeeIndex}][students]" placeholder="عدد الطلاب" class="number-input" min="0" required>
+            <button type="button" onclick="removeCommittee(this)">❌ حذف</button>
+        `;
+        wrapper.appendChild(div);
+        committeeIndex++;
+    }
+
+    function removeCommittee(button) {
+        button.parentElement.remove();
+    }
+
+
 </script>
 @endsection
 @section('content')
@@ -212,6 +304,18 @@
       </div>
 
 
+    <hr>
+<h4>اللجان:</h4>
+<div id="committees-wrapper">
+    <div class="committee-row">
+        <input type="number" name="committees[0][numbers]" placeholder="رقم اللجنة" class="number-input" min="0" required>
+        <input type="number" name="committees[0][students]" placeholder="عدد الطلاب" class="number-input" min="0" required>
+        <button type="button" onclick="removeCommittee(this)">❌ حذف</button>
+    </div>
+</div>
+<button type="button" onclick="addCommittee()" class="btn btn-secondary mt-2">➕ إضافة لجنة</button>
+<hr>
+
     <div class="button-group">
     <label for="">البرنامج:</label>
     <button type="button" id="btn-normal" onclick="toggleDepartments('normal', this)">عادي</button>
@@ -224,7 +328,7 @@
           @foreach ($departments as $department)
               @if($department->ProgramType == 'عادي')
                   <label>
-                    <input type="checkbox" name="department_id[]" value="{{ $department->id }}"> {{ $department->name }}
+                    <input type="radio" name="department_id" value="{{ $department->id }}"> {{ $department->name }}
                 </label>
               @endif
           @endforeach
@@ -235,12 +339,12 @@
           @foreach ($departments as $department)
               @if($department->ProgramType == 'خاص')
                   <label>
-                      <input type="checkbox" name="department_id[]" value="{{ $department->id }}"> {{ $department->name }}
+                      <input type="radio" name="department_id" value="{{ $department->id }}"> {{ $department->name }}
                   </label>
               @endif
           @endforeach
       </div>
-
+        <br>
       <div class="actions">
           <button type="submit" class="action-btn submit-btn">اضاقة</button>
       </div>

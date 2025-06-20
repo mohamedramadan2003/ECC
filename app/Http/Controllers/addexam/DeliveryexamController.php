@@ -5,6 +5,7 @@ namespace App\Http\Controllers\addexam;
 use App\Models\Exam;
 use App\Models\Subject;
 use Twilio\Rest\Client;
+use App\Models\Location;
 use App\Models\Department;
 use App\Models\Coordinator;
 use Illuminate\Http\Request;
@@ -20,50 +21,47 @@ class DeliveryexamController extends Controller
     public function index()
     {
         $departments = Department::get();
-        return view('addExam.delivery' , ['departments'=>$departments]);
+
+        return view('addExam.delivery' , ['departments'=>$departments ]);
     }
     public function create()
     {
     $departments = Department::get();
-
     return view('viewExam.add', compact('departments'));
     }
     public function store(StoreExamRequest $request)
     {
         $validated = $request->validated();
-        $subject = Subject::where('code', $request->courseCode)->first();
-        $coordinator = Coordinator::where('phone_number', $request->professorCode)->first();
-        $department = Department::where('id', $request->department_id)->first();
-
-
+        $subject     = Subject::firstWhere('code', $validated['courseCode']);
+        $coordinator = Coordinator::firstWhere('phone_number', $validated['professorCode']);
+        $department  = Department::find($validated['department_id']);
+        $committeeNumbers = collect($validated['committees'])->pluck('numbers')->toArray();
     $existingExams = DB::table('coordinators_departments_subjects')
     ->where('coordinator_id', $coordinator->id)
     ->where('subject_id', $subject->id)
-    ->whereIn('department_id', $request->department_id)
-    ->pluck('department_id')
-    ->toArray();
+    ->where('department_id', $validated['department_id'])
+    ->whereIn('committee_number', $committeeNumbers)
+    ->exists();
+        if($existingExams)
+        {
+            return redirect()->back()->with('error','الامتحان موجود بالفعل');
+        }
+    $data = [];
 
-if (!empty($existingExams)) {
-    $existingDepartmentNames = Department::whereIn('id', $existingExams)
-        ->pluck('name')
-        ->implode(', ');
-
-    return back()->with('error', "الامتحان موجود بالفعل للأقسام: {$existingDepartmentNames}!");
+foreach ($request->committees as $committee) {
+    $data[] = [
+        'subject_id'       => $subject->id,
+        'coordinator_id'   => $coordinator->id,
+        'department_id'    => $department->id,
+        'exam_date'        => $validated['exam_date'],
+        'committee_number'   => $committee['numbers'],
+        'student_number'   => $committee['students'],
+    ];
 }
 
+Exam::insert($data);
 
-$examData = array_map(function($deptId) use ($coordinator, $subject, $request) {
-    return [
-        'coordinator_id' => $coordinator->id,
-        'subject_id' => $subject->id,
-        'department_id' => $deptId,
-        'exam_date' => $request->exam_date,
-    ];
-}, $request->department_id);
-
-DB::table('coordinators_departments_subjects')->insert($examData);
-
-return back()->with('success', 'تم إضافة الامتحان بنجاح لجميع الأقسام المحددة!');
+return back()->with('success', 'تم إضافة الامتحان بنجاح لجميع اللجان المحددة!');
 }
 
     public function delivery(DeliveryRequest $request)
@@ -98,40 +96,10 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
                     ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name]);
 
         if ($updated) {
-            $this->sendSmsToProfessor($professorCode);
-
             return redirect()->back()->with('success', 'تم تسليم الامتحان بنجاح');
         }
 
         return redirect()->back()->with('error', 'لم يتم العثور على السجل المطلوب');
-    }
-
-
-
-   private function sendSmsToProfessor($professorCode)
-{
-
-        $sid = env('TWILIO_SID');
-        $authToken = env('TWILIO_AUTH_TOKEN');
-        $twilioNumber = env('TWILIO_PHONE_NUMBER');
-        $phoneNumber = '+20' . substr($professorCode, 1);
-
-
-        $client = new Client($sid, $authToken);
-
-        $message = "The exam for the subject was successfully delivered.";
-
-        try {
-            $client->messages->create(
-                $phoneNumber,
-                [
-                    'from' => $twilioNumber,
-                    'body' => $message,
-                ]
-            );
-        } catch (\Exception $e) {
-            Log::error("Error sending SMS: " . $e->getMessage());
-        }
     }
 
 }

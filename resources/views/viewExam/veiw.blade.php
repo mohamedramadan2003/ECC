@@ -102,11 +102,14 @@
                 const tableHead = document.createElement('thead');
                 tableHead.innerHTML = `
                     <tr>
-                        <th>كود المادة</th>
-                        <th>اسم المادة</th>
+                        <th>كود المقرر</th>
+                        <th>اسم المقرر</th>
                         <th>البرنامج</th>
                         <th>اسم الدكتور</th>
                         <th>رقم الدكتور</th>
+                        <th>اسم المكان</th>
+                        <th>اسم االلجنة</th>
+                        <th>العدد</th>
                         <th>اسم المستلم</th>
                         <th>حالة التسليم</th>
                     </tr>`;
@@ -119,8 +122,11 @@
                         <td>${exam.subject.code}</td>
                         <td>${exam.subject.subject_name}</td>
                         <td>${exam.department.name}</td>
-                        <td>${exam.coordinator.coordinator_name}</td>
-                        <td>${exam.coordinator.phone_number}</td>
+                        <td>${exam.coordinator.coordinator_name} </td>
+                        <td>${exam.coordinator.phone_number} </td>
+                        <td>${exam.location.place_name}</td>
+                        <td>  اللجنة (${exam.location.committee_number})  ${exam.location.committee_code} </td>
+                        <td>${exam.student_number}</td>
                         <td>${exam.name}<br>
                              ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', {
     month: 'long',

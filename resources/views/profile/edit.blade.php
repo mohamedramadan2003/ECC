@@ -4,13 +4,6 @@
 @section('css')
 <style>
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-}
-
 body {
   background-color: #f5f7fa;
   color: #333;
@@ -20,7 +13,7 @@ body {
 
 .profile-container {
   max-width: 800px;
-  margin: 150px auto;
+  margin: 150px 400px;
   padding: 0 1rem;
 }
 
@@ -91,7 +84,7 @@ body {
         class="profile-input"
         name="email"
         placeholder="البريد الإلكتروني"
-        value="{{ old('email', auth()->user()->email) }}"
+        value="{{ old('email', auth()->user()->username) }}"
         required
         autocomplete="email"
       />

@@ -24,9 +24,11 @@ class StoreExamRequest extends FormRequest
         return [
             'courseCode'      => 'required|exists:subjects,code',
             'professorCode'   => 'required|exists:coordinators,phone_number',
-            'exam_date'       => 'required|date|after_or_equal:today',
-            'department_id'   => 'required|array|min:1',
-            'department_id.*' => 'exists:departments,id',
+            'exam_date'       => 'required|date',
+            'department_id'   => 'required|exists:departments,id',
+            'committees' => 'required|array|min:1',
+            'committees.*.numbers' => 'required|integer|min:0',
+            'committees.*.students' => 'required|integer|min:0',
         ];
     }
 
@@ -41,12 +43,22 @@ class StoreExamRequest extends FormRequest
 
             'exam_date.required'       => 'يرجى إدخال تاريخ الامتحان.',
             'exam_date.date'           => 'يرجى إدخال تاريخ صالح للامتحان.',
-            'exam_date.after_or_equal' => 'تاريخ الامتحان يجب أن يكون اليوم أو في المستقبل.',
 
             'department_id.required'   => 'يرجى تحديد القسم.',
-            'department_id.array'      => 'صيغة القسم غير صحيحة.',
             'department_id.min'        => 'يرجى تحديد قسم واحد على الأقل.',
             'department_id.*.exists'   => 'القسم المدخل غير موجود في قاعدة البيانات.',
+
+             'committees.required' => 'يجب إدخال بيانات اللجان.',
+            'committees.array' => 'بيانات اللجان يجب أن تكون على شكل مصفوفة.',
+            'committees.min' => 'يجب إدخال لجنة واحدة على الأقل.',
+
+            'committees.*.numbers.required' => 'رقم اللجنة مطلوب.',
+            'committees.*.numbers.integer' => 'رقم اللجنة يجب أن يكون عددًا صحيحًا.',
+            'committees.*.numbers.min' => 'رقم اللجنة لا يمكن أن يكون سالبًا.',
+
+            'committees.*.students.required' => 'عدد الطلاب مطلوب.',
+            'committees.*.students.integer' => 'عدد الطلاب يجب أن يكون عددًا صحيحًا.',
+            'committees.*.students.min' => 'عدد الطلاب لا يمكن أن يكون سالبًا.',
         ];
     }
 }

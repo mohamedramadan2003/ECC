@@ -15,41 +15,41 @@
         <div class="login-container">
             <div class="login-card">
                 <div class="logo">
-                    
+
                     <i class="fa-solid fa-server"></i>
                     <h2 style="color: rgb(158, 158, 167); text-shadow: 1px 2px rgb(86, 86, 90);">ECC</h2>
                 </div>
                 <h2>تسجيل الدخول</h2>
                 <p>أدخل بياناتك للوصول إلى حسابك</p>
-                 
+
                     @if ($errors->any())
-                    
+
                         <p class="alert alert-danger">البريد الإلكتروني أو كلمة المرور غير صحيحة</p>
                     @endif
 
                 <form action="{{route('login')}}" method="POST" id="login-form">
                     @csrf
                     <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="البريد الإلكتروني">
+                        <input type="text" id="email" name="username" placeholder="البريد الإلكتروني">
                         <i class="fas fa-envelope"></i>
-                       
+
                     </div>
                     <div class="form-group">
                         <input type="password" id="password" name="password" placeholder="كلمة المرور">
                         <i class="fas fa-lock"></i>
                         <p id="password-error" class="error-message" style="display: none; color: red;"></p>
                     </div>
-                    
+
                     <div class="forgot-password">
                         <a href="{{route('password.request')}}">نسيت كلمة المرور؟</a>
                     </div>
                     <button  type="submit" class="login-button ">تسجيل الدخول</button>
                 </form>
-               
+
             </div>
         </div>
     </div>
-    
+
 </body>
 </html>
 

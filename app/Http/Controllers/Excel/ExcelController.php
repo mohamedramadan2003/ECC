@@ -12,18 +12,17 @@ class ExcelController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'excel_file' => 'required|file|mimes:xlsx,csv', 
+            'excel_file' => 'required|file|mimes:xlsx,csv',
         ]);
 
         try {
-            Excel::import(new ExamImport, $request->file('excel_file')); 
+            Excel::import(new ExamImport, $request->file('excel_file'));
 
             $errors = session('import_errors', []);
             if (empty($errors)) {
                 return back()->with('success', 'تم إضافة الامتحانات بنجاح!');
             } else {
-                return back()->with('error', 'حدثت مشاكل أثناء تحميل البيانات.')
-                             ->with('import_errors', $errors);
+                return back()->with('import_errors', $errors);
             }
 
         } catch (\Exception $e) {

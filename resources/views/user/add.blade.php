@@ -182,7 +182,7 @@
         @else
             @foreach ($users as $user)
             <tr>
-                <td>{{ $user->email }}</td>
+                <td>{{ $user->username }}</td>
                 <td>{{ $user->name }}</td>
                 <td>
 
@@ -219,17 +219,17 @@
                         @csrf
                         <div class="mb-3">
                             <label for="username" class="form-label">اسم المستخدم:</label>
-                            <input type="text" class="form-control" id="username" name="name" required>
+                            <input type="text" class="form-control" id="username" name="name" required placeholder="اسم المستخدم">
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">البريد الإلكتروني:</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <label for="email" class="form-label">البريد :</label>
+                            <input type="text" class="form-control" id="email" name="username" required placeholder="البريد">
                         </div>
 
                         <div class="mb-3">
                             <label for="password" class="form-label">كلمة السر:</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                            <input type="password" class="form-control" id="password" name="password" required required placeholder="كلمة المرور">
                         </div>
                         <div class="mb-3">
                             <label for="password_confirmation" class="form-label">تأكيد كلمة السر:</label>

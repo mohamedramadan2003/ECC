@@ -13,7 +13,7 @@ class CoordinatorController extends Controller
     $query = Coordinator::query();
 
     if ($request->has('search') && $request->search != '') {
-        $query->where('coordinator_name', 'like', '%' . $request->search . '%');
+        $query->where('coordinator_name', 'like', value:  $request->search . '%');
     }
 
     $Coordinators = $query->paginate(8);

@@ -14,14 +14,15 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::select('id','name', 'email')->where('usertype', 'user')->paginate(6);
+        $users = User::select('id','name', 'username', )->where('usertype', 'user')->paginate(6);
         return view('user.add', ['users' => $users]);
     }
     public function store(StoreUserRequest $request)
     {
+        $username = $request->input('username');
         User::create([
             'name'              => $request->name,
-            'email'             => $request->email,
+            'username'             => $username ,
             'password'          => Hash::make($request->password),
             'email_verified_at' => now(),
         ]);
@@ -41,7 +42,7 @@ public function update(UpdateUserRequest $request, $id)
 
         $user->update([
             'name'  => $request->name,
-            'email' => $request->email,
+            'username' => $request->username,
         ]);
 
         return redirect()->route('user.index')->with('success', 'تم تحديث المستخدم بنجاح!');

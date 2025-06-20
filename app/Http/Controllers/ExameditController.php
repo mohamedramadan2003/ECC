@@ -12,20 +12,14 @@ class ExameditController extends Controller
 {
     public function destroy(Request $request)
 {
-    $coordinatorId = $request->input('coordinator_id');
-    $subjectId = $request->input('subject_id');
-    $departmentId = $request->input('department_id');
+    $Id = $request->input('id');
 
-    $exam = Exam::where('coordinator_id', $coordinatorId)
-                ->where('subject_id', $subjectId)
-                ->where('department_id', $departmentId)
+    $exam = Exam::where('id', $Id)
                 ->exists();
 
     if ($exam) {
         DB::table('coordinators_departments_subjects')
-        ->where('coordinator_id', $coordinatorId)
-        ->where('subject_id', $subjectId)
-        ->where('department_id', $departmentId)
+        ->where('id', $Id)
         ->delete();
 
         return redirect()->back()->with('success', 'تم حذف الامتحان بنجاح');
@@ -49,7 +43,7 @@ public function edit()
 {
     $departments = Department::where('ProgramType', 'عادي')->get();
 
-    $exams = Exam::with(['coordinator', 'subject', 'department'])
+    $exams = Exam::with(['coordinator', 'subject', 'department','location'])
         ->whereHas('department', function($query) {
             $query->where('ProgramType', 'عادي');
         })

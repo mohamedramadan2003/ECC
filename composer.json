@@ -11,7 +11,6 @@
         "laravel/tinker": "^2.9",
         "maatwebsite/excel": "^3.1",
         "symfony/http-client": "*",
-        "symfony/mailgun-mailer": "*",
         "twilio/sdk": "^8.3"
     },
     "require-dev": {

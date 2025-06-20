@@ -19,12 +19,11 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name'  => ['required', 'string', 'max:80'],
-            'email' => [
+            'username' => [
                 'required',
                 'string',
-                'email',
-                'max:255',
-                Rule::unique('users', 'email')->ignore($this->route('id')),
+                'max:100',
+                Rule::unique('users', 'username')->ignore($this->route('id')),
             ],
         ];
     }
@@ -33,7 +32,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'name.required'  => 'اسم المستخدم فارغ',
-            'email.unique'   => 'الايميل موجود بالفعل',
+            'username.unique'   => 'الايميل موجود بالفعل',
         ];
     }
 }

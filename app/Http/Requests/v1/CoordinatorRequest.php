@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\v1;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CoordinatorRequest extends FormRequest
@@ -16,12 +17,12 @@ class CoordinatorRequest extends FormRequest
 
     public function rules()
     {
-        $isUpdate = $this->route('coordinator') !== null;
-        $id = $this->route('coordinator'); 
+        $id = $this->route('id');
 
         return [
             'coordinator_name' => ['nullable', 'string', 'regex:/^[\x{0600}-\x{06FF}\s]+$/u', 'max:150'],
-            'phone_number' => ['nullable', 'string', 'regex:/^(01)[0-9]{9}$/', 'size:11', 'unique:coordinators,phone_number,' . $id],
+            'phone_number' => ['nullable', 'string', 'regex:/^(01)[0-9]{9}$/', 'size:11',
+            Rule::unique('coordinators', 'phone_number')->ignore($id)],
         ];
     }
 

@@ -40,38 +40,10 @@
           <div class="divider"></div>
         </a>
       </div>
-
-
-
-      @if(Auth::user()->usertype == 'admin')
-
-      <div class="cardz">
-        <a href="{{route('editdeliveryexams.create')}}">
-          <div class="card-icon">💻</div>
-          <div class="card-title">اضافة امتحان </div>
-          <div class="card-subtitle">إضافة موعد اختبار</div>
-          <div class="divider"></div>
-        </a>
-      </div>
-      <div class="cardz">
-        <a href="{{route('addsubjects.index')}}">
-          <div class="card-icon">📖</div>
-          <div class="card-title">اضافة مادة</div>
-          <div class="card-subtitle">إضافة مادة جديدة</div>
-          <div class="divider"></div>
-        </a>
-      </div>
-      <div class="cardz">
-        <a href="{{route('addcoordinator.index')}}">
-          <div class="card-icon">👨‍🎓</div>
-          <div class="card-title">اضافة دكتور</div>
-          <div class="card-subtitle">إضافة بيانات دكتور</div>
-          <div class="divider"></div>
-        </a>
-      </div>
-       <div style="width: 90%; margin: auto;">
+       @if(Auth::user()->usertype == 'user')
+        <div style="width: 90%; margin: auto;">
         <canvas id="examChart"></canvas>
-    </div>
+        </div>
 
     <script>
         const ctx = document.getElementById('examChart').getContext('2d');
@@ -107,11 +79,52 @@
             }
         });
     </script>
+    @endif
+      @if(Auth::user()->usertype == 'user')
+            <br><br><br><br><br>
+      @endif
+
+
+      @if(Auth::user()->usertype == 'admin')
+
+      <div class="cardz">
+        <a href="{{route('editdeliveryexams.create')}}">
+          <div class="card-icon">💻</div>
+          <div class="card-title">اضافة امتحان </div>
+          <div class="card-subtitle">إضافة موعد اختبار</div>
+          <div class="divider"></div>
+        </a>
+      </div>
+      <div class="cardz">
+        <a href="{{route('addsubjects.index')}}">
+          <div class="card-icon">📖</div>
+          <div class="card-title">اضافة مادة</div>
+          <div class="card-subtitle">إضافة مادة جديدة</div>
+          <div class="divider"></div>
+        </a>
+      </div>
+      <div class="cardz">
+        <a href="{{route('addcoordinator.index')}}">
+          <div class="card-icon">👨‍🎓</div>
+          <div class="card-title">اضافة دكتور</div>
+          <div class="card-subtitle">إضافة بيانات دكتور</div>
+          <div class="divider"></div>
+        </a>
+      </div>
       <div class="cardz">
         <a href="{{route('addcoordinator.index')}}">
           <div class="card-icon">👤</div>
           <div class="card-title">اضافة مستخدم</div>
           <div class="card-subtitle">إضافة بيانات المستخدم</div>
+          <div class="divider"></div>
+        </a>
+      </div>
+
+       <div class="cardz">
+        <a href="{{route('addcoordinator.index')}}">
+          <div class="card-icon">🏛️</div>
+          <div class="card-title">اضافة لجنة</div>
+          <div class="card-subtitle">إضافة بيانات مكان الامتحان</div>
           <div class="divider"></div>
         </a>
       </div>
