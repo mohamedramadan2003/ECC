@@ -66,6 +66,7 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
 
     public function delivery(DeliveryRequest $request)
     {
+
         $validated = $request->validated();
         $courseCode = $request->input('courseCode');
         $professorCode = $request->input('professorCode');
@@ -81,7 +82,8 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
         $existingRecord = DB::table('coordinators_departments_subjects')
                             ->where('subject_id', $subject->id)
                             ->where('coordinator_id', $coordinator->id)
-                            ->whereIn('department_id',$request->department_id)
+                            ->where('department_id',$request->department_id)
+                            ->whereIn('committee_number', collect($request->committees)->pluck('numbers'))
                             ->where('status', 1)
                             ->exists();
 
@@ -92,7 +94,8 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
         $updated = DB::table('coordinators_departments_subjects')
                     ->where('subject_id', $subject->id)
                     ->where('coordinator_id', $coordinator->id)
-                    ->whereIn('department_id',$request->department_id)
+                    ->where('department_id',$request->department_id)
+                    ->whereIn('committee_number', collect($request->committees)->pluck('numbers'))
                     ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name]);
 
         if ($updated) {

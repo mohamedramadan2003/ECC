@@ -24,8 +24,9 @@ class DeliveryRequest extends FormRequest
         return [
             'courseCode'       => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
             'professorCode'    => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
-            'department_id'    => 'required|array|min:1',
-            'department_id.*'  => 'exists:departments,id',
+            'department_id'    => 'required|exists:departments,id',
+             'committees' => 'required|array|min:1',
+            'committees.*.numbers' => 'required|integer|min:0',
         ];
     }
 
@@ -43,9 +44,15 @@ class DeliveryRequest extends FormRequest
             'professorCode.max'      => 'رقم المنسق لا يمكن أن يتجاوز 255 حرفاً.',
 
             'department_id.required' => 'يرجى إدخال البرنامج.',
-            'department_id.array'    => 'صيغة البرنامج غير صحيحة.',
             'department_id.min'      => 'يرجى اختيار برنامج واحد على الأقل.',
             'department_id.*.exists' => 'البرنامج المختار غير موجود في قاعدة البيانات.',
+            'committees.required' => 'يجب إدخال بيانات اللجان.',
+            'committees.array' => 'بيانات اللجان يجب أن تكون على شكل مصفوفة.',
+            'committees.min' => 'يجب إدخال لجنة واحدة على الأقل.',
+
+            'committees.*.numbers.required' => 'رقم اللجنة مطلوب.',
+            'committees.*.numbers.integer' => 'رقم اللجنة يجب أن يكون عددًا صحيحًا.',
+            'committees.*.numbers.min' => 'رقم اللجنة لا يمكن أن يكون سالبًا.',
         ];
     }
 }

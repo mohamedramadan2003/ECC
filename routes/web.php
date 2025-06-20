@@ -14,6 +14,7 @@ use App\Http\Controllers\serch\SearchController;
 use App\Http\Controllers\viewExam\VeiwController;
 use App\Http\Controllers\addexam\AddexamController;
 use App\Http\Controllers\program\ProgramController;
+use App\Http\Controllers\commitees\CommiteeController;
 use App\Http\Controllers\ShowExam\ExamTableController;
 use App\Http\Controllers\subject\AddsubjectController;
 use App\Http\Controllers\addexam\DeliveryexamController;
@@ -30,7 +31,7 @@ Route::prefix('exams')->group(function() {
         ->where('programType', 'عادي|خاص')
         ->name('viewexams.show');
         });
-        
+
 Route::get('/viewexams/normal/edit',[VeiwController::class, 'index1'])
 ->name('viewexams.index.edit');
 Route::get('/viewexams/special/edit',[VeiwController::class, 'create1'])
@@ -113,6 +114,12 @@ Route::delete('program/delete/{id}', [ProgramController::class, 'destroy'])
     Route::patch('/subject/update/{id}', [AddsubjectController::class, 'update'])->name('subject.update');
     Route::delete('subject/delete/{id}', [AddsubjectController::class, 'destroy'])->name('subject.destroy');
 */
+
+Route::get('/commitees',[CommiteeController::class , 'index'])
+->name('commitees.index');
+Route::post('/commitees',[CommiteeController::class , 'store'])
+->name('commitees.store');
+Route::delete('commitees/delete/{committee_number}', [CommiteeController::class, 'destroy'])->name('commitees.destroy');
     //coordinators
     Route::get('/addcoordinators',[CoordinatorController::class , 'index'])
     ->name('addcoordinator.index');
