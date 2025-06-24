@@ -80,13 +80,12 @@ body {
       />
 
       <input
-        type="email"
+        type="text"
         class="profile-input"
-        name="email"
+        name="username"
         placeholder="البريد الإلكتروني"
-        value="{{ old('email', auth()->user()->username) }}"
+        value="{{ old('username', auth()->user()->username) }}"
         required
-        autocomplete="email"
       />
 
       <button type="submit" class="profile-btn">تحديث المعلومات</button>

@@ -14,7 +14,7 @@
  <!--=============== MAIN ===============-->
  <main class="main containers" id="main">
     <div class="card-container">
-      @if(Auth::user()->usertype == 'user')
+
       <div class="cardz">
         <a href="{{ route('viewexams.show', ['programType' => 'عادي']) }}">
           <div class="card-icon">👁‍🗨</div>
@@ -31,7 +31,6 @@
           <div class="divider"></div>
         </a>
       </div>
-      @endif
       <div class="cardz">
         <a href="{{route('viewexams.index.edit')}}">
           <div class="card-icon">📑</div>

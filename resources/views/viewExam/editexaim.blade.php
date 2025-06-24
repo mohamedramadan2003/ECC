@@ -3,88 +3,15 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('view/view.css') }}" />
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <style>
     a{
         text-decoration: none;
     }
-
-.btn {
-        padding: 8px 16px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        margin: 0 5px;
-        border-radius: 10px;
-
-    }
-
-.pagination-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.pagination .page-item {
-    margin: 0 5px;
-}
-
-.pagination .page-link {
-    padding: 12px 16px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #ccc8ec;
-    border: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.pagination .page-link:hover {
-    background-color: #4a3f9e;
-    transform: translateY(-2px);
-}
-
-.pagination .page-item.active .page-link {
-    background-color: #4131aa;
-    border-color: #4a3f9e;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.pagination .page-item.disabled .page-link {
-    background-color: #e0e0e0;
-    color: #b0b0b0;
-    pointer-events: none;
-    cursor: not-allowed;
-}
-.button-groups {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-.program-button {
-    padding: 15px 55px;
-    margin-left: 30px;
-    font-size: 16px;
-    color: white;
-    background-color: #7379a5;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.program-button:hover {
-    background-color: #3c2763;
-}
 .modal-effect {
-
+    width: 100%;
         margin: 0 auto;
         text-align: center;
-        display: block;
+        display: inline;
         background-color:rgb(39, 39, 133);
         color: white;
 }
@@ -152,7 +79,9 @@
     background-color: #007bff;
     color: white;
 }
-
+.btn-danger{
+    display: inline;
+}
 </style>
 @endsection
 
@@ -274,22 +203,24 @@ let todayFormatted = `${year}-${month}-${day}`;
                             day: 'numeric',
                           }).format(new Date(exam.time)) : ''}</td>
                     <td style="font-size: 20px;">${exam.status == 1 ? '✅' : '❌'}</td>
-                    <td>
-                        ${exam.status === 0 || exam.time >= todayFormatted && userName == exam.name? `
-                            @if(Auth::user()->usertype == 'user')
-                                <a href="#modaldemo8" class="modal-effect btn btn-edit"
-                                data-co_id="${exam.id}"> تعديل</a>
-                            @endif
-                        ` : `@if(Auth::user()->usertype == 'user')غير قابل للتعديل @endif`}
-                        @if(Auth::user()->usertype == 'admin')
-                            <form action="{{ route('viewexams.destroy') }}" method="POST" class="delete-form">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="id" value="${exam.id}">
-                                <button type="submit" class="btn btn-danger delete-btn">حذف</button>
-                            </form>
-                        @endif
-                    </td>
+                   <td>
+    <div class="d-flex gap-2 align-items-center">
+        ${(exam.status === 0 || exam.time >= todayFormatted && userName == exam.name) ? `
+            <a href="#modaldemo8" class="modal-effect btn btn-primary btn-sm"
+               data-co_id="${exam.id}">تعديل</a>
+        ` : `<span class="text-muted">غير قابل للتعديل</span>`}
+
+        @if(Auth::user()->usertype == 'admin')
+            <form action="{{ route('viewexams.destroy') }}" method="POST" class="delete-form m-0">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="id" value="${exam.id}">
+                <button type="submit" class="btn btn-danger btn-sm delete-btn">حذف</button>
+            </form>
+        @endif
+    </div>
+</td>
+
                 `;
                 tableBody.appendChild(row);
             });

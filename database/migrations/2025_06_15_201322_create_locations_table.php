@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->unsignedInteger('committee_number')->primary();
             $table->string('place_name');
-            $table->char('committee_code',1);
+            $table->char('committee_code',1)->nullable();
         });
     }
 

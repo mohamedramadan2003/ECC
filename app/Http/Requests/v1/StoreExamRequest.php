@@ -27,7 +27,7 @@ class StoreExamRequest extends FormRequest
             'exam_date'       => 'required|date',
             'department_id'   => 'required|exists:departments,id',
             'committees' => 'required|array|min:1',
-            'committees.*.numbers' => 'required|integer|min:0',
+            'committees.*.numbers' => 'required|integer|min:0|exists:locations,committee_number',
             'committees.*.students' => 'required|integer|min:0',
         ];
     }
@@ -59,6 +59,7 @@ class StoreExamRequest extends FormRequest
             'committees.*.students.required' => 'عدد الطلاب مطلوب.',
             'committees.*.students.integer' => 'عدد الطلاب يجب أن يكون عددًا صحيحًا.',
             'committees.*.students.min' => 'عدد الطلاب لا يمكن أن يكون سالبًا.',
+            'committees.*.numbers.exists' => 'رقم اللجنة غير موجود .',
         ];
     }
 }

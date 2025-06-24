@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="{{asset('layout/upload/Screenshot 2025-01-30 172054.png')}}" type="image/x-icon">
     <!--=============== REMIXICONS ===============-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" referrerpolicy="no-referrer">
+
     <script src="https://kit.fontawesome.com/1f6757b42d.js" crossorigin="anonymous"></script>
-    
+
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="{{asset('layout/style.css')}}" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -129,7 +131,7 @@
       <li><a href="{{route('concat.create')}}">التواصل</a></li>
     </ul>
   </footer>
-</main>
+
 
 <!--=============== MAIN JS ===============-->
 

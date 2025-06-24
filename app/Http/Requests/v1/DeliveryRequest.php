@@ -26,7 +26,7 @@ class DeliveryRequest extends FormRequest
             'professorCode'    => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
             'department_id'    => 'required|exists:departments,id',
              'committees' => 'required|array|min:1',
-            'committees.*.numbers' => 'required|integer|min:0',
+            'committees.*.numbers' => 'required|integer|min:0|exists:locations,committee_number',
         ];
     }
 
@@ -53,6 +53,8 @@ class DeliveryRequest extends FormRequest
             'committees.*.numbers.required' => 'رقم اللجنة مطلوب.',
             'committees.*.numbers.integer' => 'رقم اللجنة يجب أن يكون عددًا صحيحًا.',
             'committees.*.numbers.min' => 'رقم اللجنة لا يمكن أن يكون سالبًا.',
+            'committees.*.numbers.exists' => 'رقم اللجنة غير موجود .',
+
         ];
     }
 }

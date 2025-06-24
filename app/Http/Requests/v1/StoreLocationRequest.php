@@ -25,7 +25,7 @@ class StoreLocationRequest extends FormRequest
 
         'committee_number' => 'required|integer|min:1|unique:locations,committee_number',
         'place_name' => 'required|string|max:255',
-        'committee_code' => 'required|string|size:1|regex:/^[A-Z]$/',
+        'committee_code' => 'nullable|string|size:1|regex:/^[A-Z]$/',
         ];
     }
 
@@ -41,7 +41,6 @@ class StoreLocationRequest extends FormRequest
         'place_name.string' => 'اسم المكان يجب أن يكون نصًا.',
         'place_name.max' => 'اسم المكان يجب ألا يتجاوز 255 حرفًا.',
 
-        'committee_code.required' => 'رمز اللجنة مطلوب.',
         'committee_code.string' => 'رمز اللجنة يجب أن يكون نصًا.',
         'committee_code.size' => 'رمز اللجنة يجب أن يكون حرفًا واحدًا فقط.',
         'committee_code.regex' => 'رمز اللجنة يجب أن يكون حرفًا إنجليزيًا كبيرًا فقط (A-Z).',

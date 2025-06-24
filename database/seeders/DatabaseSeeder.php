@@ -28,21 +28,6 @@ class DatabaseSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
         ]);
-        Location::factory()->create([
-                'committee_number' => 1,
-                'place_name' => 'مدرج 1',
-                'committee_code' => 'B',
-            ]);
-            Location::factory()->create([
-                'committee_number' => 2,
-                'place_name' => 'مدرج 2',
-                'committee_code' => 'B',
-            ]);
-            Location::factory()->create([
-                'committee_number' => 3,
-                'place_name' => 'مدرج 3',
-                'committee_code' => 'B',
-            ]);
 
     }
 }

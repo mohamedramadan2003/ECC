@@ -223,7 +223,7 @@
                       </div>
                        <div class="mb-3">
                           <label for="email" class="form-label"> رمز اللجنة:</label>
-                          <input type="text" class="form-control" id="email" name="committee_code" required placeholder="ادخل رمز اللجنة مثل B">
+                          <input type="text" class="form-control" id="email" name="committee_code"  placeholder="ادخل رمز اللجنة مثل B">
                       </div>
 
                   </div>
@@ -239,7 +239,7 @@
       <!-- End Basic modal -->
       </section>
       <div class="pagination-container">
-        {{ $locations->links() }}
+        {{ $locations->links('pagination::bootstrap-4') }}
 
     </div>
 
