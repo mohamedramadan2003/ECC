@@ -63,23 +63,6 @@
           <div class="divider"></div>
         </a>
       </div>
-      <div class="cardz">
-        <a href="{{route('addcoordinator.index')}}">
-          <div class="card-icon">👨‍🎓</div>
-          <div class="card-title">اضافة دكتور</div>
-          <div class="card-subtitle">إضافة بيانات دكتور</div>
-          <div class="divider"></div>
-        </a>
-      </div>
-      <div class="cardz">
-        <a href="{{route('addcoordinator.index')}}">
-          <div class="card-icon">👤</div>
-          <div class="card-title">اضافة مستخدم</div>
-          <div class="card-subtitle">إضافة بيانات المستخدم</div>
-          <div class="divider"></div>
-        </a>
-      </div>
-
        <div class="cardz">
         <a href="{{route('commitees.index')}}">
           <div class="card-icon">🏛️</div>
