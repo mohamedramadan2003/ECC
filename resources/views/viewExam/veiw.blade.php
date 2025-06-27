@@ -114,7 +114,7 @@ td{
                         <th>اسم االلجنة</th>
                         <th>العدد</th>
                         <th>اسم المستلم</th>
-                        <th>نوع الاسئلة</th>
+                        <th>نوع الامتحان</th>
                         <th>حالة التسليم</th>
                     </tr>`;
                 table.appendChild(tableHead);
