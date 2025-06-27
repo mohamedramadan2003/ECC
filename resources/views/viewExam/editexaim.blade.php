@@ -82,6 +82,10 @@
 .btn-danger{
     display: inline;
 }
+td{
+    font-size: 18px;
+    font-weight: bold;
+}
 </style>
 @endsection
 
@@ -195,7 +199,7 @@ let todayFormatted = `${year}-${month}-${day}`;
                     <td>${exam.coordinator.coordinator_name}</td>
                     <td>${exam.coordinator.phone_number} </td>
                      <td>${exam.location.place_name}</td>
-                    <td>  اللجنة (${exam.location.committee_number})  ${exam.location.committee_code} </td>
+                    <td>  اللجنة (${exam.location.committee_number ?? ''})  ${exam.location.committee_code ?? ''} </td>
                     <td>${exam.student_number}</td>
                     <td>${exam.name}<br>
                          ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', {
@@ -335,49 +339,67 @@ let todayFormatted = `${year}-${month}-${day}`;
     <div class="cards">
 
     </div>
-    <!-- Basic modal -->
-    <div class="modal fade" id="modaldemo8" tabindex="-1" aria-labelledby="modaldemo8Label" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal-content-demo">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="modaldemo8Label">تعديل التسليم</h6>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                  <form action="{{route('view.update')}}" method="post">
-                    @csrf
-                    @method('put')
-                    <input type="hidden" name="co_id" id="course_id" value="">
-                    <input type="hidden" name="su_id" id="course_id" value="">
-                    <input type="hidden" name="de_id" id="course_id" value="">
-                    <div class="delivery-status">
-                        <div class="status-option">
-                            <input type="radio" id="delivered" name="delivery_status" value="1" class="status-radio">
-                            <label for="delivered" class="status-label delivered">
-                                <i class="fas fa-check-circle"></i>
-                                <span>سلم</span>
-                            </label>
-                        </div>
+   <!-- Basic modal -->
+<div class="modal fade" id="modaldemo8" tabindex="-1" aria-labelledby="modaldemo8Label" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-content-demo">
+      <div class="modal-header">
+        <h6 class="modal-title" id="modaldemo8Label">تعديل التسليم</h6>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
-                        <div class="status-option">
-                            <input type="radio" id="not-delivered" name="delivery_status" value="0" class="status-radio">
-                            <label for="not-delivered" class="status-label not-delivered">
-                                <i class="fas fa-times-circle"></i>
-                                <span>لم يسلم</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="submit" class="btn btn-primary">حفظ</button>
-                  <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
-                </div>
-              </form>
-            </div>
-        </div>
+      <div class="modal-body">
+        <form action="{{route('view.update')}}" method="post">
+          @csrf
+          @method('put')
+
+          <input type="hidden" name="co_id" id="course_id" value="">
+          <input type="hidden" name="su_id" id="subject_id" value="">
+          <input type="hidden" name="de_id" id="department_id" value="">
+
+         <!-- حالة التسليم -->
+<div class="mb-3">
+  <label class="form-label">حالة التسليم</label>
+  <div class="delivery-status d-flex flex-column gap-2">
+
+    <div class="status-option">
+      <input type="radio" id="delivered-electronic" name="delivery_status" value="electronic" class="status-radio" required>
+      <label for="delivered-electronic" class="status-label delivered">
+        <i class="fas fa-laptop"></i>
+        <span>سلم إلكتروني</span>
+      </label>
     </div>
+
+    <div class="status-option">
+      <input type="radio" id="delivered-written" name="delivery_status" value="written" class="status-radio">
+      <label for="delivered-written" class="status-label delivered">
+        <i class="fas fa-file-alt"></i>
+        <span>سلم مقالي</span>
+      </label>
+    </div>
+
+    <div class="status-option">
+      <input type="radio" id="not-delivered" name="delivery_status" value="not_delivered" class="status-radio">
+      <label for="not-delivered" class="status-label not-delivered">
+        <i class="fas fa-times-circle"></i>
+        <span>لم يسلم</span>
+      </label>
+    </div>
+
+  </div>
+</div>
+
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">حفظ</button>
+        <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</div>
 
     <!-- End Basic modal -->
      @if (count($groupedExams) === 0)

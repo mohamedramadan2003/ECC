@@ -17,4 +17,12 @@ class CommiteeController extends Controller
         Location::create($request->validated());
     return redirect()->back()->with('success', 'تمت إضافة المكان بنجاح');
     }
+    public function destroy($committee_number)
+{
+    $commitee = Location::where('committee_number' , $committee_number);
+    $commitee->delete();
+
+    return redirect()->back()->with('success', 'تم حذف اللجنة بنجاح');
+}
+
 }

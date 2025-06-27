@@ -15,7 +15,10 @@
     color: #fff;
     border-color: #007bff;
 }
-
+td{
+    font-size: 18px;
+    font-weight: bold;
+}
 </style>
 @endsection
 @section('js')
@@ -111,6 +114,7 @@
                         <th>اسم االلجنة</th>
                         <th>العدد</th>
                         <th>اسم المستلم</th>
+                        <th>نوع الاسئلة</th>
                         <th>حالة التسليم</th>
                     </tr>`;
                 table.appendChild(tableHead);
@@ -125,13 +129,16 @@
                         <td>${exam.coordinator.coordinator_name} </td>
                         <td>${exam.coordinator.phone_number} </td>
                         <td>${exam.location.place_name}</td>
-                        <td>  اللجنة (${exam.location.committee_number})  ${exam.location.committee_code} </td>
+                        <td> لجنة (${exam.location.committee_number ?? ''}) ${exam.location.committee_code ?? ''}  </td>
                         <td>${exam.student_number}</td>
                         <td>${exam.name}<br>
                              ${exam.status == 1 ? new Intl.DateTimeFormat('ar-EG', {
     month: 'long',
     day: 'numeric',
   }).format(new Date(exam.time)) : ''}</td>
+                                <td>${exam.question_type != null
+      ? (exam.question_type == 0 ? 'مقالي' : 'الكتروني')
+      : '-'}</td>
                         <td style="font-size: 20px;">${exam.status == 1 ? '✅' : '❌'}</td>`;
                     tableBody.appendChild(row);
                 });

@@ -194,6 +194,16 @@ let committeeIndex = 1;
 </div>
 <button type="button" onclick="addCommittee()" class="btn btn-secondary mt-2">➕ إضافة لجنة</button>
 <hr>
+
+<div class="form-group" style="margin-top: 20px;">
+    <label for="question_type" style="font-weight: bold;">نوع الأسئلة:</label>
+    <select name="question_type" id="question_type" class="number-input" required>
+        <option value="">-- اختر نوع الأسئلة --</option>
+        <option value="0">📄 مقالي</option>
+        <option value="1">💻 إلكتروني</option>
+    </select>
+</div>
+<br>
              <div class="button-group">
             <label for="">البرنامج:</label>
             <button type="button" id="btn-normal" onclick="toggleDepartments('normal', this)">عادي</button>

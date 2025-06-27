@@ -31,6 +31,7 @@ class DeliveryexamController extends Controller
     }
     public function store(StoreExamRequest $request)
     {
+        dd($request->exam_date);
         $validated = $request->validated();
         $subject     = Subject::firstWhere('code', $validated['courseCode']);
         $coordinator = Coordinator::firstWhere('phone_number', $validated['professorCode']);
@@ -70,7 +71,7 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
         $validated = $request->validated();
         $courseCode = $request->input('courseCode');
         $professorCode = $request->input('professorCode');
-
+        $question_type = $request->input('question_type');
         $subject = Subject::where('code', $courseCode)->first();
         $coordinator = Coordinator::where('phone_number', $professorCode)->first();
 
@@ -96,7 +97,7 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
                     ->where('coordinator_id', $coordinator->id)
                     ->where('department_id',$request->department_id)
                     ->whereIn('committee_number', collect($request->committees)->pluck('numbers'))
-                    ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name]);
+                    ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name , 'question_type' => $question_type]);
 
         if ($updated) {
             return redirect()->back()->with('success', 'تم تسليم الامتحان بنجاح');

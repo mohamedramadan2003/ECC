@@ -20,7 +20,7 @@ class CoordinatorRequest extends FormRequest
         $id = $this->route('id');
 
         return [
-            'coordinator_name' => ['nullable', 'string', 'regex:/^[\x{0600}-\x{06FF}\s]+$/u', 'max:150'],
+            'coordinator_name' => ['nullable', 'string', 'max:150'],
             'phone_number' => ['nullable', 'string', 'regex:/^(01)[0-9]{9}$/', 'size:11',
             Rule::unique('coordinators', 'phone_number')->ignore($id)],
         ];
@@ -30,7 +30,6 @@ class CoordinatorRequest extends FormRequest
     {
         return [
             'coordinator_name.string' => 'اسم الدكتور يجب أن يكون نصًا',
-            'coordinator_name.regex' => 'اسم الدكتور يجب أن يحتوي فقط على الحروف العربية أو الفراغات',
             'coordinator_name.max' => 'اسم الدكتور يجب أن لا يتجاوز 150 حرفًا',
 
             'phone_number.string' => 'رقم الهاتف يجب أن يكون نصًا',

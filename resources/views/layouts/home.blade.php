@@ -71,7 +71,6 @@
                 <i class="fa fa-home" aria-hidden="true"></i>
                 <span>الرئسية</span>
               </a>
-              @if (Auth::user()->usertype == 'user')
 
               <a href="{{route('deliveryexams.index')}}" class="sidebar__link">
                 <i class="fa-solid fa-table-cells"></i>
@@ -81,8 +80,6 @@
                 <i class="fa-solid fa-eye"></i>
                 <span>عرض الامتحانات </span>
               </a>
-
-              @endif
               <a href="{{route('viewexamsedit.edit')}}" class="sidebar__link">
                 <i class="fa-solid fa-square-check"></i>
                 <span>تعديل بيانات الامتحانات</span>
@@ -93,9 +90,14 @@
                 <i class="fa-solid fa-pen-to-square"></i>
                 <span>اضافة امتحان</span>
               </a>
-              <a href="{{route('addsubjects.index')}}" class="sidebar__link">
-                <i class="fa-solid fa-square-plus"></i>
+              <a href="{{route('subjects.index')}}" class="sidebar__link">
+                <i class="fa-solid fa-book-open"></i>
                 <span>إضافة مادة</span>
+              </a>
+
+              <a href="{{route('programs.index')}}" class="sidebar__link">
+                <i class="fa-solid fa-square-plus"></i>
+                <span>إضافة برنامج</span>
               </a>
               <a href="{{route('addcoordinator.index')}}" class="sidebar__link">
                 <i class="fa-solid fa-user-md"></i>

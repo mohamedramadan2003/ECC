@@ -25,6 +25,7 @@ class DeliveryRequest extends FormRequest
             'courseCode'       => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
             'professorCode'    => 'required|string|regex:/^[\pL0-9\s]+$/u|max:255',
             'department_id'    => 'required|exists:departments,id',
+            'question_type' => 'required|in:0,1',
              'committees' => 'required|array|min:1',
             'committees.*.numbers' => 'required|integer|min:0|exists:locations,committee_number',
         ];
@@ -54,6 +55,10 @@ class DeliveryRequest extends FormRequest
             'committees.*.numbers.integer' => 'رقم اللجنة يجب أن يكون عددًا صحيحًا.',
             'committees.*.numbers.min' => 'رقم اللجنة لا يمكن أن يكون سالبًا.',
             'committees.*.numbers.exists' => 'رقم اللجنة غير موجود .',
+
+
+        'question_type.required' => 'يجب اختيار نوع الأسئلة',
+        'question_type.in'       => 'نوع الأسئلة يجب أن يكون إما "مقالي" أو "الكتروني"',
 
         ];
     }

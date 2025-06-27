@@ -81,25 +81,49 @@ class VeiwController extends Controller
         ]);
     }
     public function update(Request $request)
-    {
+{
+    $exam = Exam::where('id', $request->input('co_id'))->first();
 
+    $status = $request->input('delivery_status');
 
-        $exam = Exam::where('id', $request->input('co_id'))->first();
-
-        $status = $request->input('delivery_status');
-
-        if($status == 1)
-        {
-            $updated = DB::table('coordinators_departments_subjects')
-            ->where('id', $exam->id)
-            ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name]);
-        }
-        if($status == 0)
-        {
-            $updated = DB::table('coordinators_departments_subjects')
-            ->where('id', $exam->id)
-            ->update(['status' => 0, 'time' => null, 'name' => 'لا يوجد بيانات']);
-        }
-        return redirect()->back()->with('success','تم تحديث التسليم بنجاح');
+    if (!$exam) {
+        return redirect()->back()->with('error', 'لم يتم العثور على الامتحان');
     }
+
+    if ($status == 'electronic') {
+        DB::table('coordinators_departments_subjects')
+            ->where('id', $exam->id)
+            ->update([
+                'status' => 1,
+                'question_type' => 1,
+                'time' => now(),
+                'name' => Auth::user()->name
+            ]);
+    }
+
+    elseif ($status == 'written') {
+        DB::table('coordinators_departments_subjects')
+            ->where('id', $exam->id)
+            ->update([
+                'status' => 1,
+                'question_type' => 0,
+                'time' => now(),
+                'name' => Auth::user()->name
+            ]);
+    }
+
+    elseif ($status == 'not_delivered') {
+        DB::table('coordinators_departments_subjects')
+            ->where('id', $exam->id)
+            ->update([
+                'status' => 0,
+                'question_type' => null,
+                'time' => null,
+                'name' => 'لا يوجد بيانات'
+            ]);
+    }
+
+    return redirect()->back()->with('success', 'تم تحديث التسليم بنجاح');
+}
+
 }

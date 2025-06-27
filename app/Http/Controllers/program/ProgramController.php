@@ -11,7 +11,7 @@ class ProgramController extends Controller
 {
     public function index()
     {
-        $Departments = Department::paginate(5);
+        $Departments = Department::paginate(10);
         return view('program.add' , ['Departments' => $Departments]);
     }
     public function store(StoreProgramRequest $request)
@@ -43,7 +43,7 @@ class ProgramController extends Controller
              'ProgramType' => $request->ProgramType,
         ]);
 
-        return redirect()->route('addprogram.index')->with('success', 'تم تحديث البرنامج بنجاح!');
+        return redirect()->route('programs.index')->with('success', 'تم تحديث البرنامج بنجاح!');
     }
     public function destroy($id)
     {

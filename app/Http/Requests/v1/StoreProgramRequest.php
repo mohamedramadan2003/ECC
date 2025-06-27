@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\v1;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProgramRequest extends FormRequest
@@ -22,7 +23,12 @@ class StoreProgramRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|regex:/^[\x{0600}-\x{06FF}\s]+$/u|max:255|unique:Departments,name',
+              'name' => [
+            'required',
+            'string',
+            'max:255',
+            Rule::unique('Departments', 'name')->ignore($this->id),
+        ],
             'ProgramType' => 'required|in:عادي,خاص',
         ];
     }
@@ -32,7 +38,6 @@ class StoreProgramRequest extends FormRequest
         return [
             'name.required'  => 'الاسم هو حقل مطلوب',
             'name.string'    => 'الاسم يجب أن يكون نصًا',
-            'name.regex'     => 'الاسم يجب أن يحتوي على أحرف عربية فقط',
             'name.max'       => 'الاسم يجب أن لا يتجاوز 255 حرفًا',
             'name.unique'    => 'الاسم هذا مسجل مسبقًا في النظام',
 

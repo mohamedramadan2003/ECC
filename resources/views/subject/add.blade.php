@@ -16,70 +16,69 @@
         font-size: 16px;
         margin: 0 5px;
         border-radius: 10px;
-        
+
     }
 
     .btn-edit {
-        background-color: #16879e; /* الأزرق */
+        background-color: #16879e;
         color: white;
     }
 
     .btn-edit:hover {
         background-color: #51a6df;
-        color: white; /* لون أزرق داكن عند التمرير */
+        color: white;
     }
 
     .btn-delete {
-        background-color: #ac2e3a; /* الأحمر */
+        background-color: #ac2e3a;
         color: white;
     }
 
     .btn-delete:hover {
         background-color: #db2b3c;
-        color: white; /* لون أحمر داكن عند التمرير */
+        color: white;
     }
 
-    /* تنسيق زر إضافة المادة */
+
     .btn-add-course {
-        background-color: #28a745; /* اللون الأخضر */
+        background-color: #28a745;
         color: white;
-        padding: 15px;  /* padding أفقي وعمودي */
+        padding: 15px;
         font-size: 18px;
         border: none;
         border-radius: 10px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         margin-top: 20px;
-        width: 100%; /* جعل الزر يمتد على كامل عرض الحاوية */
-        max-width: 800px; /* الحد الأقصى للعرض */
+        width: 100%;
+        max-width: 800px;
         display: block;
         text-align: center;
-        box-sizing: border-box; /* لضمان احتساب padding ضمن الحجم الإجمالي */
+        box-sizing: border-box;
     }
 
     .btn-add-course:hover {
-        background-color: #218838; /* أخضر داكن عند التمرير */
+        background-color: #218838;
     }
 
-    /* تخصيص الزر "إضافة مادة" */
     .modal-effect {
-        width: 50%; /* تحديد عرض الزر */
-        margin: 0 auto; /* وضع الزر في المنتصف */
-        text-align: center; /* محاذاة النص داخل الزر */
+        width: 50%;
+        margin: 0 auto;
+        text-align: center;
         display: block;
-        
+
 }
 .btn-custom {
-    background-color: #633a72;  /* لون فيروزى */
+    background-color: #633a72;
     color: white;
     border-radius: 10px;
 }
 
 .btn-custom:hover {
-    background-color: #bb49d8; 
-    color: white;/* لون فيروزى غامق عند التمرير */
+    background-color: #bb49d8;
+    color: white;
 }
-/* لتنسيق التصفح */
+
 .pagination-container {
     display: flex;
     justify-content: center;
@@ -124,18 +123,18 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
-        
+
         $(".modal-effect").click(function(event) {
             event.preventDefault();
             // فتح الـ Modal
-            var modalId = $(this).attr("href");  
+            var modalId = $(this).attr("href");
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
         });
     });
     function confirmDelete(event) {
         event.preventDefault();  // منع إرسال النموذج مباشرة
-        
+
         // استخدام SweetAlert2 لإظهار نافذة منبثقة
         Swal.fire({
             title: 'هل أنت متأكد؟',
@@ -159,7 +158,7 @@
    <main class="mains containers" id="main">
 
     <div class="cards">
-    
+
       <!-- جدول 1 -->
       <section class="exam-section">
         @if ($errors->any())
@@ -171,7 +170,7 @@
             </ul>
         </div>
     @endif
-    
+
 
               <!-- عرض رسالة النجاح إذا كانت موجودة -->
     @if (session('success'))
@@ -200,15 +199,15 @@
                 <td>
                         <!-- زر آخر بجانب زر "حذف" -->
                         <a href="{{route('subject.edit', ['id' => $Subject->id])}}" class="btn btn-edit" title="تعديل">تعديل</a>
-                        
+
                         <!-- زر حذف -->
                         <form style="display: inline" action="{{ route('subject.destroy', ['id' => $Subject->id]) }}" method="POST" id="deleteForm">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-delete" onclick="confirmDelete(event)">حذف</button>
                         </form>
-            
-                                   
+
+
                 </td>
             </tr>
             @endforeach
@@ -233,23 +232,23 @@
                           <label for="username" class="form-label">كود المفرر:</label>
                           <input type="text" class="form-control" id="username" name="code" required>
                       </div>
-                      
+
                       <div class="mb-3">
                           <label for="email" class="form-label">اسم المقرر :</label>
                           <input type="text" class="form-control" id="email" name="subject_name" required>
                       </div>
-                      
-                      
+
+
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">اضافة</button>
                     <button class="btn ripple btn-secondary" data-bs-dismiss="modal" type="button">إغلاق</button>
                   </div>
                 </form>
-              </div>  
+              </div>
           </div>
       </div>
-    
+
       <!-- End Basic modal -->
       </section>
        <!-- إضافة روابط التصفح -->

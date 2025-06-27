@@ -15,6 +15,7 @@ return new class extends Migration
                 $table->unsignedBigInteger('committee_number');
                 $table->foreign('committee_number')->references('committee_number')->on('locations')->onDelete('cascade');
                  $table->unique(['coordinator_id', 'subject_id', 'department_id' , 'committee_number']);
+                 $table->enum('question_type',[0,1])->nullable();
     });
     }
 

@@ -76,7 +76,7 @@ Route::post('/contact', [ContactController::class, 'send'])
 
 
 Route::middleware(['UserMiddleware'])->group(function(){
-
+/*
 // subjectprogram
 Route::get('/addsubjects',[SubjectsProgramsController::class , 'index'])
 ->name('addsubjects.index');
@@ -87,10 +87,10 @@ Route::get('/subjects/edit/{id}',[SubjectsProgramsController::class , 'edit'])
     Route::patch('/subjects/update/{id}', [SubjectsProgramsController::class, 'update'])
     ->name('subjects.update');
     Route::delete('subjects/delete/{id}', [SubjectsProgramsController::class, 'destroy'])->name('subjects.destroy');
-/*
+*/
     //program
-    Route::get('/addprogram',[ProgramController::class , 'index'])
-->name('addprogram.index');
+    Route::get('/programs',[ProgramController::class , 'index'])
+->name('programs.index');
 Route::post('/program/add',[ProgramController::class , 'store'])
 ->name('program.store');
 Route::get('/program/edit/{id}',[ProgramController::class , 'edit'])
@@ -100,11 +100,11 @@ Route::patch('/program/update/{id}', [ProgramController::class, 'update'])
 Route::delete('program/delete/{id}', [ProgramController::class, 'destroy'])
 ->name('program.destroy');
 
-*/
-/*
+
+
     // subject
-    Route::get('/addsubject',[AddsubjectController::class ,'index'])
-    ->name('addsubject.index');
+    Route::get('/subjects',[AddsubjectController::class ,'index'])
+    ->name('subjects.index');
 
     Route::post('/subject/add',[AddsubjectController::class , 'store'])
     ->name('subject.store');
@@ -113,7 +113,7 @@ Route::delete('program/delete/{id}', [ProgramController::class, 'destroy'])
     ->name('subject.edit');
     Route::patch('/subject/update/{id}', [AddsubjectController::class, 'update'])->name('subject.update');
     Route::delete('subject/delete/{id}', [AddsubjectController::class, 'destroy'])->name('subject.destroy');
-*/
+
 
 Route::get('/commitees',[CommiteeController::class , 'index'])
 ->name('commitees.index');

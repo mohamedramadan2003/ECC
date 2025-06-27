@@ -40,9 +40,8 @@
         </a>
       </div>
 
-      @if(Auth::user()->usertype == 'user')
-            <br><br><br><br><br>
-      @endif
+
+
 
 
       @if(Auth::user()->usertype == 'admin')
@@ -56,7 +55,7 @@
         </a>
       </div>
       <div class="cardz">
-        <a href="{{route('addsubjects.index')}}">
+        <a href="{{route('subjects.index')}}">
           <div class="card-icon">📖</div>
           <div class="card-title">اضافة مادة</div>
           <div class="card-subtitle">إضافة مادة جديدة</div>
@@ -73,5 +72,5 @@
       </div>
       @endif
     </div>
-
+<br><br><br>
     @endsection
