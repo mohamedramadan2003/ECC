@@ -72,5 +72,5 @@
       </div>
       @endif
     </div>
-<br><br><br>
+
     @endsection

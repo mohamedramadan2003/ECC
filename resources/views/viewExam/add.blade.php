@@ -1,7 +1,3 @@
-@php
-    $committeesList = ['A', 'B', 'C', 'D', 'E','F','G'];
-    $studentNumbers = range(5, 50, 5); // 5, 10, 15, ..., 50
-@endphp
 @extends('layouts.home')
 @section('title', 'اضافة امتحان')
 @section('css')
@@ -36,16 +32,20 @@
     .form-group {
         position: relative;
         margin-bottom: 20px;
+
     }
       .department-list label {
-        font-size: 18px;
+       font-size: 20px;
+        font-weight: bold;
         display: block;
         margin-bottom: 8px;
+        margin-right: 50px;
     }
 
-    .department-list input[type="checkbox"] {
+    .department-list input[type="radio"] {
         transform: scale(1.4);
         margin-left: 8px;
+
     }
 
     .department-list h3 {
@@ -61,7 +61,7 @@
         font-size: 14px;
     }
     button.active {
-  background-color: #1609ce;
+  background-color: #2196f3;
   color: white;
   border: none;
 }
@@ -125,8 +125,7 @@
 
         $(".modal-effect").click(function(event) {
             event.preventDefault();
-            // فتح الـ Modal
-            var modalId = $(this).attr("href");  // استلام الـ ID الخاص بالـ Modal
+            var modalId = $(this).attr("href");
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
         });

@@ -6,8 +6,8 @@
   transition: padding 0.4s;
 }
 .button-group button {
-  padding: 10px 20px;
-  margin: 5px;
+  padding: 20px 30px;
+  margin: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -87,8 +87,12 @@ form {
 
 .submit-btn {
   background-color: #2196f3;
+  margin-right: 80px;
+  padding: 15px 30px;
 }
-
+.submit-btn:hover{
+    background-color: #85c7fd;
+}
 .qr-container {
   margin-top: 30px;
   text-align: center;
@@ -241,19 +245,19 @@ form {
   background-color: #e3e3e3;
 }
 .modal-effect {
-  width: 50%; 
+  width: 50%;
   margin: 0 auto;
-  text-align: center; 
+  text-align: center;
   display: block;
-  
+
 }
 .btn-custom {
-background-color: #1269bb;  
+background-color: #1269bb;
 color: white;
 border-radius: 10px;
 }
 
 .btn-custom:hover {
-background-color: #49c3d8; 
+background-color: #49c3d8;
 color: white;
-}  
+}

@@ -19,7 +19,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'name'     => ['required', 'string', 'max:100'],
-            'username'    => ['required', 'string', 'max:80', 'unique:users,username'],
+            'username'    => ['required', 'string', 'max:80', 'unique:users,username','regex:/^[a-zA-Z0-9_]+$/'],
             'password' => ['required', 'confirmed', Password::defaults()],
         ];
     }
@@ -30,6 +30,7 @@ class StoreUserRequest extends FormRequest
             'name.required'     => 'اسم المستخدم فارغ',
             'username.unique'      => 'الايميل مسجل مسبقاً',
             'password.confirmed'=> 'كلمة المرور غير متطابقة',
+            'username.regex'    => 'اسم المستخدم يجب أن يحتوي فقط على حروف، أرقام، أو الشرطة السفلية (_).',
         ];
     }
 }

@@ -231,12 +231,11 @@ let committeeIndex = 1;
                     @endif
                 @endforeach
             </div>
-        <br>
             <div class="actions">
                 <button type="submit" class="action-btn submit-btn">تسليم</button>
             </div>
         </form>
     </div>
 </main>
-<br> <br>
+<br>
 @endsection

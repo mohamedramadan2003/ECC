@@ -85,34 +85,27 @@
     margin-top: 20px;
 }
 
-/* تخصيص أزرار التصفح في حالة استخدام Bootstrap */
 .pagination .page-item .page-link {
-    padding: 10px 12px;  /* تعديل الحواف الداخلية */
-    font-size: 14px;     /* تغيير حجم الخط */
-    color: #463c88;      /* لون النص */
-    border: 1px solid #ddd; /* اللون العام للأزرار */
-    border-radius: 5px;   /* تدوير الحواف */
+    padding: 10px 12px;
+    font-size: 14px;
+    color: #463c88;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-/* عند التمرير على الأزرار */
 .pagination .page-item:hover .page-link {
-    background-color: #8850c7;  /* تغيير اللون عند التمرير */
-    color: white;               /* النص الأبيض */
+    background-color: #8850c7;
+    color: white;
 }
 
-/* تخصيص الزر النشط */
 .pagination .page-item.active .page-link {
-    background-color: #593ba0;  /* زر نشط ذو خلفية زرقاء */
-    color: white;               /* النص الأبيض */
+    background-color: #593ba0;
+    color: white;
 }
-
-/* تخصيص الزر المعطل */
 .pagination .page-item.disabled .page-link {
-    background-color: #f8f9fa;  /* خلفية فاتحة عند التعطيل */
-    color: #6c757d;             /* لون نص غير نشط */
+    background-color: #f8f9fa;
+    color: #6c757d;
 }
-
-
 </style>
 @endsection
 @section('js')
@@ -126,31 +119,31 @@
 
         $(".modal-effect").click(function(event) {
             event.preventDefault();
-            // فتح الـ Modal
             var modalId = $(this).attr("href");
             var modal = new bootstrap.Modal(document.querySelector(modalId));
             modal.show();
         });
     });
-    function confirmDelete(event) {
-        event.preventDefault();  // منع إرسال النموذج مباشرة
+  function confirmDelete(event, formElement) {
+    event.preventDefault();
 
-        // استخدام SweetAlert2 لإظهار نافذة منبثقة
-        Swal.fire({
-            title: 'هل أنت متأكد؟',
-            text: "لن يمكنك استعادة هذه المقرر!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'نعم، احذف!',
-            cancelButtonText: 'إلغاء',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // إذا اختار المستخدم "نعم"، إرسال النموذج
-                document.getElementById('deleteForm').submit();
-            }
-        });
-    }
+    Swal.fire({
+        title: 'هل أنت متأكد؟',
+        text: "لن يمكنك استعادة هذه المقرر!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'نعم، احذف!',
+        cancelButtonText: 'إلغاء',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            formElement.submit();
+        }
+    });
+
+    return false;
+}
+
 </script>
 @endsection
 @section('content')
@@ -158,8 +151,6 @@
    <main class="mains containers" id="main">
 
     <div class="cards">
-
-      <!-- جدول 1 -->
       <section class="exam-section">
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -172,13 +163,11 @@
     @endif
 
 
-              <!-- عرض رسالة النجاح إذا كانت موجودة -->
     @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
 @endif
-            <!-- الزر الخاص بإضافة مادة -->
             <a class="modal-effect btn btn-custom w-50" href="#modaldemo8">اضافة مادة</a>
             <table class="data-table">
           <thead>
@@ -192,22 +181,19 @@
             @if($Subjects->isEmpty())
             <tr><td colspan="3">لا توجد بيانات لعرضها.</td></tr>
         @else
+
             @foreach ($Subjects as $Subject)
             <tr>
                 <td>{{ $Subject->code }}</td>
                 <td>{{ $Subject->subject_name }}</td>
                 <td>
-                        <!-- زر آخر بجانب زر "حذف" -->
                         <a href="{{route('subject.edit', ['id' => $Subject->id])}}" class="btn btn-edit" title="تعديل">تعديل</a>
 
-                        <!-- زر حذف -->
-                        <form style="display: inline" action="{{ route('subject.destroy', ['id' => $Subject->id]) }}" method="POST" id="deleteForm">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-delete" onclick="confirmDelete(event)">حذف</button>
-                        </form>
-
-
+                           <form style="display: inline" action="{{ route('subject.destroy', ['id' => $Subject->id]) }}" method="POST" onsubmit="return confirmDelete(event, this);">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-delete">حذف</button>
+                            </form>
                 </td>
             </tr>
             @endforeach

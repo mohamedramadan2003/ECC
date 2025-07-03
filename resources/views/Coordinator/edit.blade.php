@@ -27,7 +27,7 @@
             type="text"
             id="subject-code"
             name="coordinator_name"
-            value="{{ old('coordinator_name', $Coordinator->coordinator_name) }}"  
+            value="{{ old('coordinator_name', $Coordinator->coordinator_name) }}"
             placeholder="اسم الدكتور"
             required
           />
@@ -39,17 +39,28 @@
             type="text"
             id="subject-name"
             name="phone_number"
-            value="{{ old('phone_number', $Coordinator->phone_number) }}" 
+            value="{{ old('phone_number', $Coordinator->phone_number) }}"
             placeholder="رقم الدكتور"
             required
           />
         </div>
 
+         <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value="{{ old('email', $Coordinator->email) }}"
+                    placeholder="البريد الإلكتروني"
+                    required
+                />
+            </div>
         <div class="actions">
           <button type="submit" class="action-btn submit-btn">حفط</button>
         </div>
 
-        
+
       </form>
     </div>
   </main>

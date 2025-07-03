@@ -410,5 +410,4 @@ let todayFormatted = `${year}-${month}-${day}`;
     <div class="pagination-container">
     </div>
 </main>
-<br><br></br><br></br>
 @endsection

@@ -40,7 +40,7 @@ Route::put('/viewexams/update',[VeiwController::class , 'update'])
 ->name('view.update');
 // عرض صفحة اضافة اختبار جديد
 
-Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit')->middleware('UserMiddleware');
 Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
 Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy')

@@ -19,7 +19,7 @@ class AddsubjectController extends Controller
     {
         Subject::create($request->validated());
 
-        
+
         return redirect()->back()->with('success', 'تم إضافة المفرر بنجاح!');
     }
 
@@ -33,16 +33,17 @@ class AddsubjectController extends Controller
     public function update(UpdateSubjectRequest  $request , $id)
     {
         $Subject = Subject::findOrFail($id);
+
        $Subject->update($request->validated());
 
-        return redirect()->route('addsubject.index')->with('success', 'تم تحديث المقرر بنجاح!');
+        return redirect()->route('subjects.index')->with('success', 'تم تحديث المقرر بنجاح!');
     }
     public function destroy($id)
     {
         $Subject = Subject::findOrFail($id);
 
             $Subject->delete();
-            return redirect()->route('addsubject.index')->with('success', 'تم مسح المفرر بنجاح');
+            return redirect()->back()->with('success', 'تم مسح المفرر بنجاح');
     }
 
 }

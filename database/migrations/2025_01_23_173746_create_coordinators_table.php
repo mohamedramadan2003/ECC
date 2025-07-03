@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('coordinator_name')->index();
             $table->string('phone_number',11)->unique();
+            $table->string('email')->unique();
         });
     }
 

@@ -218,13 +218,13 @@
                       <form action="{{route('adduser.store')}}" method="post">
                         @csrf
                         <div class="mb-3">
-                            <label for="username" class="form-label">اسم المستخدم:</label>
-                            <input type="text" class="form-control" id="username" name="name" required placeholder="اسم المستخدم">
+                            <label for="username" class="form-label">اسم الدكتور</label>
+                            <input type="text" class="form-control" id="username" name="name" required placeholder="اسم الدكتور">
                         </div>
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">البريد :</label>
-                            <input type="text" class="form-control" id="email" name="username" required placeholder="البريد">
+                            <label for="email" class="form-label">اسم المستخدم</label>
+                            <input type="text" class="form-control" id="email" name="username" required placeholder="اسم المستخدم">
                         </div>
 
                         <div class="mb-3">

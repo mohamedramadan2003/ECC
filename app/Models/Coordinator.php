@@ -11,6 +11,7 @@ class Coordinator extends Model
     protected $fillable = [
         'coordinator_name',
         'phone_number',
+        'email',
     ];
     public function subjects()
     {

@@ -125,24 +125,24 @@
             modal.show();
         });
     });
-    function confirmDelete(event) {
-        event.preventDefault();
+    function confirmDelete(event, id) {
+    event.preventDefault();
 
+    Swal.fire({
+        title: 'هل أنت متأكد؟',
+        text: "لن يمكنك استعادة هذا الدكتور!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'نعم، احذف!',
+        cancelButtonText: 'إلغاء',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('deleteForm-' + id).submit();
+        }
+    });
+}
 
-        Swal.fire({
-            title: 'هل أنت متأكد؟',
-            text: "لن يمكنك استعادة هذا الدكتور!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'نعم، احذف!',
-            cancelButtonText: 'إلغاء',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
-            }
-        });
-    }
 </script>
 @endsection
 @section('content')
@@ -177,6 +177,7 @@
             <tr>
               <th>اسم الدكتور</th>
               <th>رقم الدكتور</th>
+              <th>الايميل</th>
               <th>إجراءات</th>
             </tr>
           </thead>
@@ -188,14 +189,19 @@
             <tr>
                 <td>{{ $Coordinator->coordinator_name }}</td>
                 <td>{{ $Coordinator->phone_number }}</td>
+                <td>{{ $Coordinator->email}}</td>
                 <td>
                         <a href="{{route('coordinator.edit', ['id' => $Coordinator->id])}}" class="btn btn-edit" title="تعديل">تعديل</a>
 
-                        <form style="display: inline" action="{{ route('coordinator.destroy', ['id' => $Coordinator->id]) }}" method="POST" id="deleteForm">
+                       <form style="display: inline"
+                            action="{{ route('coordinator.destroy', ['id' => $Coordinator->id]) }}"
+                            method="POST"
+                            id="deleteForm-{{ $Coordinator->id }}">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-delete" onclick="confirmDelete(event)">حذف</button>
+                            <button type="submit" class="btn btn-delete" onclick="confirmDelete(event, {{ $Coordinator->id }})">حذف</button>
                         </form>
+
 
 
                 </td>
@@ -227,7 +233,10 @@
                           <label for="email" class="form-label"> رقم الدكتور:</label>
                           <input type="text" class="form-control" id="email" name="phone_number" required>
                       </div>
-
+                      <div class="mb-3">
+                          <label for="email" class="form-label"> ايميل الدكتور:</label>
+                          <input type="email" class="form-control" id="email" name="email" required>
+                      </div>
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">اضافة</button>

@@ -30,8 +30,8 @@
                 <form action="{{route('login')}}" method="POST" id="login-form">
                     @csrf
                     <div class="form-group">
-                        <input type="text" id="email" name="username" placeholder="البريد الإلكتروني">
-                        <i class="fas fa-envelope"></i>
+                        <input type="text" id="email" name="username" placeholder="اسم المستخدم">
+                        <i class="fas fa-user"></i>
 
                     </div>
                     <div class="form-group">

@@ -125,24 +125,26 @@
             modal.show();
         });
     });
-    function confirmDelete(event) {
-        event.preventDefault();
+    function confirmDelete(event, formElement) {
+    event.preventDefault();
 
+    Swal.fire({
+        title: 'هل أنت متأكد؟',
+        text: "لن يمكنك استعادة هذه اللجنة!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'نعم، احذف!',
+        cancelButtonText: 'إلغاء',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            formElement.submit();
+        }
+    });
 
-        Swal.fire({
-            title: 'هل أنت متأكد؟',
-            text: "لن يمكنك استعادة هذه اللجنة!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'نعم، احذف!',
-            cancelButtonText: 'إلغاء',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.isConfirmed) {
-                document.getElementById('deleteForm').submit();
-            }
-        });
-    }
+    return false;
+}
+
 </script>
 @endsection
 @section('content')
@@ -177,7 +179,7 @@
           </thead>
           <tbody>
             @if($locations->isEmpty())
-            <tr><td colspan="3">لا توجد بيانات لعرضها.</td></tr>
+            <tr><td colspan="4">لا توجد بيانات لعرضها.</td></tr>
         @else
             @foreach ($locations as $location)
             <tr>
@@ -185,10 +187,10 @@
                 <td>{{ $location->committee_number }}</td>
                 <td>{{ $location->committee_code }}</td>
                 <td>
-                        <form style="display: inline" action="{{ route('commitees.destroy', ['committee_number' => $location->committee_number]) }}" method="POST" id="deleteForm">
+                        <form style="display: inline" action="{{ route('commitees.destroy', ['committee_number' => $location->committee_number]) }}" method="POST" onsubmit="return confirmDelete(event, this);">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-delete" onclick="confirmDelete(event)">حذف</button>
+                            <button type="submit" class="btn btn-delete">حذف</button>
                         </form>
 
 

@@ -80,7 +80,7 @@
                 <i class="fa-solid fa-eye"></i>
                 <span>عرض الامتحانات </span>
               </a>
-              <a href="{{route('viewexamsedit.edit')}}" class="sidebar__link">
+              <a href="{{route('viewexams.index.edit')}}" class="sidebar__link">
                 <i class="fa-solid fa-square-check"></i>
                 <span>تعديل بيانات الامتحانات</span>
               </a>
@@ -123,7 +123,7 @@
       </div>
     </nav>
 @yield('content')
-
+<br><br><br><br><br><br>
 <!-- ============== FOOTER =============== -->
 <footer class="footer">
     <p>جميع الحقوق محفوظة ECC ©.</p>

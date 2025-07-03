@@ -50,6 +50,6 @@ class ProgramController extends Controller
         $Department = Department::findOrFail($id);
 
             $Department->delete();
-            return redirect()->route('addprogram.index')->with('success', 'تم مسح البرنامج بنجاح');
+            return redirect()->back()->with('success', 'تم مسح البرنامج بنجاح');
     }
 }

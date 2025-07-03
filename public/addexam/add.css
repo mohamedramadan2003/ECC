@@ -7,7 +7,7 @@
   transition: padding 0.4s;
 }
 .button-group button {
-  padding: 15px 30px;
+  padding: 20px 30px;
   margin: 15px;
   border: none;
   border-radius: 5px;
@@ -260,12 +260,14 @@ form {
 }
 
 .submit-btn {
-  padding: 10px 20px;
-  background-color: #2d226d;
+  padding: 15px 30px;
+  background-color: #4532b3;
   color: white;
+  margin-right: 80px;
   border: none;
   cursor: pointer;
   border-radius: 4px;
+  margin-top: 20px;
 }
 
 .submit-btn:hover {
@@ -273,15 +275,16 @@ form {
 }
 
  button.active {
-  background-color: #1609ce;
+  background-color: #2196f3;
   color: white;
   border: none;
 }
 
     .department-list label {
-        font-size: 18px;
+        font-size: 22px;
         display: block;
         margin-bottom: 8px;
+        font-weight: bold;
     }
 
     .department-list input[type="radio"] {

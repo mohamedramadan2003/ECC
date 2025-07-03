@@ -9,10 +9,12 @@ use App\Models\Location;
 use App\Models\Department;
 use App\Models\Coordinator;
 use Illuminate\Http\Request;
+use App\Mail\ExamSubmittedMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\v1\DeliveryRequest;
 use App\Http\Requests\v1\StoreExamRequest;
 
@@ -31,7 +33,7 @@ class DeliveryexamController extends Controller
     }
     public function store(StoreExamRequest $request)
     {
-        dd($request->exam_date);
+
         $validated = $request->validated();
         $subject     = Subject::firstWhere('code', $validated['courseCode']);
         $coordinator = Coordinator::firstWhere('phone_number', $validated['professorCode']);
@@ -79,6 +81,10 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
             return redirect()->back()->with('error', 'لم يتم العثور على المادة أو المنسق');
         }
 
+        $committeeNumbers = collect($request->committees)->pluck('numbers')->toArray();
+        $committeesData = DB::table('locations')
+            ->whereIn('committee_number', $committeeNumbers)
+            ->get();
 
         $existingRecord = DB::table('coordinators_departments_subjects')
                             ->where('subject_id', $subject->id)
@@ -100,6 +106,13 @@ return back()->with('success', 'تم إضافة الامتحان بنجاح لج
                     ->update(['status' => 1, 'time' => now(), 'name' => Auth::user()->name , 'question_type' => $question_type]);
 
         if ($updated) {
+             $existingRecord = Exam::with(['subject', 'department'])
+                              ->where('subject_id', $subject->id)
+                            ->where('coordinator_id', $coordinator->id)
+                            ->where('department_id',$request->department_id)
+                            ->first();
+Mail::to($coordinator->email)
+    ->later(now()->addSeconds(10), new ExamSubmittedMail($existingRecord, $committeesData));
             return redirect()->back()->with('success', 'تم تسليم الامتحان بنجاح');
         }
 

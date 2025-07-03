@@ -13,7 +13,7 @@ class CoordinatorController extends Controller
     $query = Coordinator::query();
 
     if ($request->has('search') && $request->search != '') {
-        $query->where('coordinator_name', 'like', value:  $request->search . '%');
+        $query->where('coordinator_name', 'like', value: '%' . $request->search . '%');
     }
 
     $Coordinators = $query->paginate(8);
@@ -25,6 +25,7 @@ class CoordinatorController extends Controller
         Coordinator::create([
             'coordinator_name' => $request->coordinator_name,
             'phone_number' => $request->phone_number,
+            'email' => $request->email ,
         ]);
 
         return redirect()->back()->with('success', 'تم إضافة الدكتور بنجاح!');
@@ -48,7 +49,9 @@ public function edit($id)
     if ($request->filled('phone_number')) {
         $data['phone_number'] = $request->phone_number;
     }
-
+      if ($request->filled('email')) {
+        $data['email'] = $request->email;
+    }
     $Coordinator->update($data);
 
     return redirect()->route('addcoordinator.index')->with('success', 'تم تحديث الدكتور بنجاح!');

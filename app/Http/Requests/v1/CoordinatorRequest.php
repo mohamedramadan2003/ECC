@@ -22,6 +22,8 @@ class CoordinatorRequest extends FormRequest
         return [
             'coordinator_name' => ['nullable', 'string', 'max:150'],
             'phone_number' => ['nullable', 'string', 'regex:/^(01)[0-9]{9}$/', 'size:11',
+            'email' => ['nullable', 'email', 'max:255'],
+
             Rule::unique('coordinators', 'phone_number')->ignore($id)],
         ];
     }
@@ -36,6 +38,7 @@ class CoordinatorRequest extends FormRequest
             'phone_number.unique' => 'رقم الهاتف هذا مسجل بالفعل',
             'phone_number.regex' => 'رقم الهاتف يجب أن يبدأ بـ 01 ويكون مكون من 11 رقمًا',
             'phone_number.size' => 'رقم الهاتف يجب أن يتكون من 11 رقمًا',
+            'email.email'    => 'صيغة البريد الإلكتروني غير صحيحة',
         ];
     }
 }
