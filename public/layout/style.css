@@ -431,72 +431,56 @@ footer .footer__links a:hover {
 
 /*=============== BREAKPOINTS ===============*/
 /* For small devices */
-@media screen and (max-width: 360px) {
-  .header__container {
-    padding-inline: 1rem;
+@media screen and (max-width: 1150px) {
+  .header {
+    margin: 1rem;
+    padding-right: 340px;
+    transition: padding 0.4s;
   }
+  .header__container {
+    height: calc(var(--header-height) + 2rem);
+    padding-inline: 2rem;
+  }
+  .header__logo {
+    order: 1;
+  }
+
 
   .sidebar {
     width: max-content;
   }
+
   .sidebar__info,
   .sidebar__link span {
     display: none;
   }
+
   .sidebar__user,
   .sidebar__list,
   .sidebar__actions {
     justify-content: center;
   }
+
   .sidebar__user,
   .sidebar__link {
     grid-template-columns: max-content;
   }
+
   .sidebar__user {
     padding: 0;
   }
+
   .sidebar__link {
     padding-inline: 2rem;
   }
+
   .sidebar__title {
     padding-inline: 0.5rem;
     margin-inline: auto;
   }
 }
 
-/* For large devices */
-@media screen and (max-width: 360px) {
-  .header__container {
-    padding-inline: 1rem;
-  }
 
-  .sidebar {
-    width: max-content;
-  }
-  .sidebar__info,
-  .sidebar__link span {
-    display: none;
-  }
-  .sidebar__user,
-  .sidebar__list,
-  .sidebar__actions {
-    justify-content: center;
-  }
-  .sidebar__user,
-  .sidebar__link {
-    grid-template-columns: max-content;
-  }
-  .sidebar__user {
-    padding: 0;
-  }
-  .sidebar__link {
-    padding-inline: 2rem;
-  }
-  .sidebar__title {
-    padding-inline: 0.5rem;
-    margin-inline: auto;
-  }
-}
 
 /* For large devices */
 @media screen and (min-width: 1150px) {
@@ -552,3 +536,87 @@ footer .footer__links a:hover {
 .sidebar__actions span:hover,.sidebar__actions .sidebar__link:hover{
   color: rgb(201, 33, 33) ;
 }
+@media screen and (max-width: 576px) {
+  .header {
+    display: none !important;
+  }
+  .sidebar {
+    width: 48px !important;
+    right: 0;
+    transition: width 0.3s ease;
+    z-index: 1002;
+  }
+
+  .sidebar__info,
+  .sidebar__link span,
+  .sidebar__title {
+    display: none !important;
+  }
+
+  .sidebar__user,
+  .sidebar__link,
+  .sidebar__list,
+  .sidebar__actions {
+    justify-content: center;
+    padding: 0.3rem 0;
+  }
+
+  .sidebar__link {
+    display: grid;
+    place-items: center;
+    font-size: 1rem;
+    padding: 0.5rem;
+  }
+
+  .sidebar__user img {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+  }
+
+  .main,
+  .containers,
+  .left-pd {
+    padding: 1rem;
+    padding-right: 60px; /* لأن sidebar 48px + شوية مساحة */
+    margin-top: 20px; /* عشان الهيدر */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 0;
+  }
+
+  .cardz {
+    width: 100%;
+    max-width: 320px;
+    padding: 1rem;
+    margin: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  }
+
+  .card-icon {
+    font-size: 36px;
+    text-align: right;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-size: 14px;
+    text-align: right;
+  }
+
+  .card-subtitle {
+    font-size: 12px;
+    text-align: right;
+    margin-top: 5px;
+  }
+}
+
+

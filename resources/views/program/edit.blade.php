@@ -5,7 +5,7 @@
 
 @section('content')
 <!--=============== MAIN ===============-->
-<main class="main containers" id="main">
+<main class="main containers left-pd" id="main">
     <div class="cards">
       <form action="{{route('program.update' , ['id' => $Departments->id])}}" method="POST">
         @csrf
@@ -27,7 +27,7 @@
             type="text"
             id="subject-code"
             name="name"
-            value="{{ old('name', $Departments->name) }}"  
+            value="{{ old('name', $Departments->name) }}"
             placeholder="كود المقرر"
             required
           />
@@ -54,5 +54,5 @@
         <div id="qr-code-container" class="qr-container"></div>
       </form>
     </div>
-  </main>
+
 @endsection

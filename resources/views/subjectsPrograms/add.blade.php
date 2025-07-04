@@ -11,7 +11,7 @@
 @endsection
 @section('content')
    <!--=============== MAIN ===============-->
-   <main class="main containers" id="main">
+   <main class="main containers left-pd" id="main">
 
     <div class="cards">
 
@@ -159,7 +159,6 @@
         {{ $subjects->links('pagination::bootstrap-4') }}
         </div>
     </div>
-  </main>
   @if($subjects->isEmpty())
   <br><br><br><br><br>
   @endif

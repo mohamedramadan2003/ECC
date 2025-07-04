@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{asset('edit/edit.css')}}" />
 @section('content')
 <!--=============== MAIN ===============-->
-<main class="main containers" id="main">
+<main class="main containers left-pd" id="main">
     <div class="cards">
       <form action="{{route('subjects.update' , ['id' => $subjects->id])}}" method="POST">
         @csrf
@@ -30,7 +30,7 @@
             type="text"
             id="code"
             name="course_code"
-            value="{{ old('course_code', $subjects->subject->code) }}"  
+            value="{{ old('course_code', $subjects->subject->code) }}"
             placeholder="كود المقرر"
             required
           />
@@ -42,7 +42,7 @@
             type="text"
             id="subject-name"
             name="course_name"
-            value="{{ old('course_name', $subjects->subject->subject_name) }}" 
+            value="{{ old('course_name', $subjects->subject->subject_name) }}"
             placeholder="اسم المقرر"
             required
           />
@@ -53,7 +53,7 @@
               type="text"
               id="program_name"
               name="program_name"
-              value="{{ old('program_name', $subjects->department->name) }}" 
+              value="{{ old('program_name', $subjects->department->name) }}"
               placeholder="اسم البرنامج"
               required
             />
@@ -65,7 +65,7 @@
               <option value="خاص" {{ old('ProgramType', $subjects->ProgramType) == 'خاص' ? 'selected' : '' }}>خاص</option>
             </select>
           </div>
-  
+
           <div class="form-group">
             <label for="level">المستوى</label>
             <select class="form-control" id="level" name="level" required>
@@ -75,7 +75,7 @@
               <option value="الرابع" {{ old('level', $subjects->level) == 'الرابع' ? 'selected' : '' }}>الرابع</option>
             </select>
           </div>
-  
+
           <div class="form-group">
             <label for="term">الفصل الدراسي</label>
             <select class="form-control" id="term" name="term" required>
@@ -88,5 +88,5 @@
         </div>
       </form>
     </div>
-  </main>
+  
 @endsection

@@ -62,7 +62,7 @@ body {
 @endsection
 
 @section('content')
-<main class="profile-container">
+< class="profile-container">
   <section class="profile-card">
     <h2>تحديث المعلومات الشخصية</h2>
     <form method="POST" action="{{ route('profile.update') }}">
@@ -103,5 +103,5 @@ body {
       <button type="submit" class="profile-btn">تغيير كلمة المرور</button>
     </form>
   </section>
-</main>
+
 @endsection

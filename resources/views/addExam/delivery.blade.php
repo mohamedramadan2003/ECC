@@ -2,10 +2,14 @@
 @section('title','تسليم امتحان')
 @section('css')
 <link rel="stylesheet" href="{{asset('addexam/add.css')}}" />
+
 <style>
+    a{
+        text-decoration: none;
+    }
     .number-input {
   width: 100%;
-  max-width: 300px;
+  max-width: 200px;
   padding: 12px 15px;
   font-size: 16px;
   border: 2px solid #ccc;
@@ -54,6 +58,90 @@
       border-radius: 8px;
       border: 1px solid #ccc;
   }
+  .btn-custom-secondary {
+  display: inline-block;
+  font-weight: 400;
+  color: #fff;
+  background-color: #6c757d; /* لون secondary */
+  border: 1px solid #6c757d;
+  padding: 8px 16px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.btn-custom-secondary:hover {
+  background-color: #5c636a;
+  border-color: #5c636a;
+}
+
+.btn-custom-secondary:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.5);
+}
+.mt-2 {
+  margin-top: 0.5rem;
+  margin-bottom: 10px;
+}
+@media screen and (max-width: 576px) {
+  .mains {
+    padding: 1rem;
+    padding-right: 100px !important; /* مراعاة السايدبار */
+  }
+
+  .cards {
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-right: 0 !important;
+    padding: 15px;
+  }
+
+  .form-group input,
+  .number-input,
+  select,
+  .question-select {
+ width: fit-content;
+max-width: 100%;
+  padding: 6px 10px !important;  /* قللنا البادينج */
+  font-size: 15px !important;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+  .question-select option {
+  font-size: 14px !important;
+  padding: 5px 8px;  /* قلل البادينج جوه الاختيارات */
+}
+
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .button-group button {
+    width: 50%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+  }
+
+  .committee-row {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .department-list label {
+    font-size: 18px;
+  }
+}
 </style>
 @endsection
 
@@ -61,6 +149,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{{asset('Exam/add.js')}}"></script>
 <script>
+
 $(document).ready(function() {
     $('#subject-name').on('keyup', function() {
         let query = $(this).val();
@@ -135,7 +224,7 @@ let committeeIndex = 1;
 
 @section('content')
 <!--=============== MAIN ===============-->
-<main class="mains container" id="main">
+<main class="mains containers left-pd" id="main">
     <div class="cards">
                 @if ($errors->any())
             <div class="alert alert-danger">
@@ -192,12 +281,12 @@ let committeeIndex = 1;
         <button type="button" onclick="removeCommittee(this)">❌ حذف</button>
     </div>
 </div>
-<button type="button" onclick="addCommittee()" class="btn btn-secondary mt-2">➕ إضافة لجنة</button>
+<button type="button" onclick="addCommittee()" class="btn-custom-secondary mt-2">➕ إضافة لجنة</button>
 <hr>
 
 <div class="form-group" style="margin-top: 20px;">
     <label for="question_type" style="font-weight: bold;">نوع الأسئلة:</label>
-    <select name="question_type" id="question_type" class="number-input" required>
+<select name="question_type" class="number-input question-select" required>
         <option value="">-- اختر نوع الأسئلة --</option>
         <option value="0">📄 مقالي</option>
         <option value="1">💻 إلكتروني</option>
@@ -236,6 +325,4 @@ let committeeIndex = 1;
             </div>
         </form>
     </div>
-</main>
-<br>
 @endsection

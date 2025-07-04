@@ -12,7 +12,7 @@
       @endsection
 @section('content')
  <!--=============== MAIN ===============-->
- <main class="main containers" id="main">
+ <main class="main containers left-pd" id="main">
     <div class="card-container">
 
       <div class="cardz">
@@ -73,4 +73,8 @@
       @endif
     </div>
 
+    @if(Auth::user()->usertype == 'user')
+
+        <br><br><br><br><br><br><br>
+        @endif
     @endsection

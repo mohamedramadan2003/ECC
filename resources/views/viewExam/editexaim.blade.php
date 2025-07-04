@@ -86,6 +86,88 @@ td{
     font-size: 18px;
     font-weight: bold;
 }
+.delivery-icon {
+  font-size: 20px;
+}
+@media (max-width: 576px) {
+  @media (max-width: 576px) {
+  main.main {
+    padding: 10px;
+    padding-right: 70px;
+  }
+
+  .exam-section {
+    padding: 8px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+
+  .data-table {
+    font-size: 10px;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+
+  .data-table th,
+  .data-table td {
+    padding: 2px 2px;
+    white-space: nowrap;
+    font-size: 6px; /* حجم الخط داخل الجدول */
+  }
+
+  .exam-date h4 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .button-groups {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .program-button {
+    width: 90%;
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .pagination-container {
+    margin-top: 10px;
+  }
+
+  .alert {
+    font-size: 13px;
+  }
+.delivery-icon{
+     font-size: 5px;
+  }
+  .delivery-icon {
+    font-size: 8px !important;
+  }
+
+  .data-table {
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+  }
+
+  .data-table thead, .data-table tbody, .data-table tr, .data-table td, .data-table th {
+    white-space: nowrap;
+  }
+
+  .data-table td,
+  .data-table th {
+    font-size: 9px !important;
+    padding: 4px;
+  }
+
+  .btn-sm {
+    font-size: 8px;
+    padding: 2px 4px;
+  }
+  }
+}
 </style>
 @endsection
 
@@ -206,7 +288,7 @@ let todayFormatted = `${year}-${month}-${day}`;
                             month: 'long',
                             day: 'numeric',
                           }).format(new Date(exam.time)) : ''}</td>
-                    <td style="font-size: 20px;">${exam.status == 1 ? '✅' : '❌'}</td>
+                    <td class="delivery-icon">${exam.status == 1 ? '✅' : '❌'}</td>
                    <td>
     <div class="d-flex gap-2 align-items-center">
         ${(exam.status === 0 || exam.time >= todayFormatted && userName == exam.name) ? `
@@ -290,7 +372,7 @@ let todayFormatted = `${year}-${month}-${day}`;
 @endsection
 
 @section('content')
-<main class="main containers" id="main">
+<main class="main containers left-pd" id="main">
    <div class="button-groups">
     <a
       class="program-button {{ Route::currentRouteName() == 'viewexams.index.edit' ? 'active' : '' }}"
@@ -409,5 +491,5 @@ let todayFormatted = `${year}-${month}-${day}`;
 @endif
     <div class="pagination-container">
     </div>
-</main>
+
 @endsection

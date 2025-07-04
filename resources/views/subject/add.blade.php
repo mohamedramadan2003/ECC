@@ -106,6 +106,107 @@
     background-color: #f8f9fa;
     color: #6c757d;
 }
+@media (max-width: 576px) {
+    .mains {
+        padding-right: 65px !important;
+        padding-left: 10px !important;
+    }
+
+    .cards {
+        width: 80% !important;
+        margin: 5px auto;
+    }
+
+    .btn,
+    .btn-edit,
+    .btn-custom,
+    .btn-add-course {
+        width: 40% !important;
+        display: block;
+        font-size: 10px !important;
+        margin: 5px 0 !important;
+    }
+
+    .modal-effect {
+        width: 100% !important;
+    }
+
+    .modal-dialog {
+        max-width: 95% !important;
+        margin: 1rem auto;
+    }
+
+    .data-table {
+        font-size: 13px;
+    }
+
+    .data-table thead {
+        display: none;
+    }
+
+    .data-table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        background: #fff;
+    }
+
+    .data-table td {
+        display: block;
+        text-align: right;
+        padding: 8px 0;
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+    }
+
+    .data-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        font-weight: bold;
+        color: #555;
+    }
+
+    .pagination-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-body .form-control {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+
+    .delivery-status {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .program-button {
+        width: 20%;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .button-groups {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
 </style>
 @endsection
 @section('js')
@@ -148,7 +249,7 @@
 @endsection
 @section('content')
    <!--=============== MAIN ===============-->
-   <main class="mains containers" id="main">
+   <main class="mains containers left-pd" id="main">
 
     <div class="cards">
       <section class="exam-section">
@@ -242,6 +343,6 @@
         {{ $Subjects->links('pagination::bootstrap-4') }}
         </div>
     </div>
-  </main>
+
 
 @endsection

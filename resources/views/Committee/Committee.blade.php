@@ -149,7 +149,7 @@
 @endsection
 @section('content')
    <!--=============== MAIN ===============-->
-   <main class="mains containers" id="main">
+   <main class="mains containers left-pd" id="main">
 
     <div class="cards">
       <section class="exam-section">
@@ -246,6 +246,5 @@
     </div>
 
     </div>
-  </main>
 
 @endsection

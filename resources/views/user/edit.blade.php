@@ -5,7 +5,7 @@
 
 @section('content')
 <!--=============== MAIN ===============-->
-<main class="main containers" id="main">
+<main class="main containers left-pd" id="main">
     <div class="cards">
       <form action="{{route('users.update' , ['id' => $user->id])}}" method="POST">
         @csrf
@@ -52,5 +52,5 @@
         <div id="qr-code-container" class="qr-container"></div>
       </form>
     </div>
-  </main>
+  
 @endsection

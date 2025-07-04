@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="{{asset('layout/upload/Screenshot 2025-01-30 172054.png')}}" type="image/x-icon">
     <!--=============== REMIXICONS ===============-->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" referrerpolicy="no-referrer">
 
     <script src="https://kit.fontawesome.com/1f6757b42d.js" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!--=============== CSS ===============-->
     <link rel="stylesheet" href="{{asset('layout/style.css')}}" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" async></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" async></script>
     @yield('js1')
     <style>
         a{
@@ -33,7 +30,7 @@
   </head>
   <body>
     <!--=============== HEADER ===============-->
-    <header class="header" id="header">
+    <header class="header left-pd" id="header">
       <div class="header__container">
 
         <ul class="header__nav">
@@ -49,7 +46,7 @@
     </header>
 
     <!--=============== SIDEBAR ===============-->
-    <nav class="sidebar" id="sidebar">
+    <nav class="sidebar show-sidebar" id="sidebar">
       <div class="sidebar__container">
         <button class="sidebar__toggle" id="header-toggle">
           <i class="fa-solid fa-bars"></i>
@@ -123,9 +120,9 @@
       </div>
     </nav>
 @yield('content')
-<br><br><br><br><br><br>
+<br><br>
 <!-- ============== FOOTER =============== -->
-<footer class="footer">
+<footer class="footer ">
     <p>جميع الحقوق محفوظة ECC ©.</p>
     <ul class="footer__links">
       <li><a href="#">سياسة الخصوصية</a></li>

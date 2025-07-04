@@ -1,8 +1,13 @@
 @extends('layouts.home')
 @section('title', 'اضافة امتحان')
 @section('css')
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <link rel="stylesheet" href="{{ asset('Exam/add.css') }}" />
 <style>
+    a{
+        text-decoration: none;
+    }
     .search-results {
         margin-top: 5px;
         padding: 0;
@@ -116,9 +121,108 @@
       border-radius: 8px;
       border: 1px solid #ccc;
   }
+  @media (max-width: 576px) {
+ .main {
+    width: calc(100% - 48px); /* نترك مساحة للـ sidebar */
+    padding: 10px;
+    padding-top: 5rem;
+  }
+
+  .cards {
+    padding: 0;
+    margin-right: 60px;
+  }
+
+  .form-title {
+    font-size: 20px;
+    text-align: center;
+  }
+
+  .form-group label,
+  .department-list label {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+
+  .form-group input,
+  #subject-name,
+  #professor-name,
+  .number-input {
+    font-size: 14px;
+    padding: 10px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .committee-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .committee-row button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .button-group button {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .department-list h3 {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .department-list label {
+    font-size: 14px;
+  }
+
+  .actions {
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  .modal .modal-dialog {
+    max-width: 95%;
+    margin: 1rem auto;
+  }
+
+  .modal .modal-content {
+    font-size: 14px;
+  }
+
+  .modal-effect,
+  .btn-custom {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search-results {
+    width: 100%;
+  }
+}
+
+
 </style>
 @endsection
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="{{ asset('Exam/add.js') }}"></script>
 <script>
      $(document).ready(function() {
@@ -206,7 +310,7 @@
 @endsection
 @section('content')
  <!--=============== MAIN ===============-->
- <main class="main containers" id="main">
+ <main class="main containers left-pd" id="main">
   <div class="cards">
     <a class="modal-effect btn btn-custom w-50" href="#modaldemo8">اضافة اختبار عن طريق اكيسيل</a>
      <!-- Basic modal -->
@@ -349,6 +453,6 @@
       </div>
   </form>
   </div>
-</main>
+
 
 @endsection

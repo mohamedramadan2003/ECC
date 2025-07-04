@@ -2,6 +2,7 @@
 @section('title','اضافة برنامج')
 @section('css')
 <link rel="stylesheet" href="{{asset('view/view.css')}}" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
 <style>
 
@@ -104,6 +105,88 @@
     color: #6c757d;
 }
 
+@media (max-width: 576px) {
+
+    /* جعل الأزرار تأخذ العرض بالكامل */
+    .btn,
+    .btn-edit,
+    .btn-delete,
+    .btn-custom,
+    .btn-add-course {
+        width: 100% !important;
+        font-size: 14px;
+        margin: 5px 0 !important;
+        display: block;
+    }
+
+    .modal-effect {
+        width: 95% !important;
+    }
+
+    .modal-dialog {
+        max-width: 95% !important;
+        margin: 1rem auto;
+    }
+
+    .data-table {
+        font-size: 13px;
+        border: none;
+    }
+
+    .data-table thead {
+        display: none;
+    }
+
+    .data-table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 10px;
+        background-color: #fff;
+    }
+
+    .data-table td {
+        display: block;
+        text-align: right;
+        padding: 10px 10px 10px 40%;
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    .data-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: 35%;
+        padding-right: 10px;
+        font-weight: bold;
+        color: #666;
+        white-space: nowrap;
+    }
+
+    .pagination-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .modal-body .form-control,
+    .modal-body .form-select {
+        font-size: 14px;
+    }
+
+    .modal-footer {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+
+}
 
 
 
@@ -146,7 +229,7 @@
 @endsection
 @section('content')
    <!--=============== MAIN ===============-->
-   <main class="main containers" id="main">
+   <main class="main containers left-pd" id="main">
 
     <div class="cards">
 
@@ -249,6 +332,6 @@
         {{ $Departments->links('pagination::bootstrap-4') }}
         </div>
     </div>
-  </main>
+
 
 @endsection

@@ -19,6 +19,65 @@ td{
     font-size: 18px;
     font-weight: bold;
 }
+ .t{
+     font-size: 20px;
+  }
+
+ @media (max-width: 576px) {
+  main.main {
+    padding: 10px;
+    padding-right: 70px;
+  }
+
+  .exam-section {
+    padding: 8px;
+    border-radius: 8px;
+    overflow-x: auto;
+  }
+
+  .data-table {
+    font-size: 10px;
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+
+  .data-table th,
+  .data-table td {
+    padding: 2px 2px;
+    white-space: nowrap;
+    font-size: 6px; /* حجم الخط داخل الجدول */
+  }
+
+  .exam-date h4 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+
+  .button-groups {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .program-button {
+    width: 90%;
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+
+  .pagination-container {
+    margin-top: 10px;
+  }
+
+  .alert {
+    font-size: 13px;
+  }
+.t{
+     font-size: 5px;
+  }
+
+}
+
 </style>
 @endsection
 @section('js')
@@ -139,7 +198,7 @@ td{
                                 <td>${exam.question_type != null
       ? (exam.question_type == 0 ? 'مقالي' : 'الكتروني')
       : '-'}</td>
-                        <td style="font-size: 20px;">${exam.status == 1 ? '✅' : '❌'}</td>`;
+                        <td class"t">${exam.status == 1 ? '✅' : '❌'}</td>`;
                     tableBody.appendChild(row);
                 });
 
@@ -157,7 +216,7 @@ td{
 @endsection
 
 @section('content')
-<main class="main containers" id="main">
+<main class="main containers left-pd" id="main">
    <div class="button-groups">
     <a class="program-button {{ request()->route('programType') == 'عادي' ? 'active' : '' }}"
        href="{{ route('viewexams.show', ['programType' => 'عادي']) }}">
@@ -188,7 +247,7 @@ td{
  <div class="pagination-container">
     </div>
 
-</main>
+
 
 <br/></br><br></br>
 @endsection
