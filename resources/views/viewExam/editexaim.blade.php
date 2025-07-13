@@ -86,7 +86,7 @@ td{
     font-size: 18px;
     font-weight: bold;
 }
-.delivery-icon {
+.data-table .delivery-icon {
   font-size: 20px;
 }
 @media (max-width: 576px) {

@@ -15,12 +15,12 @@
     color: #fff;
     border-color: #007bff;
 }
-td{
+.data-table td{
     font-size: 18px;
     font-weight: bold;
 }
- .t{
-     font-size: 20px;
+ .data-table .t{
+     font-size: 22px;
   }
 
  @media (max-width: 576px) {
@@ -46,7 +46,7 @@ td{
   .data-table td {
     padding: 2px 2px;
     white-space: nowrap;
-    font-size: 6px; /* حجم الخط داخل الجدول */
+    font-size: 6px;
   }
 
   .exam-date h4 {
@@ -198,7 +198,7 @@ td{
                                 <td>${exam.question_type != null
       ? (exam.question_type == 0 ? 'مقالي' : 'الكتروني')
       : '-'}</td>
-                        <td class"t">${exam.status == 1 ? '✅' : '❌'}</td>`;
+                        <td class="t">${exam.status == 1 ? '✅' : '❌'}</td>`;
                     tableBody.appendChild(row);
                 });
 
